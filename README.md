@@ -1,7 +1,7 @@
-# SimpleMerge
+ï»¿# SimpleMerge
 Chung-Ang Univ. 2018 SE project, team 7
 
 0. java 1.8
 1. download 'buildship : Eclipse Plug-ins for Gradle'  (eclipse -> help -> marketplace -> search 'buildship')
 2. 'git clone https://github.com/minn951120/SimpleMerge' in your project folder
-3. In eclipse, Pakage Explorer (¿ÞÂÊ ¹Ú½º) -> ¸¶¿ì½º ¿ìÅ¬¸¯ -> import -> Gradle -> gradle project
+3. In eclipse, Pakage Explorer (ì™¼ìª½ ë°•ìŠ¤) -> ë§ˆìš°ìŠ¤ ìš°í´ë¦­ -> import -> Gradle -> gradle project
