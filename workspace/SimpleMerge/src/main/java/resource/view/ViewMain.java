@@ -1,5 +1,6 @@
 package resource.view;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -10,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -51,7 +54,12 @@ public class ViewMain implements Initializable {
 	}
 	
 	public void LeftLoadClick(ActionEvent event) {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
+		File file = fileChooser.showOpenDialog(null);
 		
+		//load(file);
 	}
 	
 	public void LeftEditClick(ActionEvent event) {
@@ -59,11 +67,24 @@ public class ViewMain implements Initializable {
 	}
 	
 	public void LeftSaveClick(ActionEvent event) {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
+		fileChooser.setInitialFileName("*.txt");
+		File file = fileChooser.showSaveDialog(leftText.getScene().getWindow());
 		
+		if (file != null) {
+		     //saveFile(file);
+		}
 	}
 
 	public void RightLoadClick(ActionEvent event) {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
+		File file = fileChooser.showOpenDialog(null);
 		
+		//load(file);
 	}
 	
 	public void RightEditClick(ActionEvent event) {
@@ -71,7 +92,15 @@ public class ViewMain implements Initializable {
 	}
 	
 	public void RightSaveClick(ActionEvent event) {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
+		fileChooser.setInitialFileName("*.txt");
+		File file = fileChooser.showSaveDialog(leftText.getScene().getWindow());
 		
+		if (file != null) {
+		     //saveFile(file);
+		}
 	}
 	
 	public void CompareClick(ActionEvent event) {
