@@ -21,10 +21,10 @@
          <center>
             <BorderPane BorderPane.alignment="CENTER">
                <center>
-                  <TextArea fx:id="leftTitle" editable="false" BorderPane.alignment="CENTER" />
+                  <TextArea fx:id="leftText" editable="false" BorderPane.alignment="CENTER" />
                </center>
                <top>
-                  <TextField fx:id="leftText" editable="false" BorderPane.alignment="CENTER" />
+                  <TextField fx:id="leftTitle" editable="false" BorderPane.alignment="CENTER" />
                </top>
             </BorderPane>
          </center>
@@ -44,10 +44,10 @@
          <center>
             <BorderPane BorderPane.alignment="CENTER">
                <center>
-                  <TextArea fx:id="rightTitle" editable="false" BorderPane.alignment="CENTER" />
+                  <TextArea fx:id="rightText" editable="false" BorderPane.alignment="CENTER" />
                </center>
                <top>
-                  <TextField fx:id="rightText" editable="false" BorderPane.alignment="CENTER" />
+                  <TextField fx:id="rightTitle" editable="false" BorderPane.alignment="CENTER" />
                </top>
             </BorderPane>
          </center>

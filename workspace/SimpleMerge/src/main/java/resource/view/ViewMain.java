@@ -1,6 +1,8 @@
 package resource.view;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -31,10 +33,10 @@ public class ViewMain implements Initializable {
     @FXML private Button Compare;
     @FXML private Button CopyToLeft;
     @FXML private Button CopyToRight;
-    @FXML private TextArea leftTitle;
-    @FXML private TextArea rightTitle;
-    @FXML private TextField leftText;
-    @FXML private TextField rightText;
+    @FXML private TextArea leftText;
+    @FXML private TextArea rightText;
+    @FXML private TextField leftTitle;
+    @FXML private TextField rightTitle;
 
 
 	@Override
@@ -53,12 +55,35 @@ public class ViewMain implements Initializable {
 
 	}
 	
-	public void LeftLoadClick(ActionEvent event) {
+	private File FileLoad() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
 		File file = fileChooser.showOpenDialog(null);
-		
+		return file;
+	}
+	
+	private void FileSave(TextField Title,TextArea Text) {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
+		fileChooser.setInitialFileName(Title.getText());
+		File file = fileChooser.showSaveDialog(null);
+		System.out.println(file);
+		if (file != null) {
+		    try{
+		        FileWriter writer = null;
+		        writer = new FileWriter(file);
+		        writer.write(Text.getText().replaceAll("\n", "\r\n"));
+		        writer.close();
+		      } catch (IOException e) {
+		        e.printStackTrace();
+		      }
+		}
+	}
+	
+	public void LeftLoadClick(ActionEvent event) {
+		File file = FileLoad();		
 		//load(file);
 	}
 	
@@ -67,23 +92,11 @@ public class ViewMain implements Initializable {
 	}
 	
 	public void LeftSaveClick(ActionEvent event) {
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
-		fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
-		fileChooser.setInitialFileName("*.txt");
-		File file = fileChooser.showSaveDialog(leftText.getScene().getWindow());
-		
-		if (file != null) {
-		     //saveFile(file);
-		}
+		FileSave(leftTitle, leftText);
 	}
 
 	public void RightLoadClick(ActionEvent event) {
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
-		fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
-		File file = fileChooser.showOpenDialog(null);
-		
+		File file = FileLoad();			
 		//load(file);
 	}
 	
@@ -92,15 +105,7 @@ public class ViewMain implements Initializable {
 	}
 	
 	public void RightSaveClick(ActionEvent event) {
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
-		fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
-		fileChooser.setInitialFileName("*.txt");
-		File file = fileChooser.showSaveDialog(leftText.getScene().getWindow());
-		
-		if (file != null) {
-		     //saveFile(file);
-		}
+		FileSave(rightTitle, rightText);
 	}
 	
 	public void CompareClick(ActionEvent event) {
