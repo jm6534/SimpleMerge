@@ -57,8 +57,8 @@
       <AnchorPane fx:id="CenterAnchor" maxWidth="69.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="Compare" layoutY="373.0" mnemonicParsing="false" onAction="#CompareClick" text="Compare" />
-            <Button fx:id="CopyToLeft" layoutX="18.0" layoutY="350.0" mnemonicParsing="false" onAction="#CopyToLeftClick" text="&lt;--" />
-            <Button fx:id="CopyToRight" layoutX="18.0" layoutY="396.0" mnemonicParsing="false" onAction="#CopyToRightClick" text="--&gt;" />
+            <Button fx:id="CopyToLeft" layoutX="15.0" layoutY="396.0" mnemonicParsing="false" onAction="#CopyToLeftClick" text="&lt;--" />
+            <Button fx:id="CopyToRight" layoutX="15.0" layoutY="350.0" mnemonicParsing="false" onAction="#CopyToRightClick" text="--&gt;" />
          </children>
       </AnchorPane>
    </center>
