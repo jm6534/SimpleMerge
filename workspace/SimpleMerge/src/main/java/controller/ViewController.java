@@ -1,4 +1,4 @@
-package resource.view;
+package controller;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -19,7 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class ViewMain implements Initializable {
+public class ViewController implements Initializable {
     @FXML private BorderPane root;
     @FXML private BorderPane leftBorder;
     @FXML private BorderPane rightBorder;
