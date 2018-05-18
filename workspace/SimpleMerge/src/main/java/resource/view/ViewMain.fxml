@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="root" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewController">
+   <left>
+      <BorderPane fx:id="leftBorder" BorderPane.alignment="CENTER">
+         <top>
+            <AnchorPane BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="leftLoad" mnemonicParsing="false" onAction="#LeftLoadClick" text="Load" />
+                  <Button fx:id="leftEdit" layoutX="44.0" mnemonicParsing="false" onAction="#LeftEditClick" text="Edit" />
+                  <Button fx:id="leftSave" layoutX="81.0" mnemonicParsing="false" onAction="#LeftSaveClick" text="Save" />
+               </children>
+            </AnchorPane>
+         </top>
+         <center>
+            <BorderPane BorderPane.alignment="CENTER">
+               <center>
+                  <TextArea fx:id="leftText" editable="false" BorderPane.alignment="CENTER" />
+               </center>
+               <top>
+                  <TextField fx:id="leftTitle" editable="false" BorderPane.alignment="CENTER" />
+               </top>
+            </BorderPane>
+         </center>
+      </BorderPane>
+   </left>
+   <right>
+      <BorderPane fx:id="rightBorder" BorderPane.alignment="CENTER">
+         <top>
+            <AnchorPane BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="rightLoad" mnemonicParsing="false" onAction="#RightLoadClick" text="Load" />
+                  <Button fx:id="rightEdit" layoutX="44.0" mnemonicParsing="false" onAction="#RightEditClick" text="Edit" />
+                  <Button fx:id="rightSave" layoutX="83.0" mnemonicParsing="false" onAction="#RightSaveClick" text="Save" />
+               </children>
+            </AnchorPane>
+         </top>
+         <center>
+            <BorderPane BorderPane.alignment="CENTER">
+               <center>
+                  <TextArea fx:id="rightText" editable="false" BorderPane.alignment="CENTER" />
+               </center>
+               <top>
+                  <TextField fx:id="rightTitle" editable="false" BorderPane.alignment="CENTER" />
+               </top>
+            </BorderPane>
+         </center>
+      </BorderPane>
+   </right>
+   <center>
+      <AnchorPane fx:id="CenterAnchor" maxWidth="69.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="Compare" layoutY="373.0" mnemonicParsing="false" onAction="#CompareClick" text="Compare" />
+            <Button fx:id="CopyToLeft" layoutX="18.0" layoutY="350.0" mnemonicParsing="false" onAction="#CopyToLeftClick" text="&lt;--" />
+            <Button fx:id="CopyToRight" layoutX="18.0" layoutY="396.0" mnemonicParsing="false" onAction="#CopyToRightClick" text="--&gt;" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
