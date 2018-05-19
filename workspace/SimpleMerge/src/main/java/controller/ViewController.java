@@ -83,7 +83,7 @@ public class ViewController implements Initializable {
 	}
 	
 	public void LeftLoadClick(ActionEvent event) {
-		File file = FileLoad();		
+		File file = FileLoad();
 		//load(file);
 	}
 	
