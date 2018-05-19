@@ -3,25 +3,27 @@ package model;
 /* Contain info about save, load, edit buttons if the button is clicked
 */
 public class ButtonFlag {
-	private boolean SF;	// Save flag
-	private boolean EF;	// Edit flag
+	private boolean saveFlag;	// Save flag
+	private boolean editFlag;	// Edit flag
 	
 	public ButtonFlag() {
-		this.SF = false;
-		this.EF = false;
+		this.saveFlag = false;
+		this.editFlag = false;
 	}
 	
 	public boolean getSaveFlag() {
-		return this.SF;
+		boolean ret = new Boolean(editFlag);
+		return ret;
 	}	
 	public void setSaveFlag(boolean SF) {
-		this.SF = SF;
+		this.saveFlag = SF;
 	}
 
 	public boolean getEditFlag() {
-		return this.EF;
+		boolean ret = new Boolean(editFlag);
+		return ret;
 	}	
 	public void setEditFlag(boolean EF) {
-		this.EF = EF;
+		this.editFlag = EF;
 	}
 }

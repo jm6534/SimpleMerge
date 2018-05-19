@@ -14,13 +14,15 @@ public class Line {
 	}
 	
 	public String getLineText() {
-		return this.lineText;
+		String ret = new String(lineText);
+		return ret;
 	}
 	public void setLineText(String lineText) {
 		this.lineText = lineText;
 	}
 	public boolean getIsShaded() {
-		return this.isShaded;
+		boolean ret = new Boolean(isShaded);
+		return ret;
 	}
 	public void setIsShaded(boolean isShaded) {
 		this.isShaded = isShaded;

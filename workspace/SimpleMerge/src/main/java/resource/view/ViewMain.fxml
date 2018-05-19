@@ -10,7 +10,7 @@
    <left>
       <BorderPane fx:id="leftBorder" BorderPane.alignment="CENTER">
          <top>
-            <AnchorPane BorderPane.alignment="CENTER">
+            <AnchorPane fx:id="leftButtonPane" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="leftLoad" mnemonicParsing="false" onAction="#LeftLoadClick" text="Load" />
                   <Button fx:id="leftEdit" layoutX="44.0" mnemonicParsing="false" onAction="#LeftEditClick" text="Edit" />
@@ -19,7 +19,7 @@
             </AnchorPane>
          </top>
          <center>
-            <BorderPane BorderPane.alignment="CENTER">
+            <BorderPane fx:id="leftTextPane" BorderPane.alignment="CENTER">
                <center>
                   <TextArea fx:id="leftText" editable="false" BorderPane.alignment="CENTER" />
                </center>
@@ -33,7 +33,7 @@
    <right>
       <BorderPane fx:id="rightBorder" BorderPane.alignment="CENTER">
          <top>
-            <AnchorPane BorderPane.alignment="CENTER">
+            <AnchorPane fx:id="rightButtonPane" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="rightLoad" mnemonicParsing="false" onAction="#RightLoadClick" text="Load" />
                   <Button fx:id="rightEdit" layoutX="44.0" mnemonicParsing="false" onAction="#RightEditClick" text="Edit" />
@@ -42,7 +42,7 @@
             </AnchorPane>
          </top>
          <center>
-            <BorderPane BorderPane.alignment="CENTER">
+            <BorderPane fx:id="rightTextPane" BorderPane.alignment="CENTER">
                <center>
                   <TextArea fx:id="rightText" editable="false" BorderPane.alignment="CENTER" />
                </center>
@@ -54,11 +54,11 @@
       </BorderPane>
    </right>
    <center>
-      <AnchorPane fx:id="CenterAnchor" maxWidth="69.0" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="CenterButtonPane" maxWidth="69.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="Compare" layoutY="373.0" mnemonicParsing="false" onAction="#CompareClick" text="Compare" />
-            <Button fx:id="CopyToLeft" layoutX="18.0" layoutY="350.0" mnemonicParsing="false" onAction="#CopyToLeftClick" text="&lt;--" />
-            <Button fx:id="CopyToRight" layoutX="18.0" layoutY="396.0" mnemonicParsing="false" onAction="#CopyToRightClick" text="--&gt;" />
+            <Button fx:id="CopyToLeft" layoutX="15.0" layoutY="396.0" mnemonicParsing="false" onAction="#CopyToLeftClick" text="&lt;--" />
+            <Button fx:id="CopyToRight" layoutX="15.0" layoutY="350.0" mnemonicParsing="false" onAction="#CopyToRightClick" text="--&gt;" />
          </children>
       </AnchorPane>
    </center>
