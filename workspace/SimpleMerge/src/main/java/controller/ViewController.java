@@ -12,7 +12,6 @@ import java.util.ResourceBundle;
 
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
@@ -22,14 +21,16 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public class ViewController implements Initializable {
     @FXML private BorderPane root;
+    @FXML private BorderPane leftTextPane;
+    @FXML private BorderPane rightTextPane;
     @FXML private BorderPane leftBorder;
     @FXML private BorderPane rightBorder;
-    @FXML private AnchorPane CenterAnchor;
+    @FXML private AnchorPane leftButtonPane;
+    @FXML private AnchorPane rightButtonPane;
+    @FXML private AnchorPane CenterButtonPane;
     @FXML private Button leftLoad;
     @FXML private Button leftEdit;
     @FXML private Button leftSave;
@@ -47,26 +48,44 @@ public class ViewController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-        //rightText.layoutXProperty().bind(Bindings.subtract(root.widthProperty(),0));
+		CopyToLeft.setLayoutX(0);
+		Compare.setLayoutX(0);
+		CopyToRight.setLayoutX(0);
 		CopyToLeft.setLayoutY(0);
 		Compare.setLayoutY(0);
 		CopyToRight.setLayoutY(0);
-
-		CopyToLeft.translateYProperty().bind(Bindings.add(Bindings.divide(CenterAnchor.heightProperty(),2),23));
-		Compare.translateYProperty().bind(Bindings.divide(CenterAnchor.heightProperty(),2));
-		CopyToRight.translateYProperty().bind(Bindings.subtract(Bindings.divide(CenterAnchor.heightProperty(),2),23));
 		
-		leftBorder.prefWidthProperty().bind(Bindings.divide(Bindings.subtract(root.widthProperty(),69), 2));
-		rightBorder.prefWidthProperty().bind(Bindings.divide(Bindings.subtract(root.widthProperty(),69), 2));
+		leftLoad.setLayoutX(0);
+		leftEdit.setLayoutX(0);
+		leftSave.setLayoutX(0);
+		rightLoad.setLayoutX(0);
+		rightEdit.setLayoutX(0);
+		rightSave.setLayoutX(0);
 		
+		CenterButtonPane.prefWidthProperty().bind(Compare.widthProperty());
+		leftBorder.prefWidthProperty().bind(Bindings.divide(Bindings.subtract(root.widthProperty(),CenterButtonPane.widthProperty()), 2));
+		rightBorder.prefWidthProperty().bind(Bindings.divide(Bindings.subtract(root.widthProperty(),CenterButtonPane.widthProperty()), 2));		
+		
+		CopyToLeft.translateYProperty().bind(Bindings.add(Bindings.divide(CenterButtonPane.heightProperty(),2),Compare.heightProperty()));
+		Compare.translateYProperty().bind(Bindings.divide(CenterButtonPane.heightProperty(),2));
+		CopyToRight.translateYProperty().bind(Bindings.subtract(Bindings.divide(CenterButtonPane.heightProperty(),2),CopyToRight.heightProperty()));
 
+		CopyToLeft.translateXProperty().bind(Bindings.divide(Bindings.subtract(CenterButtonPane.widthProperty(), CopyToLeft.widthProperty()), 2));
+		CopyToRight.translateXProperty().bind(Bindings.divide(Bindings.subtract(CenterButtonPane.widthProperty(), CopyToRight.widthProperty()), 2));
+			
+		leftEdit.translateXProperty().bind(leftLoad.widthProperty());
+		leftSave.translateXProperty().bind(Bindings.add(leftLoad.widthProperty(), leftEdit.widthProperty()));
+		rightEdit.translateXProperty().bind(rightLoad.widthProperty());
+		rightSave.translateXProperty().bind(Bindings.add(rightLoad.widthProperty(), rightEdit.widthProperty()));
 	}
 	
 	private void FileLoad(TextField Title,TextArea Text) {
+		Text.clear();
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
 		File file = fileChooser.showOpenDialog(null);
+		Title.appendText(file.getName());
 	    BufferedReader br = null;
 	    try{
 	      br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
@@ -100,12 +119,16 @@ public class ViewController implements Initializable {
 		}
 	}
 	
+	private void Edit(TextArea Text) {
+		Text.setEditable(true);
+	}
+	
 	public void LeftLoadClick(ActionEvent event) {
 		FileLoad(leftTitle, leftText);		
 	}
 	
 	public void LeftEditClick(ActionEvent event) {
-		
+		Edit(leftText);
 	}
 	
 	public void LeftSaveClick(ActionEvent event) {
@@ -117,7 +140,7 @@ public class ViewController implements Initializable {
 	}
 	
 	public void RightEditClick(ActionEvent event) {
-		
+		Edit(rightText);
 	}
 	
 	public void RightSaveClick(ActionEvent event) {
