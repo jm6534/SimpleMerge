@@ -45,9 +45,9 @@ public class ViewController implements Initializable {
 		Compare.setLayoutY(0);
 		CopyToRight.setLayoutY(0);
 
-		CopyToLeft.translateYProperty().bind(Bindings.add(Bindings.divide(CenterAnchor.heightProperty(),2),23));
+		CopyToLeft.translateYProperty().bind(Bindings.add(Bindings.divide(CenterAnchor.heightProperty(),2),Compare.heightProperty()));
 		Compare.translateYProperty().bind(Bindings.divide(CenterAnchor.heightProperty(),2));
-		CopyToRight.translateYProperty().bind(Bindings.subtract(Bindings.divide(CenterAnchor.heightProperty(),2),23));
+		CopyToRight.translateYProperty().bind(Bindings.subtract(Bindings.divide(CenterAnchor.heightProperty(),2),Compare.heightProperty()));
 		
 		leftBorder.prefWidthProperty().bind(Bindings.divide(Bindings.subtract(root.widthProperty(),69), 2));
 		rightBorder.prefWidthProperty().bind(Bindings.divide(Bindings.subtract(root.widthProperty(),69), 2));
@@ -60,6 +60,7 @@ public class ViewController implements Initializable {
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
 		File file = fileChooser.showOpenDialog(null);
 		return file;
+		file.
 	}
 	
 	private void FileSave(TextField Title,TextArea Text) {

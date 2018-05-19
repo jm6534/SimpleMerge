@@ -10,8 +10,8 @@ public class SubModel {
 	//private String fileName;
 	//private String fileType;
 	
-	public SubModel(String strTextArea) {
-		text = new Text(strTextArea);
-		btnFlag = new ButtonFlag();
+	public SubModel() {
 	}
+	
+	
 }
