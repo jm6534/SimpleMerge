@@ -105,3 +105,12 @@ gradle-app.setting
 
 
 # End of https://www.gitignore.io/api/java,gradle,eclipse
+workspace/SimpleMerge/hello.txt
+workspace/SimpleMerge/src/main/java/resource/view/bonobono.jpg
+workspace/SimpleMerge/src/main/java/resource/view/cat.jpg
+workspace/SimpleMerge/src/main/java/resource/view/min.jpg
+workspace/SimpleMerge/src/main/java/resource/view/pink.jpg
+workspace/SimpleMerge/src/main/java/resource/view/pink1.jpg
+workspace/SimpleMerge/src/main/java/resource/view/purple.jpg
+workspace/SimpleMerge/src/main/java/resource/view/sponge1.jpg
+workspace/SimpleMerge/src/main/java/resource/view/ViewMainColored.fxml
