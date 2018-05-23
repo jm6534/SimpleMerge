@@ -17,5 +17,8 @@ public class SubModel {
 		text = new TextPage(file);
 		btnFlag = new ButtonFlag();
 	}
-	
+	public TextPage getTextPage() {
+		TextPage ret = this.text;
+		return ret;
+	}	
 }
