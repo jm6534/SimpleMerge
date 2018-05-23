@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="root" prefHeight="600.0" prefWidth="800.0" styleClass="background" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewController">
+<BorderPane fx:id="root" prefHeight="600.0" prefWidth="800.0" styleClass="background" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
    <left>
       <BorderPane fx:id="leftBorder" BorderPane.alignment="CENTER">
          <top>
-            <AnchorPane prefHeight="0.0" prefWidth="440.0" BorderPane.alignment="CENTER">
+            <AnchorPane fx:id="leftButtonPane" prefHeight="0.0" prefWidth="440.0" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="leftLoad" mnemonicParsing="false" onAction="#LeftLoadClick" styleClass="blackbutton" stylesheets="@theme.css" text="Load" />
                   <Button fx:id="leftEdit" layoutX="51.0" mnemonicParsing="false" onAction="#LeftEditClick" styleClass="blackbutton" stylesheets="@theme.css" text="Edit" />
@@ -19,7 +19,7 @@
             </AnchorPane>
          </top>
          <center>
-            <BorderPane BorderPane.alignment="CENTER">
+            <BorderPane fx:id="leftTextPane" BorderPane.alignment="CENTER">
                <center>
                   <TextArea fx:id="leftText" editable="false" prefHeight="494.0" prefWidth="440.0" BorderPane.alignment="CENTER" />
                </center>
@@ -33,7 +33,7 @@
    <right>
       <BorderPane fx:id="rightBorder" BorderPane.alignment="CENTER">
          <top>
-            <AnchorPane BorderPane.alignment="CENTER">
+            <AnchorPane fx:id="rightButtonPane" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="rightLoad" mnemonicParsing="false" onAction="#RightLoadClick" styleClass="blackbutton" stylesheets="@theme.css" text="Load" />
                   <Button fx:id="rightEdit" layoutX="51.0" mnemonicParsing="false" onAction="#RightEditClick" styleClass="blackbutton" stylesheets="@theme.css" text="Edit" />
@@ -42,7 +42,7 @@
             </AnchorPane>
          </top>
          <center>
-            <BorderPane BorderPane.alignment="CENTER">
+            <BorderPane fx:id="rightTextPane" BorderPane.alignment="CENTER">
                <center>
                   <TextArea fx:id="rightText" editable="false" BorderPane.alignment="CENTER" />
                </center>
@@ -54,7 +54,7 @@
       </BorderPane>
    </right>
    <center>
-      <AnchorPane fx:id="CenterAnchor" maxWidth="218.0" prefHeight="600.0" prefWidth="117.0" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="CenterButtonPane" maxWidth="218.0" prefHeight="600.0" prefWidth="117.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="Compare" layoutY="349.0" mnemonicParsing="false" onAction="#CompareClick" styleClass="blackbutton" stylesheets="@theme.css" text="Compare" />
             <Button fx:id="CopyToLeft" layoutX="13.0" layoutY="314.0" mnemonicParsing="false" onAction="#CopyToLeftClick" styleClass="blackbutton" stylesheets="@theme.css" text="&lt;--" />
