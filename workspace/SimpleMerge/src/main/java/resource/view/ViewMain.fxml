@@ -6,22 +6,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="root" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewController">
+<BorderPane fx:id="root" prefHeight="600.0" prefWidth="800.0" styleClass="background" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
    <left>
       <BorderPane fx:id="leftBorder" BorderPane.alignment="CENTER">
          <top>
-            <AnchorPane fx:id="leftButtonPane" BorderPane.alignment="CENTER">
+            <AnchorPane fx:id="leftButtonPane" prefHeight="0.0" prefWidth="440.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="leftLoad" mnemonicParsing="false" onAction="#LeftLoadClick" text="Load" />
-                  <Button fx:id="leftEdit" layoutX="44.0" mnemonicParsing="false" onAction="#LeftEditClick" text="Edit" />
-                  <Button fx:id="leftSave" layoutX="81.0" mnemonicParsing="false" onAction="#LeftSaveClick" text="Save" />
+                  <Button fx:id="leftLoad" mnemonicParsing="false" onAction="#LeftLoadClick" styleClass="blackbutton" stylesheets="@theme.css" text="Load" />
+                  <Button fx:id="leftEdit" layoutX="51.0" mnemonicParsing="false" onAction="#LeftEditClick" styleClass="blackbutton" stylesheets="@theme.css" text="Edit" />
+                  <Button fx:id="leftSave" layoutX="97.0" mnemonicParsing="false" onAction="#LeftSaveClick" styleClass="blackbutton" stylesheets="@theme.css" text="Save" />
                </children>
             </AnchorPane>
          </top>
          <center>
             <BorderPane fx:id="leftTextPane" BorderPane.alignment="CENTER">
                <center>
-                  <TextArea fx:id="leftText" editable="false" BorderPane.alignment="CENTER" />
+                  <TextArea fx:id="leftText" editable="false" prefHeight="494.0" prefWidth="440.0" BorderPane.alignment="CENTER" />
                </center>
                <top>
                   <TextField fx:id="leftTitle" editable="false" BorderPane.alignment="CENTER" />
@@ -35,9 +35,9 @@
          <top>
             <AnchorPane fx:id="rightButtonPane" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="rightLoad" mnemonicParsing="false" onAction="#RightLoadClick" text="Load" />
-                  <Button fx:id="rightEdit" layoutX="44.0" mnemonicParsing="false" onAction="#RightEditClick" text="Edit" />
-                  <Button fx:id="rightSave" layoutX="83.0" mnemonicParsing="false" onAction="#RightSaveClick" text="Save" />
+                  <Button fx:id="rightLoad" mnemonicParsing="false" onAction="#RightLoadClick" styleClass="blackbutton" stylesheets="@theme.css" text="Load" />
+                  <Button fx:id="rightEdit" layoutX="51.0" mnemonicParsing="false" onAction="#RightEditClick" styleClass="blackbutton" stylesheets="@theme.css" text="Edit" />
+                  <Button fx:id="rightSave" layoutX="97.0" mnemonicParsing="false" onAction="#RightSaveClick" styleClass="blackbutton" stylesheets="@theme.css" text="Save" />
                </children>
             </AnchorPane>
          </top>
@@ -54,11 +54,11 @@
       </BorderPane>
    </right>
    <center>
-      <AnchorPane fx:id="CenterButtonPane" maxWidth="69.0" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="CenterButtonPane" maxWidth="218.0" prefHeight="600.0" prefWidth="117.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="Compare" layoutY="373.0" mnemonicParsing="false" onAction="#CompareClick" text="Compare" />
-            <Button fx:id="CopyToLeft" layoutX="15.0" layoutY="396.0" mnemonicParsing="false" onAction="#CopyToLeftClick" text="&lt;--" />
-            <Button fx:id="CopyToRight" layoutX="15.0" layoutY="350.0" mnemonicParsing="false" onAction="#CopyToRightClick" text="--&gt;" />
+            <Button fx:id="Compare" layoutY="349.0" mnemonicParsing="false" onAction="#CompareClick" styleClass="blackbutton" stylesheets="@theme.css" text="Compare" />
+            <Button fx:id="CopyToLeft" layoutX="13.0" layoutY="314.0" mnemonicParsing="false" onAction="#CopyToLeftClick" styleClass="blackbutton" stylesheets="@theme.css" text="&lt;--" />
+            <Button fx:id="CopyToRight" layoutX="13.0" layoutY="385.0" mnemonicParsing="false" onAction="#CopyToRightClick" styleClass="blackbutton" stylesheets="@theme.css" text="--&gt;" />
          </children>
       </AnchorPane>
    </center>

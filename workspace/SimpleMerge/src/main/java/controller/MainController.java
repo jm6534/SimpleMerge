@@ -14,36 +14,42 @@ import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 
-public class ViewController implements Initializable {
+public class MainController implements Initializable {
     @FXML private BorderPane root;
-    @FXML private BorderPane leftTextPane;
-    @FXML private BorderPane rightTextPane;
+    
     @FXML private BorderPane leftBorder;
     @FXML private BorderPane rightBorder;
+    
+    @FXML private BorderPane leftTextPane;
+    @FXML private TextArea leftText;
+    @FXML private TextField leftTitle;
+    
     @FXML private AnchorPane leftButtonPane;
-    @FXML private AnchorPane rightButtonPane;
-    @FXML private AnchorPane CenterButtonPane;
     @FXML private Button leftLoad;
     @FXML private Button leftEdit;
     @FXML private Button leftSave;
+    
+    @FXML private BorderPane rightTextPane;
+    @FXML private TextArea rightText;
+    @FXML private TextField rightTitle;
+    
+    @FXML private AnchorPane rightButtonPane;
     @FXML private Button rightLoad;
     @FXML private Button rightEdit;
     @FXML private Button rightSave;
+
+    @FXML private AnchorPane CenterButtonPane;
     @FXML private Button Compare;
     @FXML private Button CopyToLeft;
     @FXML private Button CopyToRight;
-    @FXML private TextArea leftText;
-    @FXML private TextArea rightText;
-    @FXML private TextField leftTitle;
-    @FXML private TextField rightTitle;
 
 
 	@Override
