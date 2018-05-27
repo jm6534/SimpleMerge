@@ -27,7 +27,7 @@ public class MainModel {
 	public void setRightSubModel(SubModel rightSubModel) {
 		this.rightSubModel = rightSubModel;
 	}
-	
+	/*
 	public void LCS() {
 		// leftSubModel.getText()통해서  ArrayList 받아와서 하기
 		// Implement here!!!
@@ -50,4 +50,5 @@ public class MainModel {
 		}
 		
 	}
+	*/
 }
