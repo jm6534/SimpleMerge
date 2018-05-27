@@ -28,6 +28,6 @@ dependencies {
     
     testImplementation 'org.easymock:easymock:3.6'
     testCompile(group: "org.testfx", name: "testfx-core", version: "4.0.13-alpha")
-	testCompile(group: "org.testfx", name: "testfx-junit", version: "4.0.13-alpha")
+  	testCompile(group: "org.testfx", name: "testfx-junit", version: "4.0.13-alpha")
 }
 
