@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="root" maxWidth="218.0" prefHeight="600.0" prefWidth="117.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ButtonController">
+   <children>
+      <Button fx:id="compare" layoutY="349.0" mnemonicParsing="false" onAction="#compareClick" prefWidth="68.0" styleClass="blackbutton" stylesheets="@theme.css" text="Compare" />
+      <Button fx:id="copyToLeft" layoutX="13.0" layoutY="314.0" mnemonicParsing="false" onAction="#copyToLeftClick" prefWidth="42.0" styleClass="blackbutton" stylesheets="@theme.css" text="&lt;--" />
+      <Button fx:id="copyToRight" layoutX="13.0" layoutY="385.0" mnemonicParsing="false" onAction="#copyToRightClick" prefWidth="42.0" styleClass="blackbutton" stylesheets="@theme.css" text="--&gt;" />
+   </children>
+</AnchorPane>
