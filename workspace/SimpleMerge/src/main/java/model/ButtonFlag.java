@@ -12,7 +12,7 @@ public class ButtonFlag {
 	}
 	
 	public boolean getSaveFlag() {
-		boolean ret = new Boolean(editFlag);
+		boolean ret = new Boolean(saveFlag);
 		return ret;
 	}	
 	public void setSaveFlag(boolean SF) {

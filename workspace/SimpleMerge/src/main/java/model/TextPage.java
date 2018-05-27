@@ -16,8 +16,8 @@ import javafx.collections.FXCollections;
 public class TextPage {
 	private ArrayList<String> lineList;
     private ListProperty<String> listProperty = new SimpleListProperty<>();
-    public StringProperty filePathProperty = new SimpleStringProperty();
-	
+    private StringProperty filePathProperty = new SimpleStringProperty();
+		
 	public TextPage() {
 		lineList = new ArrayList<String>();
         listProperty.set(FXCollections.observableArrayList(lineList));
@@ -36,7 +36,7 @@ public class TextPage {
 			e.printStackTrace();
 		}
 	}/*
-	public void setTextField(String line, int lineN) {
+	public void setTextField(String line, int lineN) { 
 		lineList.get(lineN).setLineText(line);
 	}*/
 	public String getTextField() {
@@ -53,10 +53,12 @@ public class TextPage {
 		return ret;
 	}
 	
+	public void setListProperty(String line, int lineN) {
+		
+	}
 	public ListProperty<String> ListProperty() {
 		return listProperty;
 	}
-	
 	public StringProperty FilePathProperty() {
 		return filePathProperty;
 	}
