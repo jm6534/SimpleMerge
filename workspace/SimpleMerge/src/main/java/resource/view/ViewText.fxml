@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -18,12 +18,12 @@
    </top>
    <center>
       <BorderPane fx:id="textPane" BorderPane.alignment="CENTER">
-         <center>
-            <TextArea fx:id="text" editable="false" prefHeight="494.0" prefWidth="440.0" BorderPane.alignment="CENTER" />
-         </center>
          <top>
             <TextField fx:id="title" editable="false" BorderPane.alignment="CENTER" />
          </top>
+         <center>
+            <ListView fx:id="text" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </center>
       </BorderPane>
    </center>
 </BorderPane>

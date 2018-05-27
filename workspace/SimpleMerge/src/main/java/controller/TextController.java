@@ -16,12 +16,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import model.TextPage;
 
 public class TextController implements Initializable {
     @FXML private BorderPane root;
@@ -31,7 +33,10 @@ public class TextController implements Initializable {
     @FXML private Button save;
     @FXML private BorderPane textPane;
     @FXML private TextField title;
-    @FXML private TextArea text;
+    @FXML private ListView<String> text;
+    
+    private TextPage textPage = new TextPage();
+    private File file;
     
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -41,6 +46,12 @@ public class TextController implements Initializable {
 
 		edit.translateXProperty().bind(load.widthProperty());
 		save.translateXProperty().bind(Bindings.add(load.widthProperty(), edit.widthProperty()));
+		
+		text.itemsProperty().bindBidirectional(textPage.ListProperty());
+		title.textProperty().bindBidirectional(textPage.FilePathProperty());
+		for(int i = 0; i < 100; i++) {
+  	  	textPage.ListProperty().add("\r\n");
+		}
 	}
     
     public DoubleProperty preWidthProperty() {
@@ -48,20 +59,20 @@ public class TextController implements Initializable {
     }
     
     
-	private void fileLoad(TextField title,TextArea text) {
-		text.clear();
+	private void fileLoad() {
+		text.getItems().clear();
 		title.clear();
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
-		File file = fileChooser.showOpenDialog(null);
-		title.appendText(file.getName());
+		file = fileChooser.showOpenDialog(null);
+		title.appendText(file.getAbsolutePath());
 	    BufferedReader br = null;
 	    try{
 	      br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 	      String line;
 	      while((line = br.readLine()) != null){
-	    	  text.appendText(line + "\n");
+	    	  textPage.ListProperty().add(line + "\r\n");
 	      }
 	    } catch (FileNotFoundException e) {
 	      e.printStackTrace();
@@ -70,38 +81,46 @@ public class TextController implements Initializable {
 	    }
 	}
 	
-	private void fileSave(TextField title,TextArea text) {
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
-		fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
-		fileChooser.setInitialFileName(title.getText());
-		File file = fileChooser.showSaveDialog(null);
-		System.out.println(file);
-		if (file != null) {
-		    try{
-		        FileWriter writer = null;
-		        writer = new FileWriter(file);
-		        writer.write(text.getText().replaceAll("\n", "\r\n"));
-		        writer.close();
-		      } catch (IOException e) {
-		        e.printStackTrace();
-		      }
+	private void fileSave() {
+		try {
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
+			fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
+			fileChooser.setInitialDirectory(file.getParentFile());
+			fileChooser.setInitialFileName(file.getName());
+			file = fileChooser.showSaveDialog(null);
+			System.out.println(file);
+			if (file != null) {
+				try{
+					FileWriter writer = null;
+					writer = new FileWriter(file);
+					for(int i = 0; i < textPage.ListProperty().getSize(); i++) {
+						writer.write(textPage.ListProperty().get(i));
+					}
+					writer.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (NullPointerException e) {
+
 		}
 	}
-	
-	private void edit(TextArea text) {
+
+	private void edit() {
 		text.setEditable(true);
+		text.setCellFactory(TextFieldListCell.forListView());
 	}
 	
 	public void loadClick(ActionEvent event) {
-		fileLoad(title, text);		
+		fileLoad();		
 	}
 	
 	public void editClick(ActionEvent event) {
-		edit(text);
+		edit();
 	}
 	
 	public void saveClick(ActionEvent event) {
-		fileSave(title, text);
+		fileSave();
 	}
 }
