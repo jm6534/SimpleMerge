@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import static org.easymock.EasyMock.*;
+import org.easymock.*;
 
 public class AppMain extends Application {
 

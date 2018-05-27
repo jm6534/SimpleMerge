@@ -27,5 +27,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     
     testImplementation 'org.easymock:easymock:3.6'
+    
+    testCompile 'org.testfx:testfx-core:4.0.13-alpha'
+    testCompile 'org.testfx:testfx-junit:4.0.13-alpha'
 }
 
