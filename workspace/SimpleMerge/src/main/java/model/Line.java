@@ -31,4 +31,8 @@ public class Line {
 	public void setIsShaded(boolean isShaded) {
 		this.isShaded = isShaded;
 	}
+	
+	public String toString() {
+		return getLineText();
+	}
 }
