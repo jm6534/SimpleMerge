@@ -21,4 +21,15 @@ public class SubModel {
 		TextPage ret = this.text;
 		return ret;
 	}	
+	public void setTextPage(TextPage newTP) {
+		this.text = newTP;
+	}
+	
+	public ButtonFlag getButtonFlag() {
+		ButtonFlag ret = this.btnFlag;
+		return ret;
+	}
+	public void setButtonFlag(ButtonFlag newBtnFlag) {
+		this.btnFlag = newBtnFlag;
+	}
 }
