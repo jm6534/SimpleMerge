@@ -9,6 +9,8 @@ public class SubModel {
 	private ButtonFlag btnFlag;
 	private TextPage text;
 	
+	//Binding is needed!
+	
 	public SubModel() {
 		text = new TextPage();
 		btnFlag = new ButtonFlag();
