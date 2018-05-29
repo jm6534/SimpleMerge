@@ -11,18 +11,18 @@ public class LineTest extends TestCase {
 		assertEquals("Testing Success", testLine.getLineText());
 	}
 	public void testSetIsShadedTrue() {
-		testLine.setIsShaded(true);
-		assertEquals(true, testLine.getIsShaded());
-		testLine.setIsShaded(false);
-		assertEquals(false, testLine.getIsShaded());
+		testLine.setIsRealLine(true);
+		assertEquals(true, testLine.isRealLine());
+		testLine.toggleIsRealLine();
+		assertEquals(false, testLine.isRealLine());
 	}
 	public void testSetLineTextFalse() {
 		testLine.setLineText("false");
 		assertEquals("Testing Fail", testLine.getLineText());
 	}
 	public void testSetIsShadedFalse() {
-		testLine.setIsShaded(false);
-		assertEquals(true, testLine.getIsShaded());
+		testLine.setIsRealLine(false);
+		assertEquals(true, testLine.isRealLine());
 	}
 	public static Test suite() {
 		return new TestSuite(LineTest.class);
