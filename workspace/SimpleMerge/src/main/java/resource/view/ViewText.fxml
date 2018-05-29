@@ -22,7 +22,7 @@
             <TextField fx:id="title" editable="false" BorderPane.alignment="CENTER" />
          </top>
          <center>
-            <ListView fx:id="text" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <ListView fx:id="text" onEditCommit="#editCommit" onKeyPressed="#keyPressed" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
    </center>
