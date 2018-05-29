@@ -16,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldListCell;
@@ -23,6 +24,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.util.Callback;
+import model.Line;
 import model.TextPage;
 
 public class TextController implements Initializable {
@@ -33,10 +36,9 @@ public class TextController implements Initializable {
     @FXML private Button save;
     @FXML private BorderPane textPane;
     @FXML private TextField title;
-    @FXML private ListView<String> text;
+    @FXML private ListView<Line> text;
     
     private TextPage textPage = new TextPage();
-    private File file;
     
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -47,11 +49,8 @@ public class TextController implements Initializable {
 		edit.translateXProperty().bind(load.widthProperty());
 		save.translateXProperty().bind(Bindings.add(load.widthProperty(), edit.widthProperty()));
 		
-		text.itemsProperty().bindBidirectional(textPage.ListProperty());
-		title.textProperty().bindBidirectional(textPage.FilePathProperty());
-		for(int i = 0; i < 100; i++) {
-  	  	textPage.ListProperty().add("\r\n");
-		}
+		text.itemsProperty().bindBidirectional(textPage.getListProperty());
+		title.textProperty().bindBidirectional(textPage.getFilePathProperty());
 	}
     
     public DoubleProperty preWidthProperty() {
@@ -65,20 +64,9 @@ public class TextController implements Initializable {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
-		file = fileChooser.showOpenDialog(null);
-		title.appendText(file.getAbsolutePath());
-	    BufferedReader br = null;
-	    try{
-	      br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-	      String line;
-	      while((line = br.readLine()) != null){
-	    	  textPage.ListProperty().add(line + "\r\n");
-	      }
-	    } catch (FileNotFoundException e) {
-	      e.printStackTrace();
-	    } catch (IOException e) {
-	      e.printStackTrace();
-	    }
+		File file = fileChooser.showOpenDialog(null);
+		textPage.setFilePath(file);
+		System.out.println("aaa");
 	}
 	
 	private void fileSave() {
@@ -86,16 +74,14 @@ public class TextController implements Initializable {
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
 			fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
-			fileChooser.setInitialDirectory(file.getParentFile());
-			fileChooser.setInitialFileName(file.getName());
-			file = fileChooser.showSaveDialog(null);
+			File file = fileChooser.showSaveDialog(null);
 			System.out.println(file);
 			if (file != null) {
 				try{
 					FileWriter writer = null;
 					writer = new FileWriter(file);
-					for(int i = 0; i < textPage.ListProperty().getSize(); i++) {
-						writer.write(textPage.ListProperty().get(i));
+					for(int i = 0; i < textPage.getTextLines().size(); i++) {
+						writer.write(textPage.getTextLines().get(i).toString());
 					}
 					writer.close();
 				} catch (IOException e) {
@@ -109,7 +95,23 @@ public class TextController implements Initializable {
 
 	private void edit() {
 		text.setEditable(true);
-		text.setCellFactory(TextFieldListCell.forListView());
+		text.setCellFactory(new Callback<ListView<Line>, ListCell<Line>>(){
+			@Override
+			public ListCell<Line> call(ListView<Line> lineView) {
+				ListCell<Line> line = new ListCell<Line>() {
+					@Override
+					public void updateItem(Line item, boolean empty) {
+						super.updateItem(item,empty);
+						if(empty || item == null || item.toString() == null) {
+							setText(null);
+						} else {
+							setText(item.toString());
+						}
+					}
+				};
+				return line;
+			}
+		});
 	}
 	
 	public void loadClick(ActionEvent event) {
