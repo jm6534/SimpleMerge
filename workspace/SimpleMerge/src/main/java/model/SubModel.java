@@ -34,4 +34,49 @@ public class SubModel {
 	public void setButtonFlag(ButtonFlag newBtnFlag) {
 		this.btnFlag = newBtnFlag;
 	}
+	
+	//To control Button flags at SubModel level
+	public boolean isSaved() {
+		return this.btnFlag.isSaved();
+	}
+	public void setIsSaved(boolean bool) {
+		this.btnFlag.setIsSaved(bool);
+	}
+	public void toggleIsSaved() {
+		this.btnFlag.toggleIsSaved();
+	}
+	public boolean isEdited() {
+		return this.btnFlag.isEdited();
+	}
+	public void setIsEdited(boolean bool) {
+		this.btnFlag.setIsEdited(bool);
+	}
+	public void toggleIsEdited() {
+		this.btnFlag.toggleIsEdited();
+	}
+	//To control Text Pages at SubModel Level
+	public String getFilePath() {
+		return new String(this.text.getFilePath());
+	}
+	public void setFilePath(File file) {
+		this.text.setFilePath(file);
+	}
+	public String getTextPageContent() {
+		return new String(this.text.getTextField());
+	}
+	public void setTextPageContent(File file) {
+		this.setFilePath(file);
+	}
+	public String getLineText(int lineN) {
+		return this.text.getLineText(lineN);
+	}
+	public void setLineText(int lineN, String str) {
+		this.text.setLineText(lineN, str);
+	}
+	public boolean isRealLine(int lineN) {
+		return this.text.isRealLine(lineN);
+	}
+	public void setIsRealLine(int lineN, boolean bool) {
+		this.text.setRealLine(lineN, bool);
+	}
 }
