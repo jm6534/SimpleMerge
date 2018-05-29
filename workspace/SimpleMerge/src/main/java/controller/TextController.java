@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.beans.binding.Bindings;
@@ -16,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -25,6 +27,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 import model.Line;
 import model.TextPage;
 
@@ -40,7 +43,8 @@ public class TextController implements Initializable {
     
     private TextPage textPage = new TextPage();
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		load.setLayoutX(0);
 		edit.setLayoutX(0);
@@ -51,6 +55,19 @@ public class TextController implements Initializable {
 		
 		text.itemsProperty().bindBidirectional(textPage.getListProperty());
 		title.textProperty().bindBidirectional(textPage.getFilePathProperty());
+		
+		((List<Line>) textPage.getListProperty()).add(new Line(""));
+		
+		text.setCellFactory(TextFieldListCell.forListView(new StringConverter<Line>() {
+			@Override
+			public Line fromString(String string) {
+				return new Line(string);
+			}
+			@Override
+			public String toString(Line line) {
+				return line.toString();
+			}
+		}));
 	}
     
     public DoubleProperty preWidthProperty() {
@@ -95,23 +112,6 @@ public class TextController implements Initializable {
 
 	private void edit() {
 		text.setEditable(true);
-		text.setCellFactory(new Callback<ListView<Line>, ListCell<Line>>(){
-			@Override
-			public ListCell<Line> call(ListView<Line> lineView) {
-				ListCell<Line> line = new ListCell<Line>() {
-					@Override
-					public void updateItem(Line item, boolean empty) {
-						super.updateItem(item,empty);
-						if(empty || item == null || item.toString() == null) {
-							setText(null);
-						} else {
-							setText(item.toString());
-						}
-					}
-				};
-				return line;
-			}
-		});
 	}
 	
 	public void loadClick(ActionEvent event) {
