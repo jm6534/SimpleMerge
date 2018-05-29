@@ -9,6 +9,8 @@ public class SubModel {
 	private ButtonFlag btnFlag;
 	private TextPage text;
 	
+	//Binding is needed!
+	
 	public SubModel() {
 		text = new TextPage();
 		btnFlag = new ButtonFlag();
@@ -21,4 +23,15 @@ public class SubModel {
 		TextPage ret = this.text;
 		return ret;
 	}	
+	public void setTextPage(TextPage newTP) {
+		this.text = newTP;
+	}
+	
+	public ButtonFlag getButtonFlag() {
+		ButtonFlag ret = this.btnFlag;
+		return ret;
+	}
+	public void setButtonFlag(ButtonFlag newBtnFlag) {
+		this.btnFlag = newBtnFlag;
+	}
 }

@@ -11,7 +11,7 @@
       <AnchorPane fx:id="buttonPane" prefHeight="0.0" prefWidth="440.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="load" mnemonicParsing="false" onAction="#loadClick" styleClass="blackbutton" stylesheets="@theme.css" text="Load" />
-            <Button fx:id="edit" layoutX="51.0" mnemonicParsing="false" onAction="#editClick" styleClass="blackbutton" stylesheets="@theme.css" text="Edit" />
+            <Button fx:id="edit" layoutX="51.0" mnemonicParsing="false" onAction="#editClick" styleClass="blackbuttonCF" stylesheets="@theme.css" text="Edit" />
             <Button fx:id="save" layoutX="97.0" mnemonicParsing="false" onAction="#saveClick" styleClass="blackbutton" stylesheets="@theme.css" text="Save" />
          </children>
       </AnchorPane>

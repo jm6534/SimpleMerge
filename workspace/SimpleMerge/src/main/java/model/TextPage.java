@@ -7,58 +7,62 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-
 public class TextPage {
-	private ArrayList<String> lineList;
-    private ListProperty<String> listProperty = new SimpleListProperty<>();
-    public StringProperty filePathProperty = new SimpleStringProperty();
-	
+	private ArrayList<Line> lineList;
+    private String filePath;
+		
 	public TextPage() {
-		lineList = new ArrayList<String>();
-        listProperty.set(FXCollections.observableArrayList(lineList));
+		lineList = new ArrayList<Line>();
+		filePath = new String("");
 	}
 	public TextPage(File file) {
-		filePathProperty.setValue(file.getAbsolutePath());
+		lineList = new ArrayList<Line>();
+		filePath = new String(file.getAbsolutePath());
 		BufferedReader br = null;
 		try {
 			 br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 			 String newLine;
 			 while( (newLine = br.readLine()) != null ) {
-				 lineList.add(new String(newLine));
+				 lineList.add(new Line(new String(newLine)));
 			 }
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-	}/*
-	public void setTextField(String line, int lineN) {
+	}
+	public void setFilePath(File file) {
+		lineList = new ArrayList<Line>();
+		filePath = new String(file.getAbsolutePath());
+		BufferedReader br = null;
+		try {
+			 br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+			 String newLine;
+			 while( (newLine = br.readLine()) != null ) {
+				 lineList.add(new Line(new String(newLine)));
+			 }
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public String getFilePath() {
+		return new String(filePath);
+	}
+	public void setTextField(String line, int lineN) { 
 		lineList.get(lineN).setLineText(line);
-	}*/
+	}
 	public String getTextField() {
-		Iterator<String> it = lineList.iterator();
+		Iterator<Line> it = lineList.iterator();
 		String ret = new String();
 		while(it.hasNext()) {
-			ret += it.next() + "\n";
+			ret += it.next().getLineText() + "\n";
 		}
 		return ret;
 	}
 	
-	public ArrayList<String> getTextLines() {
-		ArrayList<String> ret =  lineList;
+	public ArrayList<Line> getTextLines() {
+		ArrayList<Line> ret =  lineList;
 		return ret;
-	}
-	
-	public ListProperty<String> ListProperty() {
-		return listProperty;
-	}
-	
-	public StringProperty FilePathProperty() {
-		return filePathProperty;
 	}
 	
 }
