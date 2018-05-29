@@ -1,8 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 public class MainModel {
 	private boolean isCompared;	// compare flag, Modified¿ªÇÒ
 	private SubModel leftSubModel;

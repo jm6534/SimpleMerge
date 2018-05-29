@@ -1,12 +1,8 @@
 package controller;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -17,16 +13,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ListView.EditEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldListCell;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.util.Callback;
 import javafx.util.StringConverter;
 import model.Line;
 import model.TextPage;
@@ -74,7 +70,6 @@ public class TextController implements Initializable {
     	return root.prefWidthProperty();
     }
     
-    
 	private void fileLoad() {
 		text.getItems().clear();
 		title.clear();
@@ -83,7 +78,6 @@ public class TextController implements Initializable {
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
 		File file = fileChooser.showOpenDialog(null);
 		textPage.setFilePath(file);
-		System.out.println("aaa");
 	}
 	
 	private void fileSave() {
@@ -92,7 +86,6 @@ public class TextController implements Initializable {
 			fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
 			fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
 			File file = fileChooser.showSaveDialog(null);
-			System.out.println(file);
 			if (file != null) {
 				try{
 					FileWriter writer = null;
@@ -112,6 +105,27 @@ public class TextController implements Initializable {
 
 	private void edit() {
 		text.setEditable(true);
+	}
+	
+    public void keyPressed(KeyEvent event) {
+    	String selectedString = text.getSelectionModel().getSelectedItem().toString();
+    	int selectedIndex = text.getSelectionModel().getSelectedIndex();
+    	if(text.isEditable()) {
+    		if(event.getCode() == KeyCode.BACK_SPACE) {
+    			if(selectedString.length() >= 1) {
+    				text.getItems().set(selectedIndex, new Line(selectedString.substring(0, selectedString.length() - 1)));
+    			}
+    			else if(text.getItems().size() > 2) {
+    				text.getItems().remove(selectedIndex);
+    			}
+    		}
+    	}
+
+    }
+	
+	public void editCommit(EditEvent<Line> event) {
+		text.getItems().add(text.getSelectionModel().getSelectedIndex(), event.getNewValue());
+		text.getItems().add(text.getSelectionModel().getSelectedIndex() +1,new Line());
 	}
 	
 	public void loadClick(ActionEvent event) {
