@@ -125,7 +125,9 @@ public class TextController implements Initializable {
 	
 	public void editCommit(EditEvent<Line> event) {
 		text.getItems().add(text.getSelectionModel().getSelectedIndex(), event.getNewValue());
+		text.getItems().remove(text.getSelectionModel().getSelectedIndex());
 		text.getItems().add(text.getSelectionModel().getSelectedIndex() +1,new Line());
+		text.getSelectionModel().selectNext();
 	}
 	
 	public void loadClick(ActionEvent event) {
