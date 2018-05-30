@@ -51,7 +51,7 @@ public class TextPage {
 			 br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 			 String newLine;
 			 while( (newLine = br.readLine()) != null ) {
-				 listProperty.add(new Line(new String(newLine)));
+				 lineList.add(new Line(new String(newLine)));
 			 }
 		}
 		catch (Exception e) {
