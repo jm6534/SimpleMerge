@@ -1,20 +1,45 @@
 package model;
 
+import javafx.scene.paint.Color;
+
 public class Line {
+
 	private String lineText;	// String in a single line
-	private boolean isShaded;	// flag for checking if it's shaded
-	
+	private Color lineColor;	// Represent the color of each line
+	private boolean isRealLine;	// for representing the line not going to save	
+
 	public Line() {
 		this.lineText = new String();
-		this.isShaded = false;
+		this.lineColor = Color.WHITE;
+		this.isRealLine = true;
+	}
+	public Line(boolean bool) {
+		this.lineText = new String();
+		this.isRealLine = bool;
+		if (this.isRealLine) this.lineColor = Color.WHITE;
+		else this.lineColor = Color.GRAY;
 	}
 	public Line(String lineText) {
 		this.lineText = lineText;
-		this.isShaded = false;
+		this.lineColor = Color.WHITE;
+		this.isRealLine = true;
 	}
-	public Line(String lineText, boolean isShaded) {
+	public Line(String lineText, Color lineColor) {
 		this.lineText = lineText;
-		this.isShaded = isShaded;		
+		this.lineColor = lineColor;
+		if (lineColor == Color.GRAY) this.isRealLine = false;
+		else this.isRealLine = true;
+	}
+	
+	public void setFakeLine() {
+		this.lineText = new String();
+		this.lineColor = Color.GRAY;
+		this.isRealLine = false;		
+	}
+	public void setFakeLine(String content) {
+		this.lineText = new String(content);
+		this.lineColor = Color.GRAY;
+		this.isRealLine = false;		
 	}
 	
 	public String getLineText() {
@@ -24,11 +49,29 @@ public class Line {
 	public void setLineText(String lineText) {
 		this.lineText = lineText;
 	}
-	public boolean getIsShaded() {
-		boolean ret = new Boolean(isShaded);
+	public Color getLineColor() {
+		Color ret = Color.web(lineColor.toString());
 		return ret;
 	}
-	public void setIsShaded(boolean isShaded) {
-		this.isShaded = isShaded;
+	public void setLineColor(Color lineColor) {
+		this.lineColor = lineColor;
+	}
+	
+	public boolean isRealLine() {
+		return this.isRealLine;
+	}
+	
+	public void setIsRealLine(boolean isRealLine) {
+		this.isRealLine = isRealLine;
+		if (this.isRealLine) this.lineColor = Color.WHITE;
+		else this.lineColor = Color.GRAY;
+	}
+	
+	public String toString() {
+		return getLineText();
+	}
+	
+	public void toggleIsRealLine() {
+		this.isRealLine = !this.isRealLine;
 	}
 }

@@ -1,15 +1,12 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 public class MainModel {
-	private boolean CF;	// compare flag, Modified역할
+	private boolean isCompared;	// compare flag, Modified역할
 	private SubModel leftSubModel;
 	private SubModel rightSubModel;
 	
 	public MainModel() {
-		this.CF = false;
+		this.isCompared = false;
 		this.leftSubModel = new SubModel();
 		this.rightSubModel = new SubModel();
 	}
@@ -27,6 +24,17 @@ public class MainModel {
 	public void setRightSubModel(SubModel rightSubModel) {
 		this.rightSubModel = rightSubModel;
 	}
+	public boolean isCompared() {
+		return this.isCompared;
+	}
+	public void setIsCompared(boolean isCompared) {
+		this.isCompared = isCompared;
+	}
+	
+	public void toggleIsCompared() {
+		this.isCompared = !isCompared;
+	}
+	
 	/*
 	public void LCS() {
 		// leftSubModel.getText()통해서  ArrayList 받아와서 하기
