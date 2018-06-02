@@ -1,6 +1,6 @@
 package model;
 
-import java.awt.Color;
+import javafx.scene.paint.Color;
 
 public class Line {
 
@@ -13,6 +13,12 @@ public class Line {
 		this.lineColor = Color.WHITE;
 		this.isRealLine = true;
 	}
+	public Line(boolean bool) {
+		this.lineText = new String();
+		this.isRealLine = bool;
+		if (this.isRealLine) this.lineColor = Color.WHITE;
+		else this.lineColor = Color.GRAY;
+	}
 	public Line(String lineText) {
 		this.lineText = lineText;
 		this.lineColor = Color.WHITE;
@@ -21,7 +27,19 @@ public class Line {
 	public Line(String lineText, Color lineColor) {
 		this.lineText = lineText;
 		this.lineColor = lineColor;
-		this.isRealLine = true;
+		if (lineColor == Color.GRAY) this.isRealLine = false;
+		else this.isRealLine = true;
+	}
+	
+	public void setFakeLine() {
+		this.lineText = new String();
+		this.lineColor = Color.GRAY;
+		this.isRealLine = false;		
+	}
+	public void setFakeLine(String content) {
+		this.lineText = new String(content);
+		this.lineColor = Color.GRAY;
+		this.isRealLine = false;		
 	}
 	
 	public String getLineText() {
@@ -32,7 +50,7 @@ public class Line {
 		this.lineText = lineText;
 	}
 	public Color getLineColor() {
-		Color ret = new Color(lineColor.getRGB());
+		Color ret = Color.web(lineColor.toString());
 		return ret;
 	}
 	public void setLineColor(Color lineColor) {
@@ -45,6 +63,8 @@ public class Line {
 	
 	public void setIsRealLine(boolean isRealLine) {
 		this.isRealLine = isRealLine;
+		if (this.isRealLine) this.lineColor = Color.WHITE;
+		else this.lineColor = Color.GRAY;
 	}
 	
 	public String toString() {
