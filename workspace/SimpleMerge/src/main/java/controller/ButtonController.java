@@ -16,6 +16,8 @@ public class ButtonController implements Initializable {
     @FXML private Button compare;
     @FXML private Button copyToLeft;
     @FXML private Button copyToRight;
+    
+    
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -45,10 +47,11 @@ public class ButtonController implements Initializable {
 	}
 	
 	public void copyToLeftClick(ActionEvent event) {
-		
+		//must change modified flag in left submodel
 	}
 	
 	public void copyToRightClick(ActionEvent event) {
+		//must change modified flag in left submodel
 		
 	}
 }

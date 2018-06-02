@@ -2,6 +2,8 @@ package model;
 
 import java.io.File;
 
+import javafx.beans.property.Property;
+
 /* Represented as 'Model_Panel' in Class diagram
  * Contain ButtonFlag and Text classes to represent each file on left and right
  */
@@ -35,15 +37,20 @@ public class SubModel {
 		this.btnFlag = newBtnFlag;
 	}
 	
-	//To control Button flags at SubModel level
-	public boolean isEditButtonPressed() {
-		return this.btnFlag.isEditButtonPressed();
+	public void setIsSaved(boolean bool) {
+		this.btnFlag.setIsSaved(bool);
 	}
-	public void setIsEditButtonPressed(boolean bool) {
-		this.btnFlag.setIsEditButtonPressed(bool);
+	public void toggleIsSaved() {
+		this.btnFlag.toggleIsSaved();
 	}
-	public void toggleIsEditButtonPressed() {
-		this.btnFlag.toggleIsEditButtonPressed();
+	public boolean isEditable() {
+		return this.btnFlag.isEditable();
+	}
+	public void setIsEditable(boolean bool) {
+		this.btnFlag.setIsEditable(bool);
+	}
+	public void toggleIsEditable() {
+		this.btnFlag.toggleIsEditable();
 	}
 	public boolean isModified() {
 		return this.btnFlag.isModified();
@@ -79,5 +86,8 @@ public class SubModel {
 	}
 	public void setIsRealLine(int lineN, boolean bool) {
 		this.text.setRealLine(lineN, bool);
+	}
+	public Property<Boolean> getEditableProperty() {
+		return getButtonFlag().getEditableProperty();
 	}
 }
