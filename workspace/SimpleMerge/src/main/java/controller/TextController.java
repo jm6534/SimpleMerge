@@ -90,9 +90,7 @@ public class TextController implements Initializable {
 				try{
 					FileWriter writer = null;
 					writer = new FileWriter(file);
-					for(int i = 0; i < textPage.getTextLines().size(); i++) {
-						writer.write(textPage.getTextLines().get(i).toString());
-					}
+					writer.write(textPage.getTextField());
 					writer.close();
 				} catch (IOException e) {
 					e.printStackTrace();
