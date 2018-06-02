@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import model.MainModel;
 
 public class ButtonController implements Initializable {
     @FXML private AnchorPane root;
@@ -17,7 +18,7 @@ public class ButtonController implements Initializable {
     @FXML private Button copyToLeft;
     @FXML private Button copyToRight;
     
-    
+    MainModel mainModel;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -47,11 +48,16 @@ public class ButtonController implements Initializable {
 	}
 	
 	public void copyToLeftClick(ActionEvent event) {
-		//must change modified flag in left submodel
+		mainModel.getLeftSubModel().setIsModified(true);
+		
 	}
 	
 	public void copyToRightClick(ActionEvent event) {
-		//must change modified flag in left submodel
+		mainModel.getRightSubModel().setIsModified(true);
 		
+	}
+
+	public void setMainModel(MainModel mainModel) {
+		this.mainModel = mainModel;
 	}
 }

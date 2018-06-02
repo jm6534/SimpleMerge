@@ -23,6 +23,7 @@ public class MainController implements Initializable {
 		mainModel = new MainModel();
 		this.leftTextController.setSubModel(mainModel.getLeftSubModel());
 		this.rightTextController.setSubModel(mainModel.getRightSubModel());
+		this.centerButtonController.setMainModel(mainModel);
 		
 		leftTextController.preWidthProperty().bind(Bindings.divide(Bindings.subtract(root.widthProperty(), centerButtonController.preWidthProperty()), 2));
 		rightTextController.preWidthProperty().bind(Bindings.divide(Bindings.subtract(root.widthProperty(), centerButtonController.preWidthProperty()), 2));
