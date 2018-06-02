@@ -54,6 +54,15 @@ public class SubModel {
 	public void toggleIsEdited() {
 		this.btnFlag.toggleIsEdited();
 	}
+	public boolean isModified() {
+		return this.btnFlag.isModified();
+	}
+	public void setIsModified(boolean bool) {
+		this.btnFlag.setIsModified(bool);
+	}
+	public void toggleIsModified() {
+		this.btnFlag.toggleIsModified();
+	}
 	//To control Text Pages at SubModel Level
 	public String getFilePath() {
 		return new String(this.text.getFilePath());

@@ -26,4 +26,8 @@ public class SubModelTest extends TestCase {
 		testsModel.setButtonFlag(mockbtnFlag);
 		assertEquals(mockbtnFlag, testsModel.getButtonFlag());
 	}
+	@Test
+	public void testIsSaved() {
+		
+	}
 }
