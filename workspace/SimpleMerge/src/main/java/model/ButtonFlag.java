@@ -5,36 +5,37 @@ package model;
 public class ButtonFlag {
 	private boolean isSaved;	// Save flag
 	private boolean isModified; // Modified flag
-	private boolean isEdited;	// Edit flag
+	private boolean isEditButtonPressed;	// Edit flag
 	
 	public ButtonFlag() {
 		this.isSaved = false;
-		this.isEdited = false;
+		this.isEditButtonPressed = false;
+		this.isModified = false;
 	}
 	
 	public boolean isSaved() {
 		return this.isSaved;
 	}	
-	public void setIsSaved(boolean isSaved) {
-		this.isSaved = isSaved;
+	public void setIsSaved(boolean bool) {
+		this.isSaved = bool;
 	}
 
-	public boolean isEdited() {
-		return this.isEdited;
+	public boolean isEditButtonPressed() {
+		return this.isEditButtonPressed;
 	}	
-	public void setIsEdited(boolean isEdited) {
-		this.isEdited = isEdited;
+	public void setIsEditButtonPressed(boolean bool) {
+		this.isEditButtonPressed = bool;
 	}
 	
 	public boolean isModified() {
 		return this.isModified;
 	}	
-	public void setIsModified(boolean isModified) {
-		this.isModified = isModified;
+	public void setIsModified(boolean bool) {
+		this.isModified = bool;
 	}
 	
-	public void toggleIsEdited() {
-		this.isEdited = !isEdited;
+	public void toggleIsEditButtonPressed() {
+		this.isEditButtonPressed = !isEditButtonPressed;
 	}
 	public void toggleIsModified() {
 		this.isModified = !isModified;

@@ -45,14 +45,14 @@ public class SubModel {
 	public void toggleIsSaved() {
 		this.btnFlag.toggleIsSaved();
 	}
-	public boolean isEdited() {
-		return this.btnFlag.isEdited();
+	public boolean isEditButtonPressed() {
+		return this.btnFlag.isEditButtonPressed();
 	}
-	public void setIsEdited(boolean bool) {
-		this.btnFlag.setIsEdited(bool);
+	public void setIsEditButtonPressed(boolean bool) {
+		this.btnFlag.setIsEditButtonPressed(bool);
 	}
-	public void toggleIsEdited() {
-		this.btnFlag.toggleIsEdited();
+	public void toggleIsEditButtonPressed() {
+		this.btnFlag.toggleIsEditButtonPressed();
 	}
 	public boolean isModified() {
 		return this.btnFlag.isModified();
