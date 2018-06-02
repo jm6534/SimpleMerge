@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Stack;
+
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -25,6 +27,7 @@ public class MainModel {
 		//return this.getRightSubModel(); <- miss?
 		return this.rightSubModel;
 	}
+	
 	public void setRightSubModel(SubModel rightSubModel) {
 		this.rightSubModel = rightSubModel;
 	}
@@ -39,7 +42,17 @@ public class MainModel {
 		this.isCompared.setValue(!isCompared.getValue());
 	}
 	
+	public void setLeftTextLines(Stack<Line> input) {
+		this.leftSubModel.setTextLines(input);
+	}
+	public void setRightTextLines(Stack<Line> input) {
+		this.rightSubModel.setTextLines(input);
+	}
+	
 	public boolean LCS() {
+		LCS.doLCS(this); // try lcs
+		this.setIsCompared(true);
+		
 		return true;
 	}
 	public void copyToLeft() {
