@@ -69,6 +69,9 @@ public class TextController implements Initializable {
     }
     
 	private void fileLoad() {
+		if(subModel.isModified() && !subModel.isSaved()) {
+			//TODO need to verify 'User want to load'
+		}
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
@@ -107,6 +110,7 @@ public class TextController implements Initializable {
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
+		subModel.setIsSaved(true);
 		subModel.setIsEditable(false);
 	}
 
@@ -148,7 +152,6 @@ public class TextController implements Initializable {
 		fileSave();
 	}
 
-	@SuppressWarnings("unchecked")
 	public void setSubModel(SubModel subModel) {
 		this.subModel = subModel;
 		this.textPage = subModel.getTextPage();
