@@ -16,6 +16,8 @@ public class ButtonController implements Initializable {
     @FXML private Button compare;
     @FXML private Button copyToLeft;
     @FXML private Button copyToRight;
+    
+    
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,6 +27,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.StringConverter;
 import model.Line;
+import model.SubModel;
 import model.TextPage;
 
 public class TextController implements Initializable {
@@ -38,9 +40,9 @@ public class TextController implements Initializable {
     @FXML private TextField title;
     @FXML private ListView<Line> text;
     
-    private TextPage textPage = new TextPage();
+    private TextPage textPage;
+	private SubModel subModel;
     
-    @SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		load.setLayoutX(0);
@@ -49,11 +51,6 @@ public class TextController implements Initializable {
 
 		edit.translateXProperty().bind(load.widthProperty());
 		save.translateXProperty().bind(Bindings.add(load.widthProperty(), edit.widthProperty()));
-		
-		text.itemsProperty().bindBidirectional(textPage.getListProperty());
-		title.textProperty().bindBidirectional(textPage.getFilePathProperty());
-		
-		((List<Line>) textPage.getListProperty()).add(new Line(""));
 		
 		text.setCellFactory(TextFieldListCell.forListView(new StringConverter<Line>() {
 			@Override
@@ -72,15 +69,28 @@ public class TextController implements Initializable {
     }
     
 	private void fileLoad() {
-		text.getItems().clear();
-		title.clear();
+		if(subModel.isModified() && !subModel.isSaved()) {
+			//TODO need to verify 'User want to load'
+		}
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
 		File file = fileChooser.showOpenDialog(null);
+		if(file == null || file.getAbsolutePath() == null || file.getAbsolutePath().equals("")) return;
+		text.getItems().clear();
+		title.clear();
 		textPage.setFilePath(file);
+		if(text.getItems().isEmpty()) {
+			addEmptyLine();
+		}
+		subModel.setIsEditable(false);
 	}
 	
+	@SuppressWarnings("unchecked")
+	private void addEmptyLine() {
+		((List<Line>) textPage.getListProperty()).add(new Line(""));
+	}
+
 	private void fileSave() {
 		try {
 			FileChooser fileChooser = new FileChooser();
@@ -98,12 +108,13 @@ public class TextController implements Initializable {
 				}
 			}
 		} catch (NullPointerException e) {
-
+			e.printStackTrace();
 		}
+		subModel.setIsSaved(true);
+		subModel.setIsEditable(false);
 	}
 
 	private void edit() {
-		text.setEditable(true);
 	}
 	
     public void keyPressed(KeyEvent event) {
@@ -139,5 +150,17 @@ public class TextController implements Initializable {
 	
 	public void saveClick(ActionEvent event) {
 		fileSave();
+	}
+
+	public void setSubModel(SubModel subModel) {
+		this.subModel = subModel;
+		this.textPage = subModel.getTextPage();
+		
+		text.editableProperty().bindBidirectional(subModel.getEditableProperty());
+		edit.selectedProperty().bindBidirectional(subModel.getEditableProperty());
+		text.itemsProperty().bindBidirectional(textPage.getListProperty());
+		title.textProperty().bindBidirectional(textPage.getFilePathProperty());
+		
+		addEmptyLine();
 	}
 }
