@@ -47,10 +47,11 @@ public class ButtonController implements Initializable {
 	}
 	
 	public void copyToLeftClick(ActionEvent event) {
-		
+		//must change modified flag in left submodel
 	}
 	
 	public void copyToRightClick(ActionEvent event) {
+		//must change modified flag in left submodel
 		
 	}
 }
