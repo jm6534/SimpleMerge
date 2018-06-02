@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -68,15 +69,25 @@ public class TextController implements Initializable {
     }
     
 	private void fileLoad() {
-		text.getItems().clear();
-		title.clear();
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
 		File file = fileChooser.showOpenDialog(null);
+		if(file == null || file.getAbsolutePath() == null || file.getAbsolutePath().equals("")) return;
+		text.getItems().clear();
+		title.clear();
 		textPage.setFilePath(file);
+		if(text.getItems().isEmpty()) {
+			addEmptyLine();
+		}
+		subModel.setIsEditable(false);
 	}
 	
+	@SuppressWarnings("unchecked")
+	private void addEmptyLine() {
+		((List<Line>) textPage.getListProperty()).add(new Line(""));
+	}
+
 	private void fileSave() {
 		try {
 			FileChooser fileChooser = new FileChooser();
@@ -94,8 +105,9 @@ public class TextController implements Initializable {
 				}
 			}
 		} catch (NullPointerException e) {
-
+			e.printStackTrace();
 		}
+		subModel.setIsEditable(false);
 	}
 
 	private void edit() {
@@ -146,6 +158,6 @@ public class TextController implements Initializable {
 		text.itemsProperty().bindBidirectional(textPage.getListProperty());
 		title.textProperty().bindBidirectional(textPage.getFilePathProperty());
 		
-		((List<Line>) textPage.getListProperty()).add(new Line(""));
+		addEmptyLine();
 	}
 }
