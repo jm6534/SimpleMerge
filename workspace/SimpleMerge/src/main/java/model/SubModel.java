@@ -36,13 +36,6 @@ public class SubModel {
 	public void setButtonFlag(ButtonFlag newBtnFlag) {
 		this.btnFlag = newBtnFlag;
 	}
-	
-	public void setIsSaved(boolean bool) {
-		this.btnFlag.setIsSaved(bool);
-	}
-	public void toggleIsSaved() {
-		this.btnFlag.toggleIsSaved();
-	}
 	public boolean isEditable() {
 		return this.btnFlag.isEditable();
 	}

@@ -14,28 +14,12 @@ public class ButtonFlag {
 		this.isEditable.setValue(false);
 		this.isModified = false;
 	}
-	
-	public boolean isEditButtonPressed() {
-		return this.isEditButtonPressed;
-	}
-	
-	public boolean isSaved() {
-		return this.isSaved;
-	}	
-	public void setIsSaved(boolean bool) {
-		this.isSaved = bool;
-	}
-
 	public boolean isEditable() {
 		return this.isEditable.getValue();
 	}	
 	public void setIsEditable(boolean bool) {
 		this.isEditable.setValue(bool);
 	}
-	public void toggleIsEditButtonPressed() {
-		this.isEditButtonPressed = !isEditButtonPressed;
-	}
-	
 	public boolean isModified() {
 		return this.isModified;
 	}	
