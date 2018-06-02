@@ -19,6 +19,12 @@ public class Line {
 		if (this.isRealLine) this.lineColor = Color.WHITE;
 		else this.lineColor = Color.GRAY;
 	}
+	public Line(String text, boolean bool) {
+		this.lineText = text;
+		this.isRealLine = bool;
+		if (this.isRealLine) this.lineColor = Color.WHITE;
+		else this.lineColor = Color.GRAY;
+	}
 	public Line(String lineText) {
 		this.lineText = lineText;
 		this.lineColor = Color.WHITE;

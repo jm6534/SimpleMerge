@@ -1,6 +1,7 @@
 package model;
 
 import java.io.File;
+import java.util.Stack;
 
 import javafx.beans.property.Property;
 
@@ -22,8 +23,7 @@ public class SubModel {
 		btnFlag = new ButtonFlag();
 	}
 	public TextPage getTextPage() {
-		TextPage ret = this.text;
-		return ret;
+		return this.text;
 	}	
 	public void setTextPage(TextPage newTP) {
 		this.text = newTP;
@@ -80,6 +80,10 @@ public class SubModel {
 	public void setIsRealLine(int lineN, boolean bool) {
 		this.text.setRealLine(lineN, bool);
 	}
+	public void setTextLines(Stack<Line> input) {
+		this.text.setTextLines(input);
+	}
+	
 	public Property<Boolean> getEditableProperty() {
 		return getButtonFlag().getEditableProperty();
 	}

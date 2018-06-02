@@ -14,6 +14,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Stack;
 
 public class TextPage {
     private ListProperty<Line> listProperty = new SimpleListProperty<>();
@@ -99,6 +100,12 @@ public class TextPage {
 	}
 	public void setLineText(int lineN, String str) {
 		listProperty.get(lineN).setLineText(str);
+	}
+	public void setTextLines(Stack<Line> input) {
+		listProperty.clear();
+		while(!input.isEmpty()) {
+			listProperty.add(input.pop());
+		}
 	}
 	public Property<ObservableList<Line>> getListProperty() {
 		return listProperty;
