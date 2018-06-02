@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.binding.Bindings;
@@ -13,7 +14,10 @@ import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ListView.EditEvent;
 import javafx.scene.control.TextField;
@@ -69,9 +73,6 @@ public class TextController implements Initializable {
     }
     
 	private void fileLoad() {
-		if(subModel.isModified()) {
-			//TODO need to verify 'User want to load'
-		}
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
@@ -115,6 +116,7 @@ public class TextController implements Initializable {
 	}
 
 	private void edit() {
+		subModel.setIsModified(true);
 	}
 	
     public void keyPressed(KeyEvent event) {
@@ -141,7 +143,19 @@ public class TextController implements Initializable {
 	}
 	
 	public void loadClick(ActionEvent event) {
-		fileLoad();		
+		if(subModel.isModified()) {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("SimpleMerge");
+			alert.setHeaderText("변경 내용이 있습니다.");
+			alert.setContentText("계속하시겠습니까?");
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+				fileLoad();		
+			} else {
+			}
+			//TODO need to verify 'User want to load'
+		}
 	}
 	
 	public void editClick(ActionEvent event) {
