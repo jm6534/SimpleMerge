@@ -11,10 +11,6 @@ public class TextControllerTest extends TestCase{
 		
 	}
 	@Test
-	public void edit() {
-		
-	}
-	@Test
 	public void save() {
 		
 	}
