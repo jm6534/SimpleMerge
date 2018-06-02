@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ListView.EditEvent;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -25,21 +26,22 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.StringConverter;
 import model.Line;
+import model.SubModel;
 import model.TextPage;
 
 public class TextController implements Initializable {
     @FXML private BorderPane root;
     @FXML private AnchorPane buttonPane;
     @FXML private Button load;
-    @FXML private Button edit;
+    @FXML private ToggleButton edit;
     @FXML private Button save;
     @FXML private BorderPane textPane;
     @FXML private TextField title;
     @FXML private ListView<Line> text;
     
-    private TextPage textPage = new TextPage();
+    private TextPage textPage;
+	private SubModel subModel;
     
-    @SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		load.setLayoutX(0);
@@ -48,11 +50,6 @@ public class TextController implements Initializable {
 
 		edit.translateXProperty().bind(load.widthProperty());
 		save.translateXProperty().bind(Bindings.add(load.widthProperty(), edit.widthProperty()));
-		
-		text.itemsProperty().bindBidirectional(textPage.getListProperty());
-		title.textProperty().bindBidirectional(textPage.getFilePathProperty());
-		
-		((List<Line>) textPage.getListProperty()).add(new Line(""));
 		
 		text.setCellFactory(TextFieldListCell.forListView(new StringConverter<Line>() {
 			@Override
@@ -102,7 +99,6 @@ public class TextController implements Initializable {
 	}
 
 	private void edit() {
-		text.setEditable(true);
 	}
 	
     public void keyPressed(KeyEvent event) {
@@ -138,5 +134,18 @@ public class TextController implements Initializable {
 	
 	public void saveClick(ActionEvent event) {
 		fileSave();
+	}
+
+	@SuppressWarnings("unchecked")
+	public void setSubModel(SubModel subModel) {
+		this.subModel = subModel;
+		this.textPage = subModel.getTextPage();
+		
+		text.editableProperty().bindBidirectional(subModel.getEditableProperty());
+		edit.selectedProperty().bindBidirectional(subModel.getEditableProperty());
+		text.itemsProperty().bindBidirectional(textPage.getListProperty());
+		title.textProperty().bindBidirectional(textPage.getFilePathProperty());
+		
+		((List<Line>) textPage.getListProperty()).add(new Line(""));
 	}
 }

@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
@@ -11,8 +12,8 @@
       <AnchorPane fx:id="buttonPane" prefHeight="0.0" prefWidth="440.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="load" mnemonicParsing="false" onAction="#loadClick" styleClass="blackbutton" stylesheets="@theme.css" text="Load" />
-            <Button fx:id="edit" layoutX="51.0" mnemonicParsing="false" onAction="#editClick" styleClass="blackbuttonCF" stylesheets="@theme.css" text="Edit" />
             <Button fx:id="save" layoutX="97.0" mnemonicParsing="false" onAction="#saveClick" styleClass="blackbutton" stylesheets="@theme.css" text="Save" />
+            <ToggleButton fx:id="edit" layoutX="51.0" mnemonicParsing="false" onAction="#editClick" styleClass="blackbuttonCF" stylesheets="@theme.css" text="Edit" />
          </children>
       </AnchorPane>
    </top>
