@@ -69,7 +69,7 @@ public class TextController implements Initializable {
     }
     
 	private void fileLoad() {
-		if(subModel.isModified() && !subModel.isSaved()) {
+		if(subModel.isModified()) {
 			//TODO need to verify 'User want to load'
 		}
 		FileChooser fileChooser = new FileChooser();
@@ -110,7 +110,7 @@ public class TextController implements Initializable {
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
-		subModel.setIsSaved(true);
+		subModel.setIsModified(false);
 		subModel.setIsEditable(false);
 	}
 

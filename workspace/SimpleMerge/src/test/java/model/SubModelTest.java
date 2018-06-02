@@ -22,12 +22,19 @@ public class SubModelTest extends TestCase {
 		assertEquals(mockTextPage, testsModel.getTextPage());
 	}
 	@Test
-	public void testButtonFlag() { 
+	public void testButtonFlagTrue() { 
 		testsModel.setButtonFlag(mockbtnFlag);
 		assertEquals(mockbtnFlag, testsModel.getButtonFlag());
 	}
 	@Test
-	public void testIsSaved() {
-		
+	public void testButtonFlagFalse() {
+		assertEquals(mockbtnFlag, testsModel.getButtonFlag());
 	}
+	@Test
+	public void testIsModified() {
+		assertFalse(testsModel.isModified());
+		testsModel.toggleIsModified();
+		assertTrue(testsModel.isModified());
+	}
+	
 }

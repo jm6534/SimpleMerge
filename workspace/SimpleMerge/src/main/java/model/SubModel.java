@@ -36,17 +36,6 @@ public class SubModel {
 	public void setButtonFlag(ButtonFlag newBtnFlag) {
 		this.btnFlag = newBtnFlag;
 	}
-	
-	//To control Button flags at SubModel level
-	public boolean isSaved() {
-		return this.btnFlag.isSaved();
-	}
-	public void setIsSaved(boolean bool) {
-		this.btnFlag.setIsSaved(bool);
-	}
-	public void toggleIsSaved() {
-		this.btnFlag.toggleIsSaved();
-	}
 	public boolean isEditable() {
 		return this.btnFlag.isEditable();
 	}
@@ -71,6 +60,7 @@ public class SubModel {
 	}
 	public void setFilePath(File file) {
 		this.text.setFilePath(file);
+		this.btnFlag = new ButtonFlag();
 	}
 	public String getTextPageContent() {
 		return new String(this.text.getTextField());
