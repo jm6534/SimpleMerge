@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ListView.EditEvent;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -31,7 +32,7 @@ public class TextController implements Initializable {
     @FXML private BorderPane root;
     @FXML private AnchorPane buttonPane;
     @FXML private Button load;
-    @FXML private Button edit;
+    @FXML private ToggleButton edit;
     @FXML private Button save;
     @FXML private BorderPane textPane;
     @FXML private TextField title;
