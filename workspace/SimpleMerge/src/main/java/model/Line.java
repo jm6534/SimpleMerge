@@ -43,7 +43,6 @@ public class Line {
 		if (lineColor == Color.LIGHTGRAY) this.isRealLine = false;
 		else this.isRealLine = true;
 	}
-	
 	public void setFakeLine() {
 		this.lineText = new String();
 		this.lineColor.setValue(Color.LIGHTGRAY);

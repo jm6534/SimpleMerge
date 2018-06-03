@@ -3,13 +3,13 @@ package model;
 import java.util.*;
 
 public class LCS { 
-	private static boolean compareInt(int x, int y) {
+	public static boolean compareInt(int x, int y) {
 		if (x>y)
 			return true;
 		else
 			return false;
 	}
-	private static int returnBiggerInt(int x, int y) {
+	public static int returnBiggerInt(int x, int y) {
 		if (compareInt(x,y))
 			return x;
 		else
@@ -21,6 +21,39 @@ public class LCS {
 		else
 			return false;
 	}
+	public static void removeUselessFakeLinesBefore(ArrayList<Line> left, ArrayList<Line> right) {
+		int i;
+		int k = left.size();
+		for (i = k-1; i >= 0; i--) {
+			if ( !left.get(i).isRealLine() )
+				left.remove(i);
+		}
+		k = right.size();
+		for (i = k-1; i >= 0; i--) {
+			if ( !right.get(i).isRealLine() )
+				right.remove(i);
+		}
+	}
+	public static void removeUselessFakeLinesAfter(ArrayList<Line> left, ArrayList<Line> right) {
+		int i;
+		int k=left.size();
+		for (i=0;i<k-1;i++) {
+			if (left.get(i).isRealLine()&&!right.get(i).isRealLine()) { // when left is real and right is fake
+				if (!left.get(i+1).isRealLine()&&right.get(i+1).isRealLine()) { // and at the next line, if left is fake and right is real
+					left.remove(i+1); // remove those fake lines
+					right.remove(i);
+					k--;	// size of ArrayList has been decreased 		
+				}	
+			}
+			else if (!left.get(i).isRealLine()&&right.get(i).isRealLine()) { // when left is fake and right is real
+				if (left.get(i+1).isRealLine()&&!right.get(i+1).isRealLine()) { // and at the next line, if left is real and right is line
+					left.remove(i); // remove those fake lines
+					right.remove(i+1);
+					k--;	// size of ArrayList has been decreased
+				}	
+			}
+		}
+	}
 	public static void doLCS(MainModel lcsMainModel) { // this method will return MainModel
 		int i, j;
 		int[][] lcsCount; // this array makes lcs matrix 
@@ -29,12 +62,14 @@ public class LCS {
 		ArrayList<Line> rightList;
 		Stack<Line> reversedResultLeft = new Stack<Line>();
 		Stack<Line> reversedResultRight = new Stack<Line>();
+		ArrayList<Line> resultLeft;
+		ArrayList<Line> resultRight;
 		
 		
 		leftList=lcsMainModel.getLeftSubModel().getTextPage().getTextLines();
 		rightList=lcsMainModel.getRightSubModel().getTextPage().getTextLines();
 		
-		
+		removeUselessFakeLinesBefore(leftList,rightList);
 		
 		int row = leftList.size()+1; // row and column for lcs count matrix
 		int column = rightList.size()+1; 
@@ -113,8 +148,23 @@ public class LCS {
 				}
 			}
 		}
-		lcsMainModel.setLeftTextLines(reversedResultLeft);
-		lcsMainModel.setRightTextLines(reversedResultRight);
+		//lcsMainModel.setLeftTextLines(reversedResultLeft);
+		//lcsMainModel.setRightTextLines(reversedResultRight);
+		resultLeft=new ArrayList<Line>();
+		resultRight=new ArrayList<Line>();
+		
+		while(!reversedResultLeft.isEmpty()) {
+			resultLeft.add(reversedResultLeft.pop());
+		}
+		while(!reversedResultRight.isEmpty()) {
+			resultRight.add(reversedResultRight.pop());
+		}
+		
+		// at this point, both ArrayList has same size
+		
+		removeUselessFakeLinesAfter(resultLeft,resultRight);
+		lcsMainModel.setLeftTextLines(resultLeft);
+		lcsMainModel.setRightTextLines(resultRight);
 		
 	}
 }
