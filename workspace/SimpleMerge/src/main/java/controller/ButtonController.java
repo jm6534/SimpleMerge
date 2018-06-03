@@ -5,11 +5,13 @@ import java.util.ResourceBundle;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.Property;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import model.MainModel;
 
 public class ButtonController implements Initializable {
     @FXML private AnchorPane root;
@@ -17,7 +19,7 @@ public class ButtonController implements Initializable {
     @FXML private Button copyToLeft;
     @FXML private Button copyToRight;
     
-    
+    MainModel mainModel;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -43,15 +45,24 @@ public class ButtonController implements Initializable {
 	}
 	
 	public void compareClick(ActionEvent event) {
-		
+		if(mainModel.LCS()) mainModel.setIsCompared(true);
 	}
 	
 	public void copyToLeftClick(ActionEvent event) {
-		//must change modified flag in left submodel
+		mainModel.copyToLeft();
+		mainModel.getLeftSubModel().setIsModified(true);
+		mainModel.setIsCompared(false);
 	}
 	
 	public void copyToRightClick(ActionEvent event) {
-		//must change modified flag in left submodel
-		
+		mainModel.copyToRight();
+		mainModel.getRightSubModel().setIsModified(true);		
+		mainModel.setIsCompared(false);
+	}
+
+	public void setMainModel(MainModel mainModel) {
+		this.mainModel = mainModel;
+		copyToLeft.disableProperty().bind(mainModel.getIsComparedProperty().not());
+		copyToRight.disableProperty().bind(mainModel.getIsComparedProperty().not());
 	}
 }

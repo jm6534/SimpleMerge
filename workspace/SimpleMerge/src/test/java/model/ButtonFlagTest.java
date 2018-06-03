@@ -15,15 +15,8 @@ public class ButtonFlagTest {
 
 	@Test
 	public void testButtonFlag() {
-		assertFalse(buttonFlag.isSaved());
 		assertFalse(buttonFlag.isEditable());
 		assertFalse(buttonFlag.isModified());
-	}
-	
-	@Test
-	public void testSetIsSaved() {
-		buttonFlag.setIsSaved(true);
-		assertTrue(buttonFlag.isSaved());
 	}
 
 	@Test
@@ -51,12 +44,4 @@ public class ButtonFlagTest {
 		buttonFlag.toggleIsModified();
 		assertFalse(buttonFlag.isModified());
 	}
-
-	@Test
-	public void testToggleIsSaved() {
-		buttonFlag.setIsSaved(true);
-		buttonFlag.toggleIsSaved();
-		assertFalse(buttonFlag.isSaved());
-	}
-
 }

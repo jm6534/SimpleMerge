@@ -14,6 +14,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Stack;
 
 public class TextPage {
     private ListProperty<Line> listProperty = new SimpleListProperty<>();
@@ -72,6 +73,20 @@ public class TextPage {
 		ArrayList<Line> ret =  new ArrayList<Line>(listProperty);
 		return ret;
 	}
+	
+	public String getTextFieldForSave() {
+		Iterator<Line> it = listProperty.iterator();
+		String ret = new String();
+		Line tmp;
+		while(it.hasNext()) {
+			tmp = it.next();
+			if (tmp.isRealLine()) {
+				ret += tmp.getLineText() + (it.hasNext()? System.lineSeparator():"");
+			}
+		}
+		return ret;
+	}
+	
 	public void addFakeLines(int from, int to) {
 		for ( int i = from; i <= to; i++) {
 			listProperty.add(i, new Line(false));
@@ -100,10 +115,21 @@ public class TextPage {
 	public void setLineText(int lineN, String str) {
 		listProperty.get(lineN).setLineText(str);
 	}
+	public void setTextLines(ArrayList<Line> input) {
+		listProperty.clear();
+		for (int i = 0 ; i < input.size() ; i ++) {
+			listProperty.add(input.get(i));
+		}
+	}
 	public Property<ObservableList<Line>> getListProperty() {
 		return listProperty;
 	}
 	public Property<String> getFilePathProperty() {
 		return filePathProperty;
+	}
+	public void clearBackground() {
+		for(Line line : listProperty) {
+			line.setLineColor(Color.WHITE);
+		}
 	}
 }

@@ -44,4 +44,11 @@
 	-fx-border-height:100;
 	-fx-border-color:#FFF;
 }
-
+.list-view .list-cell:even {
+	-fx-background-color: white;
+	-fx-text-fill: black;
+}
+.list-view .list-cell:odd {
+	-fx-background-color: white;
+	-fx-text-fill: black;
+}
