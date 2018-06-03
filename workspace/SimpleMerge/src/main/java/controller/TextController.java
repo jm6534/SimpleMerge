@@ -95,17 +95,6 @@ public class TextController implements Initializable {
 			}
 
 		});
-
-		/*text.setCellFactory(TextFieldListCell.forListView(new StringConverter<Line>() {
-			@Override
-			public Line fromString(String string) {
-				return new Line(string);
-			}
-			@Override
-			public String toString(Line line) {
-				return line.toString();
-			}
-		}));*/
 	}
 
 	public DoubleProperty preWidthProperty() {
@@ -142,7 +131,7 @@ public class TextController implements Initializable {
 				try{
 					FileWriter writer = null;
 					writer = new FileWriter(file);
-					writer.write(textPage.getTextField());
+					writer.write(textPage.getTextFieldForSave());
 					writer.close();
 				} catch (IOException e) {
 					e.printStackTrace();
