@@ -2,7 +2,6 @@
 	-fx-background-color:#b4b4b4;
 }
 .blackbutton{
-
     -fx-background-color: 
         #090a0c,
         linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
@@ -17,14 +16,11 @@
     -fx-font-size: 9px;
     -fx-padding: 8 15 8 15;
 }
-.blackbutton:pressed{
-		-fx-background-color:#b4b4b4;
-}
+.blackbutton:pressed,
 .blackbutton:hover{
-		-fx-background-color:#b4b4b4;
+	-fx-background-color:#494848;
 }
 .blackbuttonCF{
-
     -fx-background-color: 
         #090a0c,
         linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
@@ -39,24 +35,13 @@
     -fx-font-size: 9px;
     -fx-padding: 8 15 8 15;
 }
-.blackbutton:hover{
-		-fx-background-color:#b4b4b4;
-}
-.blackbuttonCF:focused{
+.blackbuttonCF:selected,
+.blackbuttonCF:hover{
 		-fx-background-color:#494848;
-		-fx-background-radius: 5,4,3,5;
-    -fx-background-insets: 0,1,2,0;
-    -fx-text-fill: white;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
-    -fx-font-family: "Arial";
-    -fx-text-fill: linear-gradient(white, #d0d0d0);
-    -fx-font-size: 9px;
-    -fx-padding: 8 15 8 15;
 }
 .textarea{
 	-fx-border-width:50;
 	-fx-border-height:100;
 	-fx-border-color:#FFF;
-
 }
 

@@ -13,7 +13,7 @@
          <children>
             <Button fx:id="load" mnemonicParsing="false" onAction="#loadClick" styleClass="blackbutton" stylesheets="@theme.css" text="Load" />
             <Button fx:id="save" layoutX="97.0" mnemonicParsing="false" onAction="#saveClick" styleClass="blackbutton" stylesheets="@theme.css" text="Save" />
-            <ToggleButton fx:id="edit" layoutX="51.0" mnemonicParsing="false" styleClass="blackbuttonCF" stylesheets="@theme.css" text="Edit" />
+            <ToggleButton fx:id="edit" layoutX="51.0" mnemonicParsing="false" onAction="#editClick" styleClass="blackbuttonCF" stylesheets="@theme.css" text="Edit" />
          </children>
       </AnchorPane>
    </top>
