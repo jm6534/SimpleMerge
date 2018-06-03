@@ -16,40 +16,39 @@ public class LCStest {
 	
 	@Before
 	public void setUp(){
-		Stack<Line> stack = new Stack<Line>();
+		ArrayList<Line> testList = new ArrayList<Line>();
 		testModel = new MainModel();
 
-		stack.add(new Line("E"));
-		stack.add(new Line("C"));
-		stack.add(new Line("B"));
-		stack.add(new Line("D"));
-		stack.add(new Line("A"));
-		testModel.setLeftTextLines(stack);
+		testList.add(new Line("abcde"));
+		testList.add(new Line("bcdef"));
+		testModel.setLeftTextLines(testList);
 
-		stack.add(new Line("E"));
-		stack.add(new Line("A"));
-		stack.add(new Line("C"));
-		stack.add(new Line("B"));
-		stack.add(new Line("A"));
-		testModel.setRightTextLines(stack);
+		testList.clear();
+		testList.add(new Line("abcde"));
+		testList.add(new Line("cdefg"));
+		testList.add(new Line("bcdef"));
+		testModel.setRightTextLines(testList);
 	}
 	@Test
-	public void testLCS() {
+	public void testLCSTrue() {
 		testModel.LCS();
 		ArrayList<Line> left = testModel.getLeftSubModel().getTextPage().getTextLines();
-		assertEquals("A", left.get(0).getLineText());
-		assertEquals("D", left.get(1).getLineText());
-		assertEquals("B", left.get(2).getLineText());
-		assertEquals("C", left.get(3).getLineText());
-		assertEquals("", left.get(4).getLineText());
-		assertEquals("E", left.get(5).getLineText());
-		
+		assertEquals("abcde",left.get(0).getLineText());
+		assertEquals("bcdef",left.get(2).getLineText());
 		ArrayList<Line> right = testModel.getRightSubModel().getTextPage().getTextLines();
-		assertEquals("A", right.get(0).getLineText());
-		assertEquals("", right.get(1).getLineText());
-		assertEquals("B", right.get(2).getLineText());
-		assertEquals("C", right.get(3).getLineText());
-		assertEquals("A", right.get(4).getLineText());
-		assertEquals("E", right.get(5).getLineText());
+		assertEquals("abcde",right.get(0).getLineText());
+		assertEquals("cdefg",right.get(1).getLineText());
+		assertEquals("bcdef",right.get(2).getLineText());
+		
+	}
+	@Test
+	public void testCompareOneLineTrue() {
+		Line testA = new Line("abcde");
+		Line testB = new Line("abcde");
+		assertEquals(true,LCS.compareOneLine(testA, testB));
+	}
+	@Test
+	public void testReturnBiggerIntFalse() {
+		assertEquals(2,LCS.returnBiggerInt(2, 3));
 	}
 }
