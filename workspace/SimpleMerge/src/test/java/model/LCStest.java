@@ -9,6 +9,7 @@ import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
+import javafx.scene.paint.Color;
 import junit.framework.*;
 
 public class LCStest {
@@ -20,6 +21,7 @@ public class LCStest {
 		testModel = new MainModel();
 
 		testList.add(new Line("abcde"));
+		testList.add(new Line("defgh"));
 		testList.add(new Line("bcdef"));
 		testModel.setLeftTextLines(testList);
 
@@ -30,15 +32,26 @@ public class LCStest {
 		testModel.setRightTextLines(testList);
 	}
 	@Test
-	public void testLCSTrue() {
+	public void testLCS1True() {
 		testModel.LCS();
 		ArrayList<Line> left = testModel.getLeftSubModel().getTextPage().getTextLines();
+		ArrayList<Line> right = testModel.getRightSubModel().getTextPage().getTextLines();
+		
 		assertEquals("abcde",left.get(0).getLineText());
 		assertEquals("bcdef",left.get(2).getLineText());
-		ArrayList<Line> right = testModel.getRightSubModel().getTextPage().getTextLines();
+		
 		assertEquals("abcde",right.get(0).getLineText());
 		assertEquals("cdefg",right.get(1).getLineText());
 		assertEquals("bcdef",right.get(2).getLineText());
+	}
+	@Test
+	public void tesetLCS2True() {
+		testModel.LCS();
+		ArrayList<Line> left = testModel.getLeftSubModel().getTextPage().getTextLines();
+		ArrayList<Line> right = testModel.getLeftSubModel().getTextPage().getTextLines();
+		
+		assertEquals(Color.LIGHTGOLDENRODYELLOW,left.get(1).getLineColor());
+		assertEquals(Color.LIGHTGOLDENRODYELLOW,right.get(1).getLineColor());
 		
 	}
 	@Test
