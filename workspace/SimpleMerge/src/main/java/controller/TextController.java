@@ -14,11 +14,14 @@ import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ListView.EditEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
@@ -26,27 +29,32 @@ import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.util.Callback;
 import javafx.util.StringConverter;
 import model.Line;
 import model.SubModel;
 import model.TextPage;
 
 public class TextController implements Initializable {
-    @FXML private BorderPane root;
-    @FXML private AnchorPane buttonPane;
-    @FXML private Button load;
-    @FXML private ToggleButton edit;
-    @FXML private Button save;
-    @FXML private BorderPane textPane;
-    @FXML private TextField title;
-    @FXML private ListView<Line> text;
-    
-    private TextPage textPage;
+	@FXML private BorderPane root;
+	@FXML private AnchorPane buttonPane;
+	@FXML private Button load;
+	@FXML private ToggleButton edit;
+	@FXML private Button save;
+	@FXML private BorderPane textPane;
+	@FXML private TextField title;
+	@FXML private ListView<Line> text;
+
+	private TextPage textPage;
 	private SubModel subModel;
-    
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		load.setLayoutX(0);
@@ -55,8 +63,40 @@ public class TextController implements Initializable {
 
 		edit.translateXProperty().bind(load.widthProperty());
 		save.translateXProperty().bind(Bindings.add(load.widthProperty(), edit.widthProperty()));
-		
-		text.setCellFactory(TextFieldListCell.forListView(new StringConverter<Line>() {
+
+		text.setCellFactory(new Callback<ListView<Line>, ListCell<Line>>(){
+
+			@Override
+			public ListCell<Line> call(ListView<Line> arg0) {
+				TextFieldListCell<Line> cell = new TextFieldListCell<Line>() {
+					@Override
+					public void updateItem(Line item, boolean empty) {
+						super.updateItem(item, empty);
+						if(item != null) {
+							setText(item.toString());
+							backgroundProperty().bind(Bindings.createObjectBinding(()->{
+								BackgroundFill fill = new BackgroundFill(item.getLineColorProperty().getValue(), CornerRadii.EMPTY, Insets.EMPTY);
+								return new Background(fill);
+							}, item.getLineColorProperty().valueProperty()));;
+						}
+					}
+				};
+				cell.setConverter(new StringConverter<Line>() {
+					@Override
+					public Line fromString(String string) {
+						return new Line(string);
+					}
+					@Override
+					public String toString(Line line) {
+						return line.toString();
+					}
+				});
+				return cell;
+			}
+
+		});
+
+		/*text.setCellFactory(TextFieldListCell.forListView(new StringConverter<Line>() {
 			@Override
 			public Line fromString(String string) {
 				return new Line(string);
@@ -65,13 +105,13 @@ public class TextController implements Initializable {
 			public String toString(Line line) {
 				return line.toString();
 			}
-		}));
+		}));*/
 	}
-    
-    public DoubleProperty preWidthProperty() {
-    	return root.prefWidthProperty();
-    }
-    
+
+	public DoubleProperty preWidthProperty() {
+		return root.prefWidthProperty();
+	}
+
 	private void fileLoad() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
@@ -86,7 +126,7 @@ public class TextController implements Initializable {
 		}
 		subModel.setIsEditable(false);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private void addEmptyLine() {
 		((List<Line>) textPage.getListProperty()).add(new Line(""));
@@ -118,30 +158,30 @@ public class TextController implements Initializable {
 	private void edit() {
 		subModel.setIsModified(true);
 	}
-	
-    public void keyPressed(KeyEvent event) {
-    	String selectedString = text.getSelectionModel().getSelectedItem().toString();
-    	int selectedIndex = text.getSelectionModel().getSelectedIndex();
-    	if(text.isEditable()) {
-    		if(event.getCode() == KeyCode.BACK_SPACE) {
-    			if(selectedString.length() >= 1) {
-    				text.getItems().set(selectedIndex, new Line(selectedString.substring(0, selectedString.length() - 1)));
-    			}
-    			else if(text.getItems().size() > 2) {
-    				text.getItems().remove(selectedIndex);
-    			}
-    		}
-    	}
 
-    }
-	
+	public void keyPressed(KeyEvent event) {
+		String selectedString = text.getSelectionModel().getSelectedItem().toString();
+		int selectedIndex = text.getSelectionModel().getSelectedIndex();
+		if(text.isEditable()) {
+			if(event.getCode() == KeyCode.BACK_SPACE) {
+				if(selectedString.length() >= 1) {
+					text.getItems().set(selectedIndex, new Line(selectedString.substring(0, selectedString.length() - 1)));
+				}
+				else if(text.getItems().size() > 2) {
+					text.getItems().remove(selectedIndex);
+				}
+			}
+		}
+
+	}
+
 	public void editCommit(EditEvent<Line> event) {
 		text.getItems().add(text.getSelectionModel().getSelectedIndex(), event.getNewValue());
 		text.getItems().remove(text.getSelectionModel().getSelectedIndex());
 		text.getItems().add(text.getSelectionModel().getSelectedIndex() +1,new Line());
 		text.getSelectionModel().selectNext();
 	}
-	
+
 	public void loadClick(ActionEvent event) {
 		if(subModel.isModified()) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -158,11 +198,11 @@ public class TextController implements Initializable {
 			fileLoad();					
 		}
 	}
-	
+
 	public void editClick(ActionEvent event) {
 		edit();
 	}
-	
+
 	public void saveClick(ActionEvent event) {
 		fileSave();
 	}
@@ -170,12 +210,13 @@ public class TextController implements Initializable {
 	public void setSubModel(SubModel subModel) {
 		this.subModel = subModel;
 		this.textPage = subModel.getTextPage();
-		
+
 		text.editableProperty().bindBidirectional(subModel.getEditableProperty());
 		edit.selectedProperty().bindBidirectional(subModel.getEditableProperty());
 		text.itemsProperty().bindBidirectional(textPage.getListProperty());
+		text.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 		title.textProperty().bindBidirectional(textPage.getFilePathProperty());
-		
+
 		addEmptyLine();
 	}
 }
