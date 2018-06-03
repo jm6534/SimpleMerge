@@ -107,9 +107,9 @@ public class TextController implements Initializable {
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
 		File file = fileChooser.showOpenDialog(null);
 		if(file == null || file.getAbsolutePath() == null || file.getAbsolutePath().equals("")) return;
+		textPage.clearBackground();
 		text.getItems().clear();
 		title.clear();
-		textPage.clearBackground();
 		textPage.setFilePath(file);
 		if(text.getItems().isEmpty()) {
 			addEmptyLine();
