@@ -5,17 +5,15 @@ import java.util.*;
 import javafx.scene.paint.Color;
 
 public class LCS { 
-	public static boolean compareInt(int x, int y) {
-		if (x>y)
-			return true;
-		else
-			return false;
-	}
-	public static int returnBiggerInt(int x, int y) {
-		if (compareInt(x,y))
-			return x;
-		else
-			return y;
+	public static int returnLargestIndex(int x, int y, int z) {
+		if (z>=x&&z>=y) // 
+			return 3;
+		else {
+			if (x>y)
+				return 1;
+			else
+				return 2;
+		}
 	}
 	public static boolean compareOneLine(Line left, Line right) {
 		if (left.getLineText().equals(right.getLineText())) // return true if two Strings are 'ACTUALLY' same
@@ -99,19 +97,35 @@ public class LCS {
 		
 		for (i = 0; i < row ; i++ ) { // initialize array
 			for (j = 0 ; j < column ; j++ ) {
-				lcsCount[i][j]=0;
+				if (i==0) 
+					lcsCount[i][j] = -j;
+				else if (j==0)
+					lcsCount[i][j] = -i;
+				else
+					lcsCount[i][j] = 0;
 				isSame[i][j]=false;
 			}
 		}
-
-		for (i = 1; i < row ; i++ ) {
+		
+		for (i = 1; i < row ; i++ ) { // 
 			for (j = 1; j < column ; j++ ) { // fill the matrix left to right
 				if(compareOneLine(leftList.get(i-1),rightList.get(j-1))){
-					lcsCount[i][j]=lcsCount[i-1][j-1]+1;
+					lcsCount[i][j] = lcsCount[i-1][j-1]+1;
 					isSame[i][j]=true;
 				}
 				else { // if left and above is same, it came from left
-					lcsCount[i][j]=returnBiggerInt(lcsCount[i-1][j],lcsCount[i][j-1]); 
+					int k = returnLargestIndex(lcsCount[i-1][j],lcsCount[i][j-1],lcsCount[i-1][j-1])-1; 
+					switch (k){
+						case 1:
+							lcsCount[i][j] = lcsCount[i-1][j]-1;
+							break;
+						case 2:
+							lcsCount[i][j] = lcsCount[i][j-1]-1;
+							break;
+						case 3:
+							lcsCount[i][j] = lcsCount[i-1][j-1]-1;
+							break;
+					}
 				}
 			}
 		}
@@ -143,6 +157,31 @@ public class LCS {
 					j--;
 				}
 				else {
+					int k = returnLargestIndex(lcsCount[i-1][j],lcsCount[i][j-1],lcsCount[i-1][j-1]);
+					switch (k) {
+						case 1:
+							leftList.get(i-1).setLineColor(Color.LIGHTGOLDENRODYELLOW);
+							reversedResultLeft.push(leftList.get(i-1));
+							reversedResultRight.push(new Line(false));
+							i--;
+							break;
+						case 2:
+							reversedResultLeft.push(new Line(false));
+							rightList.get(j-1).setLineColor(Color.LIGHTGOLDENRODYELLOW);
+							reversedResultRight.push(rightList.get(j-1));
+							j--;
+							break;
+						case 3:
+							Line leftinput = leftList.get(i-1);
+							leftinput.setLineColor(Color.LIGHTGOLDENRODYELLOW);
+							Line rightinput = rightList.get(j-1);
+							rightinput.setLineColor(Color.LIGHTGOLDENRODYELLOW);
+							reversedResultLeft.push(leftinput);
+							reversedResultRight.push(rightinput);
+							i--;
+							j--;
+					}
+					/*
 					if (lcsCount[i-1][j]==lcsCount[i][j-1]) { 
 						//System.out.println("i="+i+", j="+j+" not equal but left up same");
 						reversedResultLeft.push(new Line(false));
@@ -163,6 +202,7 @@ public class LCS {
 							j--;
 						}
 					}
+					*/
 				}
 			}
 		}
@@ -180,7 +220,7 @@ public class LCS {
 		
 		// at this point, both ArrayList has same size
 		
-		removeUselessFakeLinesAfter(resultLeft,resultRight);
+		//removeUselessFakeLinesAfter(resultLeft,resultRight);
 		lcsMainModel.setLeftTextLines(resultLeft);
 		lcsMainModel.setRightTextLines(resultRight);
 		

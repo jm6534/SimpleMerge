@@ -73,6 +73,20 @@ public class TextPage {
 		ArrayList<Line> ret =  new ArrayList<Line>(listProperty);
 		return ret;
 	}
+	
+	public String getTextFieldForSave() {
+		Iterator<Line> it = listProperty.iterator();
+		String ret = new String();
+		Line tmp;
+		while(it.hasNext()) {
+			tmp = it.next();
+			if (tmp.isRealLine()) {
+				ret += tmp.getLineText() + (it.hasNext()? System.lineSeparator():"");
+			}
+		}
+		return ret;
+	}
+	
 	public void addFakeLines(int from, int to) {
 		for ( int i = from; i <= to; i++) {
 			listProperty.add(i, new Line(false));
