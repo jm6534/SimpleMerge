@@ -2,6 +2,8 @@ package model;
 
 import java.util.*;
 
+import javafx.scene.paint.Color;
+
 public class LCS { 
 	public static boolean compareInt(int x, int y) {
 		if (x>y)
@@ -42,7 +44,15 @@ public class LCS {
 				if (!left.get(i+1).isRealLine()&&right.get(i+1).isRealLine()) { // and at the next line, if left is fake and right is real
 					left.remove(i+1); // remove those fake lines
 					right.remove(i);
-					k--;	// size of ArrayList has been decreased 		
+					k--;	// size of ArrayList has been decreased
+					if (!compareOneLine(left.get(i),right.get(i))) {
+						left.get(i).setLineColor(Color.LIGHTGOLDENRODYELLOW);
+						right.get(i).setLineColor(Color.LIGHTGOLDENRODYELLOW);
+					}
+					else {
+						left.get(i).setLineColor(Color.WHITE);
+						right.get(i).setLineColor(Color.WHITE);
+					}
 				}	
 			}
 			else if (!left.get(i).isRealLine()&&right.get(i).isRealLine()) { // when left is fake and right is real
@@ -50,6 +60,14 @@ public class LCS {
 					left.remove(i); // remove those fake lines
 					right.remove(i+1);
 					k--;	// size of ArrayList has been decreased
+					if (!compareOneLine(left.get(i),right.get(i))) {
+						left.get(i).setLineColor(Color.LIGHTGOLDENRODYELLOW);
+						right.get(i).setLineColor(Color.LIGHTGOLDENRODYELLOW);
+					}
+					else {
+						left.get(i).setLineColor(Color.WHITE);
+						right.get(i).setLineColor(Color.WHITE);
+					}
 				}	
 			}
 		}
