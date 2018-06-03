@@ -21,6 +21,13 @@ public class TextControllerTest extends TestCase{
 		subModel = new SubModel();
 		testController.setSubModel(subModel);
 	}
+	
+	@Test
+	public void edit() {
+		testController.editClick(new ActionEvent());
+		assertTrue(subModel.isEditable());
+	}
+	
 	/* 정상적인 상황 */
 	@Test
 	public void save1() {
