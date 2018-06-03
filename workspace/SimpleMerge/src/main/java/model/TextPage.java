@@ -127,4 +127,9 @@ public class TextPage {
 	public Property<String> getFilePathProperty() {
 		return filePathProperty;
 	}
+	public void clearBackground() {
+		for(Line line : listProperty) {
+			line.setLineColor(Color.WHITE);
+		}
+	}
 }

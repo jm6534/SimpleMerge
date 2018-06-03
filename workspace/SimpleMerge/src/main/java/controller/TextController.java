@@ -109,6 +109,7 @@ public class TextController implements Initializable {
 		if(file == null || file.getAbsolutePath() == null || file.getAbsolutePath().equals("")) return;
 		text.getItems().clear();
 		title.clear();
+		textPage.clearBackground();
 		textPage.setFilePath(file);
 		if(text.getItems().isEmpty()) {
 			addEmptyLine();
@@ -204,7 +205,6 @@ public class TextController implements Initializable {
 		text.editableProperty().bindBidirectional(subModel.getEditableProperty());
 		edit.selectedProperty().bindBidirectional(subModel.getEditableProperty());
 		text.itemsProperty().bindBidirectional(textPage.getListProperty());
-		text.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 		title.textProperty().bindBidirectional(textPage.getFilePathProperty());
 
 		addEmptyLine();
