@@ -154,7 +154,8 @@ public class TextController implements Initializable {
 				fileLoad();		
 			} else {
 			}
-			//TODO need to verify 'User want to load'
+		}else {
+			fileLoad();					
 		}
 	}
 	
