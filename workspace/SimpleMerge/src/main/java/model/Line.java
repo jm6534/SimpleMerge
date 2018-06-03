@@ -17,13 +17,13 @@ public class Line {
 		this.lineText = new String();
 		this.isRealLine = bool;
 		if (this.isRealLine) this.lineColor = Color.WHITE;
-		else this.lineColor = Color.GRAY;
+		else this.lineColor = Color.LIGHTGRAY;
 	}
 	public Line(String text, boolean bool) {
 		this.lineText = text;
 		this.isRealLine = bool;
 		if (this.isRealLine) this.lineColor = Color.WHITE;
-		else this.lineColor = Color.GRAY;
+		else this.lineColor = Color.LIGHTGRAY;
 	}
 	public Line(String lineText) {
 		this.lineText = lineText;
@@ -33,18 +33,17 @@ public class Line {
 	public Line(String lineText, Color lineColor) {
 		this.lineText = lineText;
 		this.lineColor = lineColor;
-		if (lineColor == Color.GRAY) this.isRealLine = false;
+		if (lineColor == Color.LIGHTGRAY) this.isRealLine = false;
 		else this.isRealLine = true;
 	}
-	
 	public void setFakeLine() {
 		this.lineText = new String();
-		this.lineColor = Color.GRAY;
+		this.lineColor = Color.LIGHTGRAY;
 		this.isRealLine = false;		
 	}
 	public void setFakeLine(String content) {
 		this.lineText = new String(content);
-		this.lineColor = Color.GRAY;
+		this.lineColor = Color.LIGHTGRAY;
 		this.isRealLine = false;		
 	}
 	
@@ -70,7 +69,7 @@ public class Line {
 	public void setIsRealLine(boolean isRealLine) {
 		this.isRealLine = isRealLine;
 		if (this.isRealLine) this.lineColor = Color.WHITE;
-		else this.lineColor = Color.GRAY;
+		else this.lineColor = Color.LIGHTGRAY;
 	}
 	
 	public String toString() {

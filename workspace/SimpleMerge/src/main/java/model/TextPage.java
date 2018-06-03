@@ -101,10 +101,10 @@ public class TextPage {
 	public void setLineText(int lineN, String str) {
 		listProperty.get(lineN).setLineText(str);
 	}
-	public void setTextLines(Stack<Line> input) {
+	public void setTextLines(ArrayList<Line> input) {
 		listProperty.clear();
-		while(!input.isEmpty()) {
-			listProperty.add(input.pop());
+		for (int i = 0 ; i < input.size() ; i ++) {
+			listProperty.add(input.get(i));
 		}
 	}
 	public Property<ObservableList<Line>> getListProperty() {

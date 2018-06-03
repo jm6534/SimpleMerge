@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 import javafx.beans.property.BooleanProperty;
@@ -42,10 +43,10 @@ public class MainModel {
 		this.isCompared.setValue(!isCompared.getValue());
 	}
 	
-	public void setLeftTextLines(Stack<Line> input) {
+	public void setLeftTextLines(ArrayList<Line> input) {
 		this.leftSubModel.setTextLines(input);
 	}
-	public void setRightTextLines(Stack<Line> input) {
+	public void setRightTextLines(ArrayList<Line> input) {
 		this.rightSubModel.setTextLines(input);
 	}
 	
@@ -56,8 +57,10 @@ public class MainModel {
 		return true;
 	}
 	public void copyToLeft() {
+		
 	}
 	public void copyToRight() {
+		
 	}
 
 	public BooleanProperty getIsComparedProperty() {
