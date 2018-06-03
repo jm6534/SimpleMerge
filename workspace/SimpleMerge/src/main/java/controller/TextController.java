@@ -114,6 +114,7 @@ public class TextController implements Initializable {
 			addEmptyLine();
 		}
 		subModel.setIsEditable(false);
+		subModel.setIsModified(false);
 	}
 
 	@SuppressWarnings("unchecked")
