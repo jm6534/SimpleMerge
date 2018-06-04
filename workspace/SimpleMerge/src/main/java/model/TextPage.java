@@ -128,6 +128,10 @@ public class TextPage {
 	public void addFakeLine() {
 		listProperty.add(new Line(false));
 	}
+	public void deleteLine(int lineN) {
+		if ( lineN < 0 || lineN > listProperty.getSize() ) return;
+		listProperty.remove(lineN);
+	}
 	public void setTextLines(ArrayList<Line> input) {
 		listProperty.clear();
 		for (int i = 0 ; i < input.size() ; i ++) {
@@ -136,6 +140,10 @@ public class TextPage {
 	}
 	public Property<ObservableList<Line>> getListProperty() {
 		return listProperty;
+	}
+	public int getMaxNListProperty() {
+		int ret = listProperty.size();
+		return ret;
 	}
 	public Property<String> getFilePathProperty() {
 		return filePathProperty;
@@ -154,7 +162,7 @@ public class TextPage {
 		for(Line line : listProperty) {
 			if(line.getLineColor().equals(Color.WHITE)) continue;
 			else if(line.isRealLine()) line.setLineColor(Color.LIGHTGOLDENRODYELLOW);
-			else line.setLineColor(Color.LIGHTGREY);
+			else line.setLineColor(Color.LIGHTGRAY);
 		}
 		if(listProperty.get(selectedIndex).isRealLine()) {
 			listProperty.get(selectedIndex).setLineColor(Color.PINK);
@@ -179,14 +187,14 @@ public class TextPage {
 			int i = selectedIndex;
 			int max = listProperty.getSize();
 			while (++i < max) {
-				if (listProperty.get(i).getLineColor() == Color.LIGHTGREY) {
+				if (listProperty.get(i).getLineColor() == Color.LIGHTGRAY) {
 					listProperty.get(i).setLineColor(Color.PAPAYAWHIP);
 				}
 				else break;
 			}
 			i = selectedIndex;
 			while( --i > -1) {
-				if (listProperty.get(i).getLineColor() == Color.LIGHTGREY) {
+				if (listProperty.get(i).getLineColor() == Color.LIGHTGRAY) {
 					listProperty.get(i).setLineColor(Color.PAPAYAWHIP);
 				}
 				else break;
