@@ -60,6 +60,7 @@ public class Line {
 	}
 	public void setLineText(String lineText) {
 		this.lineText = lineText;
+		if ( !this.isRealLine ) this.lineColor.setValue(Color.WHITE);
 	}
 	public Color getLineColor() {
 		Color ret = Color.web(lineColor.toString());

@@ -111,8 +111,6 @@ public class LCS {
 			for (j = 1; j < column ; j++ ) { // fill the matrix left to right
 				if(compareOneLine(leftList.get(i-1),rightList.get(j-1))){
 					lcsCount[i][j] = lcsCount[i-1][j-1]+1;
-					System.out.println(leftList.get(i-1).toString());
-					System.out.println(rightList.get(j-1).toString());
 					isSame[i][j] = true;
 				}
 				else { // if left and above is same, it came from left
@@ -132,15 +130,6 @@ public class LCS {
 			}
 		}
 		
-		for (i=0;i<row;i++) {
-			for (j=0;j<column;j++) {
-				System.out.printf("%d ",lcsCount[i][j]);
-			}
-			System.out.println();
-		}
-		System.out.println(isSame[11][9]);
-		System.out.println(isSame[13][10]);
-		
 		i = row-1;
 		j = column-1;
 		
@@ -148,20 +137,17 @@ public class LCS {
 			if (i==0&&j==0) // if making stack is over
 				break;
 			else if (i==0&&j>0) { // no more on only left
-				//System.out.println("i="+i+", j="+j+"no more on left");
 				reversedResultLeft.push(new Line(false));
 				reversedResultRight.push(rightList.get(j-1));
 				j--;
 			}
 			else if (i>0&&j==0) { // no more on only right
-				//System.out.println("i="+i+", j="+j+"no more on right");
 				reversedResultLeft.push(leftList.get(i-1));
 				reversedResultRight.push(new Line(false));
 				i--;
 			}
 			else {
 				if (isSame[i][j]) { // if reached same side
-					//System.out.println("i="+i+", j="+j+" equal");
 					reversedResultLeft.push(leftList.get(i-1));
 					reversedResultRight.push(rightList.get(j-1));
 					i--;
@@ -195,20 +181,17 @@ public class LCS {
 					}
 					/*
 					if (lcsCount[i-1][j]==lcsCount[i][j-1]) { 
-						//System.out.println("i="+i+", j="+j+" not equal but left up same");
 						reversedResultLeft.push(new Line(false));
 						reversedResultRight.push(rightList.get(j-1));
 						j--;
 					}
 					else {
 						if (lcsCount[i-1][j]>lcsCount[i][j-1]) {
-							//System.out.println("i="+i+", j="+j+" up is bigger");
 							reversedResultLeft.push(leftList.get(i-1));
 							reversedResultRight.push(new Line(false));
 							i--;
 						}
 						else {
-							//System.out.println("i="+i+", j="+j+" left is bigger");
 							reversedResultLeft.push(new Line(false));
 							reversedResultRight.push(rightList.get(j-1));
 							j--;
