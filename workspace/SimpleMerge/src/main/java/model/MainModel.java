@@ -9,16 +9,12 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.paint.Color;
 
 public class MainModel {
-	private BooleanProperty isCompared;	// compare flag, Modified����
-	private BooleanProperty isLeftBlockSelected;
-	private BooleanProperty isRightBlockSelected;
+	private BooleanProperty isCompared;	// compare flag, Modified
 	private SubModel leftSubModel;
 	private SubModel rightSubModel;
 	
 	public MainModel() {
 		this.isCompared = new SimpleBooleanProperty(false);
-		this.isLeftBlockSelected = new SimpleBooleanProperty(false);
-		this.isRightBlockSelected = new SimpleBooleanProperty(false);
 		this.leftSubModel = new SubModel();
 		this.rightSubModel = new SubModel();
 	}
@@ -136,11 +132,5 @@ public class MainModel {
 
 	public BooleanProperty getIsComparedProperty() {
 		return isCompared;
-	}
-	public BooleanProperty getIsLeftBlockSelected() {
-		return isLeftBlockSelected;
-	}
-	public BooleanProperty getIsRightBlockSelected() {
-		return isRightBlockSelected;
 	}
 }
