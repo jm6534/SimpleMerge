@@ -1,7 +1,9 @@
 package controller;
 
 import org.junit.Before;
+import org.junit.Test;
 
+import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import junit.framework.TestCase;
 import model.MainModel;
@@ -11,27 +13,34 @@ public class ButtonControllerTest extends TestCase{
 	private MainModel mainModel;
 	@Before
 	public void setUp() {
+		JFXPanel a = new JFXPanel();
 		testController = new ButtonController();
 		mainModel = new MainModel();
-		testController.setMainModel(mainModel);
+		testController.setMainModelForTest(mainModel);
 	}
 
-	public void copyToRight() {
+	@Test
+	public void testCopyToRight() {
 		testController.copyToRightClick(new ActionEvent());
-		assertTrue(mainModel.getRightSubModel().isModified() && mainModel.isCompared());
+		assertTrue(mainModel.getRightSubModel().isModified());
 	}
-	public void copyToLeft() {
+	@Test
+	public void testCopyToLeft() {
 		testController.copyToLeftClick(new ActionEvent());
-		assertTrue(mainModel.getLeftSubModel().isModified() && mainModel.isCompared());
+		assertTrue(mainModel.getLeftSubModel().isModified());
 	}
-	public void compareEqual() {
-		mainModel.getLeftSubModel().setLineText(0, "aaa");
-		mainModel.getLeftSubModel().setLineText(0, "aaa");
+	@Test
+	public void testCompareEqual() {
+		mainModel.getLeftSubModel().getTextPage().addLineText("aaa");
+		mainModel.getRightSubModel().getTextPage().addLineText("aaa");
+		testController.compareClick(new ActionEvent());
 		assertTrue(!mainModel.isCompared());
 	}
-	public void compareNonEqual() {
-		mainModel.getLeftSubModel().setLineText(0, "aaa");
-		mainModel.getLeftSubModel().setLineText(0, "bbb");
+	@Test
+	public void testCompareNonEqual() {
+		mainModel.getLeftSubModel().getTextPage().addLineText("aaa");
+		mainModel.getRightSubModel().getTextPage().addLineText("bbb");
+		testController.compareClick(new ActionEvent());
 		assertTrue(mainModel.isCompared());
 	}
 }

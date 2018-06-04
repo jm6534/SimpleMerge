@@ -1,7 +1,6 @@
 package model;
 
 import java.util.*;
-
 import javafx.scene.paint.Color;
 
 public class LCS { 
@@ -15,26 +14,33 @@ public class LCS {
 				return 2;
 		}
 	}
+	
 	public static boolean compareOneLine(Line left, Line right) {
 		if (left.getLineText().equals(right.getLineText())) // return true if two Strings are 'ACTUALLY' same
 			return true;
 		else
 			return false;
 	}
-	public static void removeUselessFakeLinesBefore(ArrayList<Line> left, ArrayList<Line> right) {
+	
+	public static void resetArrayListBeforeLCS(ArrayList<Line> left, ArrayList<Line> right) {
 		int i;
 		int k = left.size();
 		for (i = k-1; i >= 0; i--) {
+			if (left.get(i).getLineColor() != Color.WHITE)
+				left.get(i).setLineColor(Color.WHITE);
 			if ( !left.get(i).isRealLine() )
 				left.remove(i);
 		}
 		k = right.size();
 		for (i = k-1; i >= 0; i--) {
+			if (right.get(i).getLineColor()!= Color.WHITE)
+				right.get(i).setLineColor(Color.WHITE);
 			if ( !right.get(i).isRealLine() )
 				right.remove(i);
 		}
 	}
-	public static void doLCS(MainModel lcsMainModel) { // this method will return MainModel
+	
+	public static boolean doLCS(MainModel lcsMainModel) { // this method will return MainModel
 		int i, j;
 		int[][] lcsCount; // this array makes lcs matrix 
 		boolean[][] isSame; // save the result of compare 
@@ -44,12 +50,13 @@ public class LCS {
 		Stack<Line> reversedResultRight = new Stack<Line>();
 		ArrayList<Line> resultLeft;
 		ArrayList<Line> resultRight;
+		boolean isModified = false;
 		
 		
 		leftList=lcsMainModel.getLeftSubModel().getTextPage().getTextLines();
 		rightList=lcsMainModel.getRightSubModel().getTextPage().getTextLines();
 		
-		removeUselessFakeLinesBefore(leftList,rightList);
+		resetArrayListBeforeLCS(leftList,rightList);
 		
 		int row = leftList.size()+1; // row and column for lcs count matrix
 		int column = rightList.size()+1; 
@@ -102,13 +109,17 @@ public class LCS {
 				break;
 			else if (i==0&&j>0) { // no more on only left
 				reversedResultLeft.push(new Line(false));
+				rightList.get(j-1).setLineColor(Color.LIGHTGOLDENRODYELLOW);
 				reversedResultRight.push(rightList.get(j-1));
 				j--;
+				isModified = true;
 			}
 			else if (i>0&&j==0) { // no more on only right
+				leftList.get(i-1).setLineColor(Color.LIGHTGOLDENRODYELLOW);
 				reversedResultLeft.push(leftList.get(i-1));
 				reversedResultRight.push(new Line(false));
 				i--;
+				isModified = true;
 			}
 			else {
 				if (isSame[i][j]) { // if reached same side
@@ -125,12 +136,14 @@ public class LCS {
 							reversedResultLeft.push(leftList.get(i-1));
 							reversedResultRight.push(new Line(false));
 							i--;
+							isModified = true;
 							break;
 						case 2:
 							reversedResultLeft.push(new Line(false));
 							rightList.get(j-1).setLineColor(Color.LIGHTGOLDENRODYELLOW);
 							reversedResultRight.push(rightList.get(j-1));
 							j--;
+							isModified = true;
 							break;
 						case 3:
 							Line leftinput = leftList.get(i-1);
@@ -141,6 +154,7 @@ public class LCS {
 							reversedResultRight.push(rightinput);
 							i--;
 							j--;
+							isModified = true;
 							break;
 					}
 				}
@@ -156,8 +170,10 @@ public class LCS {
 			resultRight.add(reversedResultRight.pop());
 		}
 		
+		
 		lcsMainModel.setLeftTextLines(resultLeft);
 		lcsMainModel.setRightTextLines(resultRight);
-		
+
+		return isModified;
 	}
 }

@@ -9,7 +9,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.paint.Color;
 
 public class MainModel {
-	private BooleanProperty isCompared;	// compare flag, Modified¿ªÇÒ
+	private BooleanProperty isCompared;	// compare flag, Modifiedï¿½ï¿½ï¿½ï¿½
 	private BooleanProperty isLeftBlockSelected;
 	private BooleanProperty isRightBlockSelected;
 	private SubModel leftSubModel;
@@ -56,10 +56,8 @@ public class MainModel {
 	}
 	
 	public boolean LCS() {
-		LCS.doLCS(this); // try lcs
-		this.setIsCompared(true);
-		
-		return true;
+		boolean result = LCS.doLCS(this); // try lcs
+		return result;
 	}
 	public void copyToLeft() {
 		int selectedIdx = (int) this.rightSubModel.getTextPage().getSelectedIndexProperty().getValue();
