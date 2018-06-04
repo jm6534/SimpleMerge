@@ -52,7 +52,6 @@ public class MainModel {
 	
 	public boolean LCS() {
 		boolean result = LCS.doLCS(this); // try lcs
-		this.setIsCompared(true);
 			
 		return result;
 	}

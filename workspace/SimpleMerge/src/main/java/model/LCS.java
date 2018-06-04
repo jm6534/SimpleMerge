@@ -22,15 +22,19 @@ public class LCS {
 			return false;
 	}
 	
-	public static void removeUselessFakeLinesBefore(ArrayList<Line> left, ArrayList<Line> right) {
+	public static void resetArrayListBeforeLCS(ArrayList<Line> left, ArrayList<Line> right) {
 		int i;
 		int k = left.size();
 		for (i = k-1; i >= 0; i--) {
+			if (left.get(i).getLineColor() != Color.WHITE)
+				left.get(i).setLineColor(Color.WHITE);
 			if ( !left.get(i).isRealLine() )
 				left.remove(i);
 		}
 		k = right.size();
 		for (i = k-1; i >= 0; i--) {
+			if (right.get(i).getLineColor()!= Color.WHITE)
+				right.get(i).setLineColor(Color.WHITE);
 			if ( !right.get(i).isRealLine() )
 				right.remove(i);
 		}
@@ -52,7 +56,7 @@ public class LCS {
 		leftList=lcsMainModel.getLeftSubModel().getTextPage().getTextLines();
 		rightList=lcsMainModel.getRightSubModel().getTextPage().getTextLines();
 		
-		removeUselessFakeLinesBefore(leftList,rightList);
+		resetArrayListBeforeLCS(leftList,rightList);
 		
 		int row = leftList.size()+1; // row and column for lcs count matrix
 		int column = rightList.size()+1; 
@@ -115,6 +119,7 @@ public class LCS {
 				reversedResultLeft.push(leftList.get(i-1));
 				reversedResultRight.push(new Line(false));
 				i--;
+				isModified = true;
 			}
 			else {
 				if (isSame[i][j]) { // if reached same side
@@ -122,7 +127,6 @@ public class LCS {
 					reversedResultRight.push(rightList.get(j-1));
 					i--;
 					j--;
-					isModified = true;
 				}
 				else {
 					int k = returnLargestIndex(lcsCount[i-1][j],lcsCount[i][j-1],lcsCount[i-1][j-1]);
