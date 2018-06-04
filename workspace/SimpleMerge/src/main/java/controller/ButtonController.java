@@ -65,4 +65,12 @@ public class ButtonController implements Initializable {
 		copyToLeft.disableProperty().bind(mainModel.getIsComparedProperty().not());
 		copyToRight.disableProperty().bind(mainModel.getIsComparedProperty().not());
 	}
+	
+	public void setMainModelForTest(MainModel mainModel) {
+		this.mainModel = mainModel;
+		copyToLeft = new Button();
+		copyToRight = new Button();
+		copyToLeft.disableProperty().bind(mainModel.getIsComparedProperty().not());
+		copyToRight.disableProperty().bind(mainModel.getIsComparedProperty().not());
+	}
 }
