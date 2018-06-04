@@ -122,6 +122,12 @@ public class TextPage {
 		Color afterColor = listProperty.get(lineN + 1).getLineColor();
 		if ( beforeColor == afterColor ) listProperty.get(lineN).setLineColor(beforeColor);
 	}
+	public void addLineText(String str) {
+		listProperty.add(new Line(str));
+	}
+	public void addFakeLine() {
+		listProperty.add(new Line(false));
+	}
 	public void setTextLines(ArrayList<Line> input) {
 		listProperty.clear();
 		for (int i = 0 ; i < input.size() ; i ++) {
@@ -150,7 +156,41 @@ public class TextPage {
 			else if(line.isRealLine()) line.setLineColor(Color.LIGHTGOLDENRODYELLOW);
 			else line.setLineColor(Color.LIGHTGREY);
 		}
-		if(listProperty.get(selectedIndex).isRealLine()) listProperty.get(selectedIndex).setLineColor(Color.PINK);
-		else listProperty.get(selectedIndex).setLineColor(Color.PAPAYAWHIP);
+		if(listProperty.get(selectedIndex).isRealLine()) {
+			listProperty.get(selectedIndex).setLineColor(Color.PINK);
+			int i = selectedIndex;
+			int max = listProperty.getSize();
+			while (++i < max) {
+				if (listProperty.get(i).getLineColor() == Color.LIGHTGOLDENRODYELLOW) {
+					listProperty.get(i).setLineColor(Color.PINK);					
+				}
+				else break;
+			}
+			i = selectedIndex;
+			while( --i > -1) {
+				if (listProperty.get(i).getLineColor() == Color.LIGHTGOLDENRODYELLOW) {
+					listProperty.get(i).setLineColor(Color.PINK);					
+				}
+				else break;
+			}
+		}
+		else {
+			listProperty.get(selectedIndex).setLineColor(Color.PAPAYAWHIP);
+			int i = selectedIndex;
+			int max = listProperty.getSize();
+			while (++i < max) {
+				if (listProperty.get(i).getLineColor() == Color.LIGHTGOLDENRODYELLOW) {
+					listProperty.get(i).setLineColor(Color.PAPAYAWHIP);
+				}
+				else break;
+			}
+			i = selectedIndex;
+			while( --i > -1) {
+				if (listProperty.get(i).getLineColor() == Color.LIGHTGOLDENRODYELLOW) {
+					listProperty.get(i).setLineColor(Color.PAPAYAWHIP);
+				}
+				else break;
+			}
+		}
 	}
 }
