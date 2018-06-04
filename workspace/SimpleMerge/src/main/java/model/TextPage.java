@@ -179,14 +179,14 @@ public class TextPage {
 			int i = selectedIndex;
 			int max = listProperty.getSize();
 			while (++i < max) {
-				if (listProperty.get(i).getLineColor() == Color.LIGHTGOLDENRODYELLOW) {
+				if (listProperty.get(i).getLineColor() == Color.LIGHTGREY) {
 					listProperty.get(i).setLineColor(Color.PAPAYAWHIP);
 				}
 				else break;
 			}
 			i = selectedIndex;
 			while( --i > -1) {
-				if (listProperty.get(i).getLineColor() == Color.LIGHTGOLDENRODYELLOW) {
+				if (listProperty.get(i).getLineColor() == Color.LIGHTGREY) {
 					listProperty.get(i).setLineColor(Color.PAPAYAWHIP);
 				}
 				else break;
