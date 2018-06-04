@@ -118,9 +118,6 @@ public class TextPage {
 	}
 	public void setLineText(int lineN, String str) {
 		listProperty.get(lineN).setLineText(str);
-		Color beforeColor = listProperty.get(lineN - 1).getLineColor();
-		Color afterColor = listProperty.get(lineN + 1).getLineColor();
-		if ( beforeColor == afterColor ) listProperty.get(lineN).setLineColor(beforeColor);
 	}
 	public void addLineText(String str) {
 		listProperty.add(new Line(str));
