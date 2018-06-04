@@ -102,10 +102,12 @@ public class LCS {
 				break;
 			else if (i==0&&j>0) { // no more on only left
 				reversedResultLeft.push(new Line(false));
+				rightList.get(j-1).setLineColor(Color.LIGHTGOLDENRODYELLOW);
 				reversedResultRight.push(rightList.get(j-1));
 				j--;
 			}
 			else if (i>0&&j==0) { // no more on only right
+				leftList.get(i-1).setLineColor(Color.LIGHTGOLDENRODYELLOW);
 				reversedResultLeft.push(leftList.get(i-1));
 				reversedResultRight.push(new Line(false));
 				i--;
