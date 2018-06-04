@@ -5,7 +5,7 @@ import java.util.*;
 import javafx.scene.paint.Color;
 
 public class LCS { 
-	public static int returnLargestIndex(int x, int y, int z) {
+	public static int returnLargestIndex(int x, int y, int z) { // x == up, y == left, z == diagonal
 		if (z>=x&&z>=y) // 
 			return 3;
 		else {
@@ -111,10 +111,12 @@ public class LCS {
 			for (j = 1; j < column ; j++ ) { // fill the matrix left to right
 				if(compareOneLine(leftList.get(i-1),rightList.get(j-1))){
 					lcsCount[i][j] = lcsCount[i-1][j-1]+1;
-					isSame[i][j]=true;
+					System.out.println(leftList.get(i-1).toString());
+					System.out.println(rightList.get(j-1).toString());
+					isSame[i][j] = true;
 				}
 				else { // if left and above is same, it came from left
-					int k = returnLargestIndex(lcsCount[i-1][j],lcsCount[i][j-1],lcsCount[i-1][j-1])-1; 
+					int k = returnLargestIndex(lcsCount[i-1][j],lcsCount[i][j-1],lcsCount[i-1][j-1]); 
 					switch (k){
 						case 1:
 							lcsCount[i][j] = lcsCount[i-1][j]-1;
@@ -129,6 +131,15 @@ public class LCS {
 				}
 			}
 		}
+		
+		for (i=0;i<row;i++) {
+			for (j=0;j<column;j++) {
+				System.out.printf("%d ",lcsCount[i][j]);
+			}
+			System.out.println();
+		}
+		System.out.println(isSame[11][9]);
+		System.out.println(isSame[13][10]);
 		
 		i = row-1;
 		j = column-1;
@@ -180,6 +191,7 @@ public class LCS {
 							reversedResultRight.push(rightinput);
 							i--;
 							j--;
+							break;
 					}
 					/*
 					if (lcsCount[i-1][j]==lcsCount[i][j-1]) { 
