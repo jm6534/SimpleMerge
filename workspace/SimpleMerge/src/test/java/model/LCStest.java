@@ -63,7 +63,7 @@ public class LCStest {
 		assertEquals(true,LCS.compareOneLine(testA, testB));
 	}
 	@Test
-	public void testReturnBiggerIntFalse() {
-		assertEquals(4,LCS.returnLargestIndex(2, 3,4));
+	public void testReturnLargestIndexFalse() {
+		assertEquals(2,LCS.returnLargestIndex(1,2,3));
 	}
 }
