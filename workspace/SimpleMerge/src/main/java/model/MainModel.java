@@ -8,7 +8,7 @@ import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
 
 public class MainModel {
-	private BooleanProperty isCompared;	// compare flag, Modified¿ªÇÒ
+	private BooleanProperty isCompared;	// compare flag, ModifiedÂ¿ÂªÃ‡Ã’
 	private SubModel leftSubModel;
 	private SubModel rightSubModel;
 	
@@ -51,10 +51,10 @@ public class MainModel {
 	}
 	
 	public boolean LCS() {
-		LCS.doLCS(this); // try lcs
+		boolean result = LCS.doLCS(this); // try lcs
 		this.setIsCompared(true);
-		
-		return true;
+			
+		return result;
 	}
 	public void copyToLeft() {
 		
