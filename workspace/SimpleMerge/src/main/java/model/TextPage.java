@@ -18,6 +18,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Stack;
+import org.apache.commons.io.*;
 
 public class TextPage {
     private ListProperty<Line> listProperty = new SimpleListProperty<>();
