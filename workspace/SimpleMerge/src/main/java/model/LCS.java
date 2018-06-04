@@ -5,7 +5,7 @@ import java.util.*;
 import javafx.scene.paint.Color;
 
 public class LCS { 
-	public static int returnLargestIndex(int x, int y, int z) {
+	public static int returnLargestIndex(int x, int y, int z) { // x == up, y == left, z == diagonal
 		if (z>=x&&z>=y) // 
 			return 3;
 		else {
@@ -32,42 +32,6 @@ public class LCS {
 		for (i = k-1; i >= 0; i--) {
 			if ( !right.get(i).isRealLine() )
 				right.remove(i);
-		}
-	}
-	public static void removeUselessFakeLinesAfter(ArrayList<Line> left, ArrayList<Line> right) {
-		int i;
-		int k=left.size();
-		for (i=0;i<k-1;i++) {
-			if (left.get(i).isRealLine()&&!right.get(i).isRealLine()) { // when left is real and right is fake
-				if (!left.get(i+1).isRealLine()&&right.get(i+1).isRealLine()) { // and at the next line, if left is fake and right is real
-					left.remove(i+1); // remove those fake lines
-					right.remove(i);
-					k--;	// size of ArrayList has been decreased
-					if (!compareOneLine(left.get(i),right.get(i))) {
-						left.get(i).setLineColor(Color.LIGHTGOLDENRODYELLOW);
-						right.get(i).setLineColor(Color.LIGHTGOLDENRODYELLOW);
-					}
-					else {
-						left.get(i).setLineColor(Color.WHITE);
-						right.get(i).setLineColor(Color.WHITE);
-					}
-				}	
-			}
-			else if (!left.get(i).isRealLine()&&right.get(i).isRealLine()) { // when left is fake and right is real
-				if (left.get(i+1).isRealLine()&&!right.get(i+1).isRealLine()) { // and at the next line, if left is real and right is line
-					left.remove(i); // remove those fake lines
-					right.remove(i+1);
-					k--;	// size of ArrayList has been decreased
-					if (!compareOneLine(left.get(i),right.get(i))) {
-						left.get(i).setLineColor(Color.LIGHTGOLDENRODYELLOW);
-						right.get(i).setLineColor(Color.LIGHTGOLDENRODYELLOW);
-					}
-					else {
-						left.get(i).setLineColor(Color.WHITE);
-						right.get(i).setLineColor(Color.WHITE);
-					}
-				}	
-			}
 		}
 	}
 	public static void doLCS(MainModel lcsMainModel) { // this method will return MainModel
@@ -111,10 +75,10 @@ public class LCS {
 			for (j = 1; j < column ; j++ ) { // fill the matrix left to right
 				if(compareOneLine(leftList.get(i-1),rightList.get(j-1))){
 					lcsCount[i][j] = lcsCount[i-1][j-1]+1;
-					isSame[i][j]=true;
+					isSame[i][j] = true;
 				}
 				else { // if left and above is same, it came from left
-					int k = returnLargestIndex(lcsCount[i-1][j],lcsCount[i][j-1],lcsCount[i-1][j-1])-1; 
+					int k = returnLargestIndex(lcsCount[i-1][j],lcsCount[i][j-1],lcsCount[i-1][j-1]); 
 					switch (k){
 						case 1:
 							lcsCount[i][j] = lcsCount[i-1][j]-1;
@@ -137,20 +101,17 @@ public class LCS {
 			if (i==0&&j==0) // if making stack is over
 				break;
 			else if (i==0&&j>0) { // no more on only left
-				//System.out.println("i="+i+", j="+j+"no more on left");
 				reversedResultLeft.push(new Line(false));
 				reversedResultRight.push(rightList.get(j-1));
 				j--;
 			}
 			else if (i>0&&j==0) { // no more on only right
-				//System.out.println("i="+i+", j="+j+"no more on right");
 				reversedResultLeft.push(leftList.get(i-1));
 				reversedResultRight.push(new Line(false));
 				i--;
 			}
 			else {
 				if (isSame[i][j]) { // if reached same side
-					//System.out.println("i="+i+", j="+j+" equal");
 					reversedResultLeft.push(leftList.get(i-1));
 					reversedResultRight.push(rightList.get(j-1));
 					i--;
@@ -180,34 +141,11 @@ public class LCS {
 							reversedResultRight.push(rightinput);
 							i--;
 							j--;
+							break;
 					}
-					/*
-					if (lcsCount[i-1][j]==lcsCount[i][j-1]) { 
-						//System.out.println("i="+i+", j="+j+" not equal but left up same");
-						reversedResultLeft.push(new Line(false));
-						reversedResultRight.push(rightList.get(j-1));
-						j--;
-					}
-					else {
-						if (lcsCount[i-1][j]>lcsCount[i][j-1]) {
-							//System.out.println("i="+i+", j="+j+" up is bigger");
-							reversedResultLeft.push(leftList.get(i-1));
-							reversedResultRight.push(new Line(false));
-							i--;
-						}
-						else {
-							//System.out.println("i="+i+", j="+j+" left is bigger");
-							reversedResultLeft.push(new Line(false));
-							reversedResultRight.push(rightList.get(j-1));
-							j--;
-						}
-					}
-					*/
 				}
 			}
 		}
-		//lcsMainModel.setLeftTextLines(reversedResultLeft);
-		//lcsMainModel.setRightTextLines(reversedResultRight);
 		resultLeft=new ArrayList<Line>();
 		resultRight=new ArrayList<Line>();
 		
@@ -218,9 +156,6 @@ public class LCS {
 			resultRight.add(reversedResultRight.pop());
 		}
 		
-		// at this point, both ArrayList has same size
-		
-		//removeUselessFakeLinesAfter(resultLeft,resultRight);
 		lcsMainModel.setLeftTextLines(resultLeft);
 		lcsMainModel.setRightTextLines(resultRight);
 		
