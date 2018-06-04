@@ -46,18 +46,17 @@ public class ButtonController implements Initializable {
 	
 	public void compareClick(ActionEvent event) {
 		if(mainModel.LCS()) mainModel.setIsCompared(true);
+		else mainModel.setIsCompared(false);
 	}
 	
 	public void copyToLeftClick(ActionEvent event) {
 		mainModel.copyToLeft();
 		mainModel.getLeftSubModel().setIsModified(true);
-		mainModel.setIsCompared(false);
 	}
 	
 	public void copyToRightClick(ActionEvent event) {
 		mainModel.copyToRight();
 		mainModel.getRightSubModel().setIsModified(true);		
-		mainModel.setIsCompared(false);
 	}
 
 	public void setMainModel(MainModel mainModel) {

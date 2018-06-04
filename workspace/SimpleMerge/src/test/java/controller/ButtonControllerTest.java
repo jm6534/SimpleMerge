@@ -22,23 +22,25 @@ public class ButtonControllerTest extends TestCase{
 	@Test
 	public void testCopyToRight() {
 		testController.copyToRightClick(new ActionEvent());
-		assertTrue(mainModel.getRightSubModel().isModified() && mainModel.isCompared());
+		assertTrue(mainModel.getRightSubModel().isModified());
 	}
 	@Test
 	public void testCopyToLeft() {
 		testController.copyToLeftClick(new ActionEvent());
-		assertTrue(mainModel.getLeftSubModel().isModified() && mainModel.isCompared());
+		assertTrue(mainModel.getLeftSubModel().isModified());
 	}
 	@Test
 	public void testCompareEqual() {
-		mainModel.getLeftSubModel().addLineText(0, "aaa");
-		mainModel.getLeftSubModel().addLineText(0, "aaa");
+		mainModel.getLeftSubModel().getTextPage().addLineText("aaa");
+		mainModel.getRightSubModel().getTextPage().addLineText("aaa");
+		testController.compareClick(new ActionEvent());
 		assertTrue(!mainModel.isCompared());
 	}
 	@Test
 	public void testCompareNonEqual() {
-		mainModel.getLeftSubModel().addLineText(0, "aaa");
-		mainModel.getLeftSubModel().addLineText(0, "bbb");
+		mainModel.getLeftSubModel().getTextPage().addLineText("aaa");
+		mainModel.getRightSubModel().getTextPage().addLineText("bbb");
+		testController.compareClick(new ActionEvent());
 		assertTrue(mainModel.isCompared());
 	}
 }
