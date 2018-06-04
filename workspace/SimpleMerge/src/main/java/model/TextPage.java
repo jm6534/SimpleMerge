@@ -117,7 +117,8 @@ public class TextPage {
 		return listProperty.get(lineN).getLineText();
 	}
 	public void setLineText(int lineN, String str) {
-		listProperty.get(lineN).setLineText(str);
+		listProperty.remove(lineN);
+		listProperty.add(lineN, new Line(str));
 	}
 	public void addLineText(String str) {
 		listProperty.add(new Line(str));
