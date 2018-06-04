@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.paint.Color;
 import java.io.BufferedReader;
 import java.io.File;
@@ -114,6 +115,9 @@ public class TextPage {
 	}
 	public void setLineText(int lineN, String str) {
 		listProperty.get(lineN).setLineText(str);
+		Color beforeColor = listProperty.get(lineN - 1).getLineColor();
+		Color afterColor = listProperty.get(lineN + 1).getLineColor();
+		if ( beforeColor == afterColor ) listProperty.get(lineN).setLineColor(beforeColor);
 	}
 	public void setTextLines(ArrayList<Line> input) {
 		listProperty.clear();
