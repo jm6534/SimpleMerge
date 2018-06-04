@@ -1,7 +1,6 @@
 package model;
 
 import java.util.*;
-
 import javafx.scene.paint.Color;
 
 public class LCS { 
@@ -15,12 +14,14 @@ public class LCS {
 				return 2;
 		}
 	}
+	
 	public static boolean compareOneLine(Line left, Line right) {
 		if (left.getLineText().equals(right.getLineText())) // return true if two Strings are 'ACTUALLY' same
 			return true;
 		else
 			return false;
 	}
+	
 	public static void removeUselessFakeLinesBefore(ArrayList<Line> left, ArrayList<Line> right) {
 		int i;
 		int k = left.size();
@@ -34,7 +35,8 @@ public class LCS {
 				right.remove(i);
 		}
 	}
-	public static void doLCS(MainModel lcsMainModel) { // this method will return MainModel
+	
+	public static boolean doLCS(MainModel lcsMainModel) { // this method will return MainModel
 		int i, j;
 		int[][] lcsCount; // this array makes lcs matrix 
 		boolean[][] isSame; // save the result of compare 
@@ -44,6 +46,7 @@ public class LCS {
 		Stack<Line> reversedResultRight = new Stack<Line>();
 		ArrayList<Line> resultLeft;
 		ArrayList<Line> resultRight;
+		boolean isModified = false;
 		
 		
 		leftList=lcsMainModel.getLeftSubModel().getTextPage().getTextLines();
@@ -105,6 +108,7 @@ public class LCS {
 				rightList.get(j-1).setLineColor(Color.LIGHTGOLDENRODYELLOW);
 				reversedResultRight.push(rightList.get(j-1));
 				j--;
+				isModified = true;
 			}
 			else if (i>0&&j==0) { // no more on only right
 				leftList.get(i-1).setLineColor(Color.LIGHTGOLDENRODYELLOW);
@@ -118,6 +122,7 @@ public class LCS {
 					reversedResultRight.push(rightList.get(j-1));
 					i--;
 					j--;
+					isModified = true;
 				}
 				else {
 					int k = returnLargestIndex(lcsCount[i-1][j],lcsCount[i][j-1],lcsCount[i-1][j-1]);
@@ -127,12 +132,14 @@ public class LCS {
 							reversedResultLeft.push(leftList.get(i-1));
 							reversedResultRight.push(new Line(false));
 							i--;
+							isModified = true;
 							break;
 						case 2:
 							reversedResultLeft.push(new Line(false));
 							rightList.get(j-1).setLineColor(Color.LIGHTGOLDENRODYELLOW);
 							reversedResultRight.push(rightList.get(j-1));
 							j--;
+							isModified = true;
 							break;
 						case 3:
 							Line leftinput = leftList.get(i-1);
@@ -143,6 +150,7 @@ public class LCS {
 							reversedResultRight.push(rightinput);
 							i--;
 							j--;
+							isModified = true;
 							break;
 					}
 				}
@@ -158,8 +166,10 @@ public class LCS {
 			resultRight.add(reversedResultRight.pop());
 		}
 		
+		
 		lcsMainModel.setLeftTextLines(resultLeft);
 		lcsMainModel.setRightTextLines(resultRight);
-		
+
+		return isModified;
 	}
 }
