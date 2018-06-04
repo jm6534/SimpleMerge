@@ -1,7 +1,9 @@
 package model;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.Property;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -20,6 +22,7 @@ import java.util.Stack;
 public class TextPage {
     private ListProperty<Line> listProperty = new SimpleListProperty<>();
     private StringProperty filePathProperty = new SimpleStringProperty();
+	private IntegerProperty selectedIndexProperty = new SimpleIntegerProperty();
     
 	public TextPage() {
 		listProperty.set(FXCollections.observableArrayList(new ArrayList<Line>()));
@@ -135,5 +138,19 @@ public class TextPage {
 		for(Line line : listProperty) {
 			line.setLineColor(Color.WHITE);
 		}
+	}
+	public Property<Number> getSelectedIndexProperty() {
+		return selectedIndexProperty;
+	}
+	public void setSelectedLineColor(int selectedIndex) {
+		if(selectedIndex < 0 || selectedIndex >= listProperty.size()) return;
+		if(getLineColor(selectedIndex).equals(Color.WHITE)) return;
+		for(Line line : listProperty) {
+			if(line.getLineColor().equals(Color.WHITE)) continue;
+			else if(line.isRealLine()) line.setLineColor(Color.LIGHTGOLDENRODYELLOW);
+			else line.setLineColor(Color.LIGHTGREY);
+		}
+		if(listProperty.get(selectedIndex).isRealLine()) listProperty.get(selectedIndex).setLineColor(Color.PINK);
+		else listProperty.get(selectedIndex).setLineColor(Color.PAPAYAWHIP);
 	}
 }
