@@ -9,6 +9,7 @@ import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
+import javafx.embed.swing.JFXPanel;
 import javafx.scene.paint.Color;
 import junit.framework.*;
 
@@ -19,7 +20,8 @@ public class LCStest {
 	public void setUp(){
 		ArrayList<Line> testList = new ArrayList<Line>();
 		testModel = new MainModel();
-
+		JFXPanel a = new JFXPanel();
+		
 		testList.add(new Line("abcde"));
 		testList.add(new Line("defgh"));
 		testList.add(new Line("bcdef"));

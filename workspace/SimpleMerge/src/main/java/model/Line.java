@@ -16,37 +16,30 @@ public class Line {
 		this.isRealLine = true;
 	}
 	public Line(boolean bool) {
-		this.lineText = new String();
+		this();
 		this.isRealLine = bool;
-		this.lineColor = new ColorPicker();
-		if (this.isRealLine) this.lineColor.setValue(Color.WHITE);
-		this.lineColor.setValue(Color.LIGHTGRAY);
+		if (!this.isRealLine) this.lineColor.setValue(Color.LIGHTGRAY);
 	}
 	public Line(String text, boolean bool) {
-		this.lineText = text;
+		this();
 		this.isRealLine = bool;
-		this.lineColor = new ColorPicker();
-		if (this.isRealLine) this.lineColor.setValue(Color.WHITE);
-		this.lineColor.setValue(Color.LIGHTGRAY);
+		this.lineText = text;
+		if (!this.isRealLine) this.lineColor.setValue(Color.LIGHTGRAY);
 	}
 	public Line(String lineText) {
+		this();
 		this.lineText = lineText;
-		this.lineColor = new ColorPicker();
-		this.lineColor = new ColorPicker();
-		this.lineColor.setValue(Color.WHITE);
-		this.isRealLine = true;
 	}
 	public Line(String lineText, Color lineColor) {
+		this();
 		this.lineText = lineText;
 		this.lineColor.setValue(lineColor);
-		this.lineColor = new ColorPicker();
 		if (lineColor == Color.LIGHTGRAY) this.isRealLine = false;
-		else this.isRealLine = true;
 	}
 	public void setFakeLine() {
 		this.lineText = new String();
 		this.lineColor.setValue(Color.LIGHTGRAY);
-		this.isRealLine = false;		
+		this.isRealLine = false;
 	}
 	public void setFakeLine(String content) {
 		this.lineText = new String(content);
@@ -63,7 +56,7 @@ public class Line {
 		if ( !this.isRealLine ) this.lineColor.setValue(Color.WHITE);
 	}
 	public Color getLineColor() {
-		Color ret = Color.web(lineColor.toString());
+		Color ret = lineColor.getValue();
 		return ret;
 	}
 	public void setLineColor(Color lineColor) {

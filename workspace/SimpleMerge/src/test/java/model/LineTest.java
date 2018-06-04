@@ -1,10 +1,18 @@
 package model;
 
+import javafx.embed.swing.JFXPanel;
 import junit.framework.*;
 
 
 public class LineTest extends TestCase {
+	private JFXPanel a = new JFXPanel();
 	private Line testLine = new Line();
+	
+	
+	public void testLineConstructor() {
+		new Line();
+		new Line(new String("Success"));
+	}
 	
 	public void testSetLineTextTrue() {
 		testLine.setLineText("Testing Success");
