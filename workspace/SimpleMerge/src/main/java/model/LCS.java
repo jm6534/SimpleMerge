@@ -34,42 +34,6 @@ public class LCS {
 				right.remove(i);
 		}
 	}
-	public static void removeUselessFakeLinesAfter(ArrayList<Line> left, ArrayList<Line> right) {
-		int i;
-		int k=left.size();
-		for (i=0;i<k-1;i++) {
-			if (left.get(i).isRealLine()&&!right.get(i).isRealLine()) { // when left is real and right is fake
-				if (!left.get(i+1).isRealLine()&&right.get(i+1).isRealLine()) { // and at the next line, if left is fake and right is real
-					left.remove(i+1); // remove those fake lines
-					right.remove(i);
-					k--;	// size of ArrayList has been decreased
-					if (!compareOneLine(left.get(i),right.get(i))) {
-						left.get(i).setLineColor(Color.LIGHTGOLDENRODYELLOW);
-						right.get(i).setLineColor(Color.LIGHTGOLDENRODYELLOW);
-					}
-					else {
-						left.get(i).setLineColor(Color.WHITE);
-						right.get(i).setLineColor(Color.WHITE);
-					}
-				}	
-			}
-			else if (!left.get(i).isRealLine()&&right.get(i).isRealLine()) { // when left is fake and right is real
-				if (left.get(i+1).isRealLine()&&!right.get(i+1).isRealLine()) { // and at the next line, if left is real and right is line
-					left.remove(i); // remove those fake lines
-					right.remove(i+1);
-					k--;	// size of ArrayList has been decreased
-					if (!compareOneLine(left.get(i),right.get(i))) {
-						left.get(i).setLineColor(Color.LIGHTGOLDENRODYELLOW);
-						right.get(i).setLineColor(Color.LIGHTGOLDENRODYELLOW);
-					}
-					else {
-						left.get(i).setLineColor(Color.WHITE);
-						right.get(i).setLineColor(Color.WHITE);
-					}
-				}	
-			}
-		}
-	}
 	public static void doLCS(MainModel lcsMainModel) { // this method will return MainModel
 		int i, j;
 		int[][] lcsCount; // this array makes lcs matrix 
@@ -179,30 +143,9 @@ public class LCS {
 							j--;
 							break;
 					}
-					/*
-					if (lcsCount[i-1][j]==lcsCount[i][j-1]) { 
-						reversedResultLeft.push(new Line(false));
-						reversedResultRight.push(rightList.get(j-1));
-						j--;
-					}
-					else {
-						if (lcsCount[i-1][j]>lcsCount[i][j-1]) {
-							reversedResultLeft.push(leftList.get(i-1));
-							reversedResultRight.push(new Line(false));
-							i--;
-						}
-						else {
-							reversedResultLeft.push(new Line(false));
-							reversedResultRight.push(rightList.get(j-1));
-							j--;
-						}
-					}
-					*/
 				}
 			}
 		}
-		//lcsMainModel.setLeftTextLines(reversedResultLeft);
-		//lcsMainModel.setRightTextLines(reversedResultRight);
 		resultLeft=new ArrayList<Line>();
 		resultRight=new ArrayList<Line>();
 		
@@ -213,9 +156,6 @@ public class LCS {
 			resultRight.add(reversedResultRight.pop());
 		}
 		
-		// at this point, both ArrayList has same size
-		
-		//removeUselessFakeLinesAfter(resultLeft,resultRight);
 		lcsMainModel.setLeftTextLines(resultLeft);
 		lcsMainModel.setRightTextLines(resultRight);
 		
