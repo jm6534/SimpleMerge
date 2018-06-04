@@ -214,4 +214,11 @@ public class TextController implements Initializable {
 
 		addEmptyLine();
 	}
+	public void setSubModelForTest(SubModel subModel) {
+		text = new ListView<Line>();
+		edit = new ToggleButton();
+		title = new TextField();
+		
+		setSubModel(subModel);
+	}
 }

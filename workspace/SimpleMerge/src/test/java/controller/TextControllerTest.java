@@ -5,6 +5,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import junit.framework.TestCase;
 import model.Line;
@@ -17,13 +18,14 @@ public class TextControllerTest extends TestCase{
 	private SubModel subModel;
 	@Before
 	public void setUp() {
+		JFXPanel a = new JFXPanel();
 		testController = new TextController();
 		subModel = new SubModel();
 		testController.setSubModel(subModel);
 	}
 	
 	@Test
-	public void edit() {
+	public void testEdit() {
 		testController.editClick(new ActionEvent());
 		assertTrue(subModel.isEditable());
 	}
