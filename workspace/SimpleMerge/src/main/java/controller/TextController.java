@@ -173,10 +173,12 @@ public class TextController implements Initializable {
 	}
 
 	public void editCommit(EditEvent<Line> event) {
-		text.getItems().add(text.getSelectionModel().getSelectedIndex(), event.getNewValue());
-		text.getItems().remove(text.getSelectionModel().getSelectedIndex());
-		text.getItems().add(text.getSelectionModel().getSelectedIndex() +1,new Line());
-		text.getSelectionModel().selectNext();
+		textPage.setLineText(event.getIndex(), event.getNewValue().toString());
+		if(event.getIndex() == textPage.getMaxNListProperty() - 1
+				||textPage.getMaxNListProperty() == 1) {
+			textPage.addLineText("");
+		}
+		text.getSelectionModel().select(event.getIndex() + 1);
 	}
 
 	public void loadClick(ActionEvent event) {
