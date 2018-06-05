@@ -200,4 +200,9 @@ public class TextPage {
 			}
 		}
 	}
+	public void clearContents() {
+		clearBackground();
+		listProperty.clear();
+		filePathProperty.setValue("");
+	}
 }

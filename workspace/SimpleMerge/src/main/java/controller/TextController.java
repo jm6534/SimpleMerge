@@ -67,7 +67,6 @@ public class TextController implements Initializable {
 		save.translateXProperty().bind(Bindings.add(load.widthProperty(), edit.widthProperty()));
 
 		text.setCellFactory(new Callback<ListView<Line>, ListCell<Line>>(){
-
 			@Override
 			public ListCell<Line> call(ListView<Line> arg0) {
 				TextFieldListCell<Line> cell = new TextFieldListCell<Line>() {
@@ -108,9 +107,7 @@ public class TextController implements Initializable {
 		setDefaultExtentionsOfFileChooser(fileChooser);
 		File file = fileChooser.showOpenDialog(null);
 		if(file == null || file.getAbsolutePath() == null || file.getAbsolutePath().equals("")) return;
-		textPage.clearBackground();
-		text.getItems().clear();
-		title.clear();
+		textPage.clearContents();
 		textPage.setFilePath(file);
 		if(text.getItems().isEmpty()) {
 			addEmptyLine();
