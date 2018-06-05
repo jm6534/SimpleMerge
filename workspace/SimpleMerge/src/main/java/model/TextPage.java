@@ -62,7 +62,7 @@ public class TextPage {
 	public String getFilePath() {
 		return new String(filePathProperty.get());
 	}
-	
+
 	public void setTextField(String line, int lineN) { 
 		listProperty.get(lineN).setLineText(line);
 	}
