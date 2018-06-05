@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javax.activation.MimeType;
+
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.value.ChangeListener;
@@ -103,11 +105,7 @@ public class TextController implements Initializable {
 
 	private void fileLoad() {
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
-		fileChooser.getExtensionFilters().add(new ExtensionFilter("C Source Files", "*.c"));
-		fileChooser.getExtensionFilters().add(new ExtensionFilter("Java Source Files", "*.java"));
-		fileChooser.getExtensionFilters().add(new ExtensionFilter("C++ Source Files", "*.cpp"));
-		fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
+		setDefaultExtentionsOfFileChooser(fileChooser);
 		File file = fileChooser.showOpenDialog(null);
 		if(file == null || file.getAbsolutePath() == null || file.getAbsolutePath().equals("")) return;
 		textPage.clearBackground();
@@ -121,6 +119,14 @@ public class TextController implements Initializable {
 		subModel.setIsModified(false);
 	}
 
+	private void setDefaultExtentionsOfFileChooser(FileChooser fileChooser) {
+		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Text Files", "*.txt")
+				,new ExtensionFilter("C Source Files", "*.c")
+				,new ExtensionFilter("Java Source Files", "*.java")
+				,new ExtensionFilter("C++ Source Files", "*.cpp")
+				,new ExtensionFilter("Python Source Files", "*.py"));		
+	}
+
 	@SuppressWarnings("unchecked")
 	private void addEmptyLine() {
 		((List<Line>) textPage.getListProperty()).add(new Line(""));
@@ -129,11 +135,7 @@ public class TextController implements Initializable {
 	private void fileSave() {
 		try {
 			FileChooser fileChooser = new FileChooser();
-			fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
-			fileChooser.getExtensionFilters().add(new ExtensionFilter("C Source Files", "*.c"));
-			fileChooser.getExtensionFilters().add(new ExtensionFilter("Java Source Files", "*.java"));
-			fileChooser.getExtensionFilters().add(new ExtensionFilter("C++ Source Files", "*.cpp"));
-			fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
+			setDefaultExtentionsOfFileChooser(fileChooser);
 			File file = fileChooser.showSaveDialog(null);
 			if (file != null) {
 				try{
@@ -226,7 +228,7 @@ public class TextController implements Initializable {
 		text = new ListView<Line>();
 		edit = new ToggleButton();
 		title = new TextField();
-		
+
 		setSubModel(subModel);
 	}
 }
