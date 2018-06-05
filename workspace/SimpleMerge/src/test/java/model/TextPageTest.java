@@ -7,17 +7,23 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
+import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import javafx.embed.swing.JFXPanel;
+
 public class TextPageTest{
 	private TextPage textPage;
 	private File mockFile;
-
+	private int lineCnt;
+	private SubModel mockSubModel;
+	
 	private static final String FILE_NAME = "test-file.txt";
-    private static final String LINE_CONTENT = "line";
+    private static final String LINE_CONTENT = "line test";
+	private JFXPanel a = new JFXPanel();
 
 	@Rule
 	public final TemporaryFolder tempFolder = new TemporaryFolder();
@@ -26,6 +32,7 @@ public class TextPageTest{
     @Before
     public void init() throws IOException {
     	mockFile = tempFolder.newFile(FILE_NAME);
+    	FileUtils.writeStringToFile(mockFile, LINE_CONTENT + lineCnt++ + "\n","UTF8", true);
     }
     
     @Test
@@ -39,68 +46,33 @@ public class TextPageTest{
     	textPage = new TextPage(mockFile);
     	assertTrue(mockFile.exists());    	
      	assertEquals(textPage.getFilePath(), mockFile.getAbsolutePath());
+     	assertEquals(textPage.getLineText(0), LINE_CONTENT + (lineCnt - 1));
     }
 
 	@Test
-	public void testSetTextField() throws IOException {
-		textPage = new TextPage();
-		textPage.setTextField(LINE_CONTENT, 1);
-//		assertEquals(LINE_CONTENT, textPage.getLineText(0));
-	}
-/*
-	@Test
-	public void testAddFakeLines() {
-		fail("Not yet implemented");
+	public void testTextFieldForSave() throws IOException {
+		String strTmp = new String();
+		mockSubModel = EasyMock.createMock(SubModel.class);
+		FileUtils.writeStringToFile(mockFile, LINE_CONTENT + lineCnt++ +"\n","UTF8", true);
+    	FileUtils.writeStringToFile(mockFile, LINE_CONTENT + lineCnt++ +"\n","UTF8", true);
+    	FileUtils.writeStringToFile(mockFile, LINE_CONTENT + lineCnt++ +"\n","UTF8", true);
+		textPage = new TextPage(mockFile);
+		
+		textPage.addLineText(LINE_CONTENT + lineCnt++ + "\n");
+		System.out.println(textPage.getLineText(0));
+		System.out.println(textPage.getLineText(1));
+		System.out.println(textPage.getLineText(2));
+		System.out.println(textPage.getLineText(3));
+		System.out.println(textPage.getLineText(4));
+		assertEquals(textPage.getMaxNListProperty(), lineCnt);
+
+		textPage.deleteLine(--lineCnt);
+		assertEquals(textPage.getMaxNListProperty(), lineCnt);
+		///////////////////////////////////////////////////////////
+		assertEquals(textPage.getTextFieldForSave().split("\n")[1], textPage.getLineText(1));
+		////////////////////////////////////////////////////////////
+		System.out.println();
+		
 	}
 
-	@Test
-	public void testSetRealLine() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testToogleIsRealLine() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetLineColor() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetLineText() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testAddLineText() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testAddFakeLine() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testDeleteLine() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetTextLines() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testClearBackground() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetSelectedLineColor() {
-		fail("Not yet implemented");
-	}
-*/
 }
