@@ -35,7 +35,7 @@ public class TextPage {
 		filePathProperty.set(file.getAbsolutePath());
 		BufferedReader br = null;
 		try {
-			 br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+			 br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
 			 String newLine;
 			 while( (newLine = br.readLine()) != null ) {
 				 listProperty.add(new Line(new String(newLine)));
@@ -49,7 +49,7 @@ public class TextPage {
 		filePathProperty.set(file.getAbsolutePath());
 		BufferedReader br = null;
 		try {
-			 br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+			 br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
 			 String newLine;
 			 while( (newLine = br.readLine()) != null ) {
 				 listProperty.add(new Line(new String(newLine)));
