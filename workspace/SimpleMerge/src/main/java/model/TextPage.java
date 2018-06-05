@@ -18,6 +18,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Stack;
+import org.apache.commons.io.*;
 
 public class TextPage {
     private ListProperty<Line> listProperty = new SimpleListProperty<>();
@@ -117,10 +118,8 @@ public class TextPage {
 		return listProperty.get(lineN).getLineText();
 	}
 	public void setLineText(int lineN, String str) {
-		listProperty.get(lineN).setLineText(str);
-		Color beforeColor = listProperty.get(lineN - 1).getLineColor();
-		Color afterColor = listProperty.get(lineN + 1).getLineColor();
-		if ( beforeColor == afterColor ) listProperty.get(lineN).setLineColor(beforeColor);
+		listProperty.remove(lineN);
+		listProperty.add(lineN, new Line(str));
 	}
 	public void addLineText(String str) {
 		listProperty.add(new Line(str));

@@ -104,6 +104,9 @@ public class TextController implements Initializable {
 	private void fileLoad() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("C Source Files", "*.c"));
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Java Source Files", "*.java"));
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("C++ Source Files", "*.cpp"));
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
 		File file = fileChooser.showOpenDialog(null);
 		if(file == null || file.getAbsolutePath() == null || file.getAbsolutePath().equals("")) return;
@@ -127,6 +130,9 @@ public class TextController implements Initializable {
 		try {
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
+			fileChooser.getExtensionFilters().add(new ExtensionFilter("C Source Files", "*.c"));
+			fileChooser.getExtensionFilters().add(new ExtensionFilter("Java Source Files", "*.java"));
+			fileChooser.getExtensionFilters().add(new ExtensionFilter("C++ Source Files", "*.cpp"));
 			fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
 			File file = fileChooser.showSaveDialog(null);
 			if (file != null) {

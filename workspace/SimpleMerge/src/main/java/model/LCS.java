@@ -181,6 +181,7 @@ public class LCS {
 		makeLCSMatrix(lcsCount, isSame, leftList, rightList, row, column);
 		isModified=makeResultStack(lcsCount, isSame, leftList, rightList, row, column, resultStackLeft, resultStackRight);
 		makeListFromStack(resultLeft, resultRight, resultStackLeft, resultStackRight);
+		modifyMainModel(lcsMainModel, resultLeft, resultRight);
 		
 		return isModified;
 	}
