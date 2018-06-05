@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javax.activation.MimeType;
+
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.value.ChangeListener;
@@ -65,7 +67,6 @@ public class TextController implements Initializable {
 		save.translateXProperty().bind(Bindings.add(load.widthProperty(), edit.widthProperty()));
 
 		text.setCellFactory(new Callback<ListView<Line>, ListCell<Line>>(){
-
 			@Override
 			public ListCell<Line> call(ListView<Line> arg0) {
 				TextFieldListCell<Line> cell = new TextFieldListCell<Line>() {
@@ -103,22 +104,24 @@ public class TextController implements Initializable {
 
 	private void fileLoad() {
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
-		fileChooser.getExtensionFilters().add(new ExtensionFilter("C Source Files", "*.c"));
-		fileChooser.getExtensionFilters().add(new ExtensionFilter("Java Source Files", "*.java"));
-		fileChooser.getExtensionFilters().add(new ExtensionFilter("C++ Source Files", "*.cpp"));
-		fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
+		setDefaultExtentionsOfFileChooser(fileChooser);
 		File file = fileChooser.showOpenDialog(null);
 		if(file == null || file.getAbsolutePath() == null || file.getAbsolutePath().equals("")) return;
-		textPage.clearBackground();
-		text.getItems().clear();
-		title.clear();
+		textPage.clearContents();
 		textPage.setFilePath(file);
 		if(text.getItems().isEmpty()) {
 			addEmptyLine();
 		}
 		subModel.setIsEditable(false);
 		subModel.setIsModified(false);
+	}
+
+	private void setDefaultExtentionsOfFileChooser(FileChooser fileChooser) {
+		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Text Files", "*.txt")
+				,new ExtensionFilter("C Source Files", "*.c")
+				,new ExtensionFilter("Java Source Files", "*.java")
+				,new ExtensionFilter("C++ Source Files", "*.cpp")
+				,new ExtensionFilter("Python Source Files", "*.py"));		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -129,11 +132,7 @@ public class TextController implements Initializable {
 	private void fileSave() {
 		try {
 			FileChooser fileChooser = new FileChooser();
-			fileChooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
-			fileChooser.getExtensionFilters().add(new ExtensionFilter("C Source Files", "*.c"));
-			fileChooser.getExtensionFilters().add(new ExtensionFilter("Java Source Files", "*.java"));
-			fileChooser.getExtensionFilters().add(new ExtensionFilter("C++ Source Files", "*.cpp"));
-			fileChooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*.*"));
+			setDefaultExtentionsOfFileChooser(fileChooser);
 			File file = fileChooser.showSaveDialog(null);
 			if (file != null) {
 				try{
@@ -162,10 +161,11 @@ public class TextController implements Initializable {
 		if(text.isEditable()) {
 			if(event.getCode() == KeyCode.BACK_SPACE) {
 				if(selectedString.length() >= 1) {
-					text.getItems().set(selectedIndex, new Line(selectedString.substring(0, selectedString.length() - 1)));
+					textPage.setLineText(selectedIndex, selectedString.substring(0, selectedString.length() - 1));
+					text.getSelectionModel().select(selectedIndex);
 				}
-				else if(text.getItems().size() > 2) {
-					text.getItems().remove(selectedIndex);
+				else if(text.getItems().size() >= 2) {
+					textPage.deleteLine(selectedIndex);
 				}
 			}
 		}
@@ -173,10 +173,12 @@ public class TextController implements Initializable {
 	}
 
 	public void editCommit(EditEvent<Line> event) {
-		text.getItems().add(text.getSelectionModel().getSelectedIndex(), event.getNewValue());
-		text.getItems().remove(text.getSelectionModel().getSelectedIndex());
-		text.getItems().add(text.getSelectionModel().getSelectedIndex() +1,new Line());
-		text.getSelectionModel().selectNext();
+		textPage.setLineText(event.getIndex(), event.getNewValue().toString());
+		if(event.getIndex() == textPage.getMaxNListProperty() - 1
+				||textPage.getMaxNListProperty() == 1) {
+			textPage.addLineText("");
+		}
+		text.getSelectionModel().select(event.getIndex() + 1);
 	}
 
 	public void loadClick(ActionEvent event) {
@@ -224,7 +226,7 @@ public class TextController implements Initializable {
 		text = new ListView<Line>();
 		edit = new ToggleButton();
 		title = new TextField();
-		
+
 		setSubModel(subModel);
 	}
 }
