@@ -161,10 +161,11 @@ public class TextController implements Initializable {
 		if(text.isEditable()) {
 			if(event.getCode() == KeyCode.BACK_SPACE) {
 				if(selectedString.length() >= 1) {
-					text.getItems().set(selectedIndex, new Line(selectedString.substring(0, selectedString.length() - 1)));
+					textPage.setLineText(selectedIndex, selectedString.substring(0, selectedString.length() - 1));
+					text.getSelectionModel().select(selectedIndex);
 				}
-				else if(text.getItems().size() > 2) {
-					text.getItems().remove(selectedIndex);
+				else if(text.getItems().size() >= 2) {
+					textPage.deleteLine(selectedIndex);
 				}
 			}
 		}
