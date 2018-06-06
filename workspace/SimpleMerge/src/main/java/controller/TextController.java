@@ -31,6 +31,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
@@ -163,7 +164,6 @@ public class TextController implements Initializable {
 				textPage.deleteLine(selectedIndex);
 			}
 		}
-
 	}
 
 	public void editCommit(EditEvent<Line> event) {
