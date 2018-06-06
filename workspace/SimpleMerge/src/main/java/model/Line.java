@@ -91,7 +91,7 @@ public class Line {
 	public void setIsRealLine(boolean isRealLine) {
 		this.isRealLine = isRealLine;
 		if (this.isRealLine) this.lineColor.setValue(Color.WHITE);
-		this.lineColor.setValue(Color.LIGHTGRAY);
+		else this.lineColor.setValue(Color.LIGHTGRAY);
 	}
 	
 	public String toString() {
