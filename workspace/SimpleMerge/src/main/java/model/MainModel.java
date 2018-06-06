@@ -58,6 +58,7 @@ public class MainModel {
 		if ( toModel.isEditable() ) return;
 		int selectedIdx = (int) fromModel.getTextPage().getSelectedIndexProperty().getValue();
 		int max = fromModel.getTextPage().getMaxNListProperty();
+		System.out.printf("max : %d\n", max);
 		if ( max == 0 ) return;
 		if ( selectedIdx < 0 || selectedIdx > max ) {
 			return;
@@ -79,23 +80,35 @@ public class MainModel {
 		if ( selectCol == Color.PAPAYAWHIP ) {
 			int num = to - from + 1;
 			while( num-- > 0) {
+				Color fromLastLineC;
+				Color toLastLineC;
+				fromLastLineC = fromModel.getTextPage().getLineColor(max - 1);
+				toLastLineC = toModel.getTextPage().getLineColor(max - 1);
+				toModel.getTextPage().setLineWHITE(max - 1);
+				fromModel.getTextPage().setLineWHITE(max - 1);				
 				toModel.getTextPage().setLineWHITE(from);
 				fromModel.getTextPage().setLineWHITE(from);
-				toModel.getTextPage().setLineWHITE(--max);
-				fromModel.getTextPage().setLineWHITE(--max);
 				fromModel.getTextPage().deleteLine(from);
 				toModel.getTextPage().deleteLine(from);
+				--max;
+				setLastLineColor(fromModel, max - 1, fromLastLineC);
+				setLastLineColor(toModel, max - 1, toLastLineC);
 			}
 			return;
 		}
 		for ( i = from; i <= to; i++) {
 			String str = fromModel.getTextPage().getLineText(i);
-			boolean bool = fromModel.getTextPage().isRealLine(i);
 			fromModel.getTextPage().setLineWHITE(i);
-			toModel.getTextPage().setLineWHITE(i);
 			toModel.getTextPage().setLineText(i, str);
-			toModel.getTextPage().setRealLine(i, bool);
+			toModel.getTextPage().setRealLine(i, true);
+			toModel.getTextPage().setLineWHITE(i);
 		}
+	}
+	private void setLastLineColor(SubModel sModel, int lineN, Color color) {
+		if ( color == Color.LIGHTGRAY ) sModel.getTextPage().setLineLIGHTGRAY(lineN);
+		if ( color == Color.PINK ) sModel.getTextPage().setLinePINK(lineN);
+		if ( color == Color.PAPAYAWHIP ) sModel.getTextPage().setLinePAPAYA(lineN);
+		if ( color == Color.LIGHTGOLDENRODYELLOW ) sModel.getTextPage().setLineYELLOW(lineN);
 	}
 	public void copyToLeft() {
 		copyFromTo(rightSubModel, leftSubModel);
