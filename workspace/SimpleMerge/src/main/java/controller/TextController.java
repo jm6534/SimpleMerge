@@ -68,6 +68,11 @@ public class TextController implements Initializable {
 				TextFieldListCell<Line> cell = new TextFieldListCell<Line>() {
 					@Override
 					public void updateItem(Line item, boolean empty) {
+						if(item == null) {
+							Background bg = new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY));
+							backgroundProperty().unbind();
+							backgroundProperty().setValue(bg);
+						}
 						super.updateItem(item, empty);
 						if(item != null) {
 							setText(item.toString());

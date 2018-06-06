@@ -17,6 +17,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Queue;
 import java.util.Stack;
 import org.apache.commons.io.*;
 
@@ -142,8 +143,6 @@ public class TextPage {
 	}
 	public void setTextLines(ArrayList<Line> input) {
 		clearListPropertyElements();
-		for(int i=0;i<100;i++) listProperty.add(new Line(""));
-		clearListPropertyElements();
 		for (int i = 0 ; i < input.size() ; i ++) {
 			listProperty.add(input.get(i));
 		}
@@ -214,13 +213,20 @@ public class TextPage {
 	public void clearContents() {
 		clearBackground();
 		clearListPropertyElements();
-		for(int i=0;i<100;i++) listProperty.add(new Line(""));
-		clearListPropertyElements();
 		filePathProperty.setValue("");
 	}
 	private void clearListPropertyElements() {
 		while(listProperty.size() > 0) {
 			listProperty.remove(0);
 		}		
+	}
+	public void refresh() {
+		ArrayList<Line> list = new ArrayList<Line>();
+		while(listProperty.size() > 0) {
+			list.add(listProperty.remove(0));
+		}
+		while(list.size() > 0) {
+			listProperty.add(list.remove(0));
+		}
 	}
 }
