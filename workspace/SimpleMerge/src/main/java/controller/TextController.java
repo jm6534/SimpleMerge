@@ -78,7 +78,7 @@ public class TextController implements Initializable {
 							backgroundProperty().bind(Bindings.createObjectBinding(()->{
 								BackgroundFill fill = new BackgroundFill(item.getLineColorProperty().getValue(), CornerRadii.EMPTY, Insets.EMPTY);
 								return new Background(fill);
-							}, item.getLineColorProperty().valueProperty()));;
+							}, item.getLineColorProperty().valueProperty()));
 						}
 					}
 				};
