@@ -9,7 +9,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.paint.Color;
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,8 +16,6 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Stack;
-import org.apache.commons.io.*;
 
 public class TextPage {
     private ListProperty<Line> listProperty = new SimpleListProperty<>();
@@ -51,8 +48,8 @@ public class TextPage {
 		try {
 			 br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
 			 String newLine;
-			 while( (newLine = br.readLine()) != null ) {
-				 listProperty.add(new Line(new String(newLine)));
+			 for(int i=0; (newLine = br.readLine()) != null; i++) {
+				 setLineText(i, new String(newLine));
 			 }
 		}
 		catch (Exception e) {
@@ -63,9 +60,6 @@ public class TextPage {
 		return new String(filePathProperty.get());
 	}
 
-	public void setTextField(String line, int lineN) { 
-		listProperty.get(lineN).setLineText(line);
-	}
 	public String getTextField() {
 		Iterator<Line> it = listProperty.iterator();
 		String ret = new String();
@@ -130,7 +124,7 @@ public class TextPage {
 		return listProperty.get(lineN).getLineText();
 	}
 	public void setLineText(int lineN, String str) {
-		listProperty.remove(lineN);
+		if(listProperty.size() > lineN && lineN >= 0) listProperty.remove(lineN);
 		listProperty.add(lineN, new Line(str));
 	}
 	public void addLineText(String str) {
@@ -214,7 +208,9 @@ public class TextPage {
 	}
 	public void clearContents() {
 		clearBackground();
-		listProperty.clear();
+		while(listProperty.size() > 0) {
+			listProperty.remove(0);
+		}
 		filePathProperty.setValue("");
 	}
 }

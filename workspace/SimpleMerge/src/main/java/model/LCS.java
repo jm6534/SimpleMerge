@@ -17,6 +17,14 @@ public class LCS {
 		while(!resultStackRight.isEmpty()) {
 			resultRight.add(resultStackRight.pop());
 		}
+		for (int i = 0; i < resultLeft.size();i++) {
+			if((compareOneLine(resultLeft.get(i),new Line())&&compareOneLine(resultRight.get(i),new Line()))==true) {
+				if(resultLeft.get(i).getLineColor()==Color.LIGHTGOLDENRODYELLOW&&resultRight.get(i).getLineColor()==Color.LIGHTGOLDENRODYELLOW){
+					resultLeft.get(i).setLineWHITE();
+					resultRight.get(i).setLineWHITE();
+				}
+			}
+		}
 	}
 	public static boolean makeResultStack(int[][] intArray, boolean[][] boolArray,
 			ArrayList<Line> leftList, ArrayList<Line> rightList, int row, int column,
@@ -90,7 +98,8 @@ public class LCS {
 			for (int j = 1; j < column ; j++ ) { // fill the matrix left to right
 				if(compareOneLine(leftList.get(i-1),rightList.get(j-1))){
 					intArray[i][j] = intArray[i-1][j-1]+1;
-					boolArray[i][j] = true;
+					if((compareOneLine(leftList.get(i-1),new Line())&&compareOneLine(rightList.get(j-1),new Line()))==false)
+						boolArray[i][j] = true;
 				}
 				else { // if left and above is same, it came from left
 					int k = returnLargestIndex(intArray[i-1][j], intArray[i][j-1], intArray[i-1][j-1]); 

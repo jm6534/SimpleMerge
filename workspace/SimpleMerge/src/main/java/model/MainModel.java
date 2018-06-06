@@ -1,10 +1,8 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Stack;
 
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.paint.Color;
 
@@ -37,7 +35,7 @@ public class MainModel {
 		return this.isCompared.getValue();
 	}
 	public void setIsCompared(boolean isCompared) {
-		this.isCompared.setValue(isCompared);;
+		this.isCompared.setValue(isCompared);
 	}
 	
 	public void toggleIsCompared() {
@@ -56,6 +54,8 @@ public class MainModel {
 		return result;
 	}
 	public void copyToLeft() {
+		if ( leftSubModel.isEditable() ) return;
+		if ( rightSubModel.isEditable() ) return;
 		int selectedIdx = (int) this.rightSubModel.getTextPage().getSelectedIndexProperty().getValue();
 		int max = this.rightSubModel.getTextPage().getMaxNListProperty();
 		if ( selectedIdx < 0 || selectedIdx > max ) {
@@ -93,6 +93,8 @@ public class MainModel {
 		}
 	}
 	public void copyToRight() {
+		if ( leftSubModel.isEditable() ) return;
+		if ( rightSubModel.isEditable() ) return;
 		int selectedIdx = (int) this.leftSubModel.getTextPage().getSelectedIndexProperty().getValue();
 		int max = this.leftSubModel.getTextPage().getMaxNListProperty();
 		if ( selectedIdx < 0 || selectedIdx > max ) {
