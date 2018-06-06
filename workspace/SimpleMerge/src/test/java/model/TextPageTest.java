@@ -12,6 +12,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import javafx.embed.swing.JFXPanel;
+import javafx.scene.paint.Color;
 
 public class TextPageTest{
 	private JFXPanel a = new JFXPanel();
@@ -26,6 +27,7 @@ public class TextPageTest{
 	 
     @Before
     public void init() throws IOException {
+    	lineCnt = 0;
     	mockFile = tempFolder.newFile(FILE_NAME);
     	FileUtils.writeStringToFile(mockFile, LINE_CONTENT + lineCnt++ + "\n","UTF8", true);
     }
@@ -83,6 +85,9 @@ public class TextPageTest{
 	}
 	@Test
 	public void testSetLineColor() {
+		Color testColor;
+		testColor = Color.WHITE;
+		textPage = new TextPage(mockFile);
 		
 	}
 }
