@@ -88,8 +88,8 @@ public class MainModel {
 			boolean bool = this.rightSubModel.getTextPage().isRealLine(i);
 			this.leftSubModel.getTextPage().setLineText(i, str);
 			this.leftSubModel.getTextPage().setRealLine(i, bool);
-			this.leftSubModel.getTextPage().setLineColor(i, Color.WHITE);
-			this.rightSubModel.getTextPage().setLineColor(i, Color.WHITE);
+			this.leftSubModel.getTextPage().setLineWHITE(i);
+			this.rightSubModel.getTextPage().setLineWHITE(i);
 		}
 	}
 	public void copyToRight() {
@@ -125,8 +125,8 @@ public class MainModel {
 			boolean bool = this.leftSubModel.getTextPage().isRealLine(i);
 			this.rightSubModel.getTextPage().setLineText(i, str);
 			this.rightSubModel.getTextPage().setRealLine(i, bool);
-			this.rightSubModel.getTextPage().setLineColor(i, Color.WHITE);
-			this.leftSubModel.getTextPage().setLineColor(i, Color.WHITE);
+			this.rightSubModel.getTextPage().setLineWHITE(i);
+			this.leftSubModel.getTextPage().setLineWHITE(i);
 		}
 	}
 

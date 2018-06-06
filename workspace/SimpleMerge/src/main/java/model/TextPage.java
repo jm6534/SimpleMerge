@@ -111,8 +111,20 @@ public class TextPage {
 	public Color getLineColor(int lineN) {
 		return listProperty.get(lineN).getLineColor();
 	}
-	public void setLineColor(int lineN, Color color) {
-		listProperty.get(lineN).setLineColor(color);
+	public void setLineWHITE(int lineN) {
+		listProperty.get(lineN).setLineWHITE();
+	}
+	public void setLineLIGHTGRAY(int lineN) {
+		listProperty.get(lineN).setLineLIGHTGRAY();
+	}
+	public void setLineYELLOW(int lineN) {
+		listProperty.get(lineN).setLineYELLOW();
+	}
+	public void setLinePINK(int lineN) {
+		listProperty.get(lineN).setLinePINK();
+	}
+	public void setLinePAPAYA(int lineN) {
+		listProperty.get(lineN).setLinePAPAYA();
 	}
 	public String getLineText(int lineN) {
 		return listProperty.get(lineN).getLineText();
@@ -149,7 +161,7 @@ public class TextPage {
 	}
 	public void clearBackground() {
 		for(Line line : listProperty) {
-			line.setLineColor(Color.WHITE);
+			line.setLineWHITE();
 		}
 	}
 	public Property<Number> getSelectedIndexProperty() {
@@ -160,41 +172,41 @@ public class TextPage {
 		if(getLineColor(selectedIndex).equals(Color.WHITE)) return;
 		for(Line line : listProperty) {
 			if(line.getLineColor().equals(Color.WHITE)) continue;
-			else if(line.isRealLine()) line.setLineColor(Color.LIGHTGOLDENRODYELLOW);
-			else line.setLineColor(Color.LIGHTGRAY);
+			else if(line.isRealLine()) line.setLineYELLOW();
+			else line.setLineLIGHTGRAY();
 		}
 		if(listProperty.get(selectedIndex).isRealLine()) {
-			listProperty.get(selectedIndex).setLineColor(Color.PINK);
+			listProperty.get(selectedIndex).setLinePINK();
 			int i = selectedIndex;
 			int max = listProperty.getSize();
 			while (++i < max) {
 				if (listProperty.get(i).getLineColor() == Color.LIGHTGOLDENRODYELLOW) {
-					listProperty.get(i).setLineColor(Color.PINK);					
+					listProperty.get(i).setLinePINK();
 				}
 				else break;
 			}
 			i = selectedIndex;
 			while( --i > -1) {
 				if (listProperty.get(i).getLineColor() == Color.LIGHTGOLDENRODYELLOW) {
-					listProperty.get(i).setLineColor(Color.PINK);					
+					listProperty.get(i).setLinePINK();					
 				}
 				else break;
 			}
 		}
 		else {
-			listProperty.get(selectedIndex).setLineColor(Color.PAPAYAWHIP);
+			listProperty.get(selectedIndex).setLinePAPAYA();
 			int i = selectedIndex;
 			int max = listProperty.getSize();
 			while (++i < max) {
 				if (listProperty.get(i).getLineColor() == Color.LIGHTGRAY) {
-					listProperty.get(i).setLineColor(Color.PAPAYAWHIP);
+					listProperty.get(i).setLinePAPAYA();
 				}
 				else break;
 			}
 			i = selectedIndex;
 			while( --i > -1) {
 				if (listProperty.get(i).getLineColor() == Color.LIGHTGRAY) {
-					listProperty.get(i).setLineColor(Color.PAPAYAWHIP);
+					listProperty.get(i).setLinePAPAYA();
 				}
 				else break;
 			}
