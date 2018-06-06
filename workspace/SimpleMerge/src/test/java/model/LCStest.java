@@ -17,29 +17,38 @@ public class LCStest {
 		JFXPanel a = new JFXPanel();
 	}
 	@Test
-	public void testDoLCSTrue() {
+	public void testDoLCS1True() {
 		ArrayList<Line> testList = new ArrayList<Line>();
-		testList.add(new Line("abcde"));
-		testList.add(new Line("defgh"));
-		testList.add(new Line("bcdef"));
+
+		testList.add(new Line());
+		testList.add(new Line("1"));
+		testList.add(new Line("2"));
+		testList.add(new Line("3"));
 		testModel.setLeftTextLines(testList);
 
 		testList.clear();
-		testList.add(new Line("abcde"));
-		testList.add(new Line("cdefg"));
-		testList.add(new Line("bcdef"));
+		testList.add(new Line("1"));
+		testList.add(new Line());
+		testList.add(new Line("2"));
+		testList.add(new Line("4"));
 		testModel.setRightTextLines(testList);
 		
 		testModel.LCS();
 		ArrayList<Line> left = testModel.getLeftSubModel().getTextPage().getTextLines();
 		ArrayList<Line> right = testModel.getRightSubModel().getTextPage().getTextLines();
+
+		assertEquals("", left.get(0).getLineText());
+		assertEquals("1", left.get(1).getLineText());
+		assertEquals("", left.get(2).getLineText());
+		assertEquals("2", left.get(3).getLineText());
+		assertEquals("3", left.get(4).getLineText());
 		
-		assertEquals("abcde",left.get(0).getLineText());
-		assertEquals("bcdef",left.get(2).getLineText());
+		assertEquals("",right.get(0).getLineText());
+		assertEquals("1",right.get(1).getLineText());
+		assertEquals("",right.get(2).getLineText());
+		assertEquals("2",right.get(3).getLineText());
+		assertEquals("4",right.get(4).getLineText());
 		
-		assertEquals("abcde",right.get(0).getLineText());
-		assertEquals("cdefg",right.get(1).getLineText());
-		assertEquals("bcdef",right.get(2).getLineText());
 	}
 	@Test
 	public void testReturnLargestIndexTrue() {
@@ -169,29 +178,35 @@ public class LCStest {
 		Stack<Line> testLeftStack = new Stack<Line>();
 		Stack<Line> testRightStack = new Stack<Line>();
 		
-		testLeftStack.push(new Line("D",Color.LIGHTGOLDENRODYELLOW));
-		testLeftStack.push(new Line("B",Color.LIGHTGOLDENRODYELLOW));
-		testLeftStack.push(new Line("A",Color.WHITE));
+		testLeftStack.push(new Line("D", Color.LIGHTGOLDENRODYELLOW));
+		testLeftStack.push(new Line("B", Color.LIGHTGOLDENRODYELLOW));
+		testLeftStack.push(new Line("", Color.LIGHTGOLDENRODYELLOW));
+		testLeftStack.push(new Line("A", Color.WHITE));
 		
-		testRightStack.push(new Line("F",Color.LIGHTGOLDENRODYELLOW));
-		testRightStack.push(new Line("E",Color.LIGHTGOLDENRODYELLOW));
-		testRightStack.push(new Line("A",Color.WHITE));
+		testRightStack.push(new Line("F", Color.LIGHTGOLDENRODYELLOW));
+		testRightStack.push(new Line("E", Color.LIGHTGOLDENRODYELLOW));
+		testRightStack.push(new Line("", Color.LIGHTGOLDENRODYELLOW));
+		testRightStack.push(new Line("A", Color.WHITE));
 		
 		LCS.makeListFromStack(testResultLeftList, testResultRightList, testLeftStack, testRightStack);
 		
 		assertEquals("A",testResultLeftList.get(0).getLineText());
 		assertEquals(Color.WHITE,testResultLeftList.get(0).getLineColor());
-		assertEquals("B",testResultLeftList.get(1).getLineText());
-		assertEquals(Color.LIGHTGOLDENRODYELLOW,testResultLeftList.get(1).getLineColor());
-		assertEquals("D",testResultLeftList.get(2).getLineText());
+		assertEquals("",testResultLeftList.get(1).getLineText());
+		assertEquals(Color.WHITE,testResultLeftList.get(1).getLineColor());
+		assertEquals("B",testResultLeftList.get(2).getLineText());
 		assertEquals(Color.LIGHTGOLDENRODYELLOW,testResultLeftList.get(2).getLineColor());
+		assertEquals("D",testResultLeftList.get(3).getLineText());
+		assertEquals(Color.LIGHTGOLDENRODYELLOW,testResultLeftList.get(3).getLineColor());
 		
 		assertEquals("A",testResultRightList.get(0).getLineText());
 		assertEquals(Color.WHITE,testResultRightList.get(0).getLineColor());
-		assertEquals("E",testResultRightList.get(1).getLineText());
-		assertEquals(Color.LIGHTGOLDENRODYELLOW,testResultRightList.get(1).getLineColor());
-		assertEquals("F",testResultRightList.get(2).getLineText());
+		assertEquals("",testResultRightList.get(1).getLineText());
+		assertEquals(Color.WHITE,testResultRightList.get(1).getLineColor());
+		assertEquals("E",testResultRightList.get(2).getLineText());
 		assertEquals(Color.LIGHTGOLDENRODYELLOW,testResultRightList.get(2).getLineColor());
+		assertEquals("F",testResultRightList.get(3).getLineText());
+		assertEquals(Color.LIGHTGOLDENRODYELLOW,testResultRightList.get(3).getLineColor());
 	}
 	@Test
 	public void testModifyMainModel() {
