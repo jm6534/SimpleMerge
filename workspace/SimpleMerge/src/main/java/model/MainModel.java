@@ -56,6 +56,8 @@ public class MainModel {
 		return result;
 	}
 	public void copyToLeft() {
+		if ( leftSubModel.isEditable() ) return;
+		if ( rightSubModel.isEditable() ) return;
 		int selectedIdx = (int) this.rightSubModel.getTextPage().getSelectedIndexProperty().getValue();
 		int max = this.rightSubModel.getTextPage().getMaxNListProperty();
 		if ( selectedIdx < 0 || selectedIdx > max ) {
@@ -93,6 +95,8 @@ public class MainModel {
 		}
 	}
 	public void copyToRight() {
+		if ( leftSubModel.isEditable() ) return;
+		if ( rightSubModel.isEditable() ) return;
 		int selectedIdx = (int) this.leftSubModel.getTextPage().getSelectedIndexProperty().getValue();
 		int max = this.leftSubModel.getTextPage().getMaxNListProperty();
 		if ( selectedIdx < 0 || selectedIdx > max ) {
