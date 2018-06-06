@@ -138,13 +138,9 @@ public class TextPage {
 		listProperty.remove(lineN);
 	}
 	public void setTextLines(ArrayList<Line> input) {
-		while(listProperty.size() > 0) {
-			listProperty.remove(0);
-		}
+		clearListPropertyElements();
 		for(int i=0;i<100;i++) listProperty.add(new Line(""));
-		while(listProperty.size() > 0) {
-			listProperty.remove(0);
-		}
+		clearListPropertyElements();
 		for (int i = 0 ; i < input.size() ; i ++) {
 			listProperty.add(input.get(i));
 		}
