@@ -17,6 +17,14 @@ public class LCS {
 		while(!resultStackRight.isEmpty()) {
 			resultRight.add(resultStackRight.pop());
 		}
+		for (int i = 0; i < resultLeft.size();i++) {
+			if((compareOneLine(resultLeft.get(i),new Line())&&compareOneLine(resultRight.get(i),new Line()))==true) {
+				if(resultLeft.get(i).getLineColor()==Color.LIGHTGOLDENRODYELLOW&&resultRight.get(i).getLineColor()==Color.LIGHTGOLDENRODYELLOW){
+					resultLeft.get(i).setLineWHITE();
+					resultRight.get(i).setLineWHITE();
+				}
+			}
+		}
 	}
 	public static boolean makeResultStack(int[][] intArray, boolean[][] boolArray,
 			ArrayList<Line> leftList, ArrayList<Line> rightList, int row, int column,
@@ -30,13 +38,13 @@ public class LCS {
 				break;
 			else if (i==0&&j>0) { // no more on only left
 				leftStack.push(new Line(false));
-				rightList.get(j-1).setLineColor(Color.LIGHTGOLDENRODYELLOW);
+				rightList.get(j-1).setLineYELLOW();
 				rightStack.push(rightList.get(j-1));
 				j--;
 				isModified = true;
 			}
 			else if (i>0&&j==0) { // no more on only right
-				leftList.get(i-1).setLineColor(Color.LIGHTGOLDENRODYELLOW);
+				leftList.get(i-1).setLineYELLOW();
 				leftStack.push(leftList.get(i-1));
 				rightStack.push(new Line(false));
 				i--;
@@ -53,7 +61,7 @@ public class LCS {
 					int k = returnLargestIndex(intArray[i-1][j], intArray[i][j-1], intArray[i-1][j-1]);
 					switch (k) {
 						case 1:
-							leftList.get(i-1).setLineColor(Color.LIGHTGOLDENRODYELLOW);
+							leftList.get(i-1).setLineYELLOW();
 							leftStack.push(leftList.get(i-1));
 							rightStack.push(new Line(false));
 							i--;
@@ -61,16 +69,16 @@ public class LCS {
 							break;
 						case 2:
 							leftStack.push(new Line(false));
-							rightList.get(j-1).setLineColor(Color.LIGHTGOLDENRODYELLOW);
+							rightList.get(j-1).setLineYELLOW();
 							rightStack.push(rightList.get(j-1));
 							j--;
 							isModified = true;
 							break;
 						case 3:
 							Line leftinput = leftList.get(i-1);
-							leftinput.setLineColor(Color.LIGHTGOLDENRODYELLOW);
+							leftinput.setLineYELLOW();
 							Line rightinput = rightList.get(j-1);
-							rightinput.setLineColor(Color.LIGHTGOLDENRODYELLOW);
+							rightinput.setLineYELLOW();
 							leftStack.push(leftinput);
 							rightStack.push(rightinput);
 							i--;
@@ -90,7 +98,8 @@ public class LCS {
 			for (int j = 1; j < column ; j++ ) { // fill the matrix left to right
 				if(compareOneLine(leftList.get(i-1),rightList.get(j-1))){
 					intArray[i][j] = intArray[i-1][j-1]+1;
-					boolArray[i][j] = true;
+					if((compareOneLine(leftList.get(i-1),new Line())&&compareOneLine(rightList.get(j-1),new Line()))==false)
+						boolArray[i][j] = true;
 				}
 				else { // if left and above is same, it came from left
 					int k = returnLargestIndex(intArray[i-1][j], intArray[i][j-1], intArray[i-1][j-1]); 
@@ -145,14 +154,14 @@ public class LCS {
 		int k = left.size();
 		for (i = k-1; i >= 0; i--) {
 			if (left.get(i).getLineColor() != Color.WHITE)
-				left.get(i).setLineColor(Color.WHITE);
+				left.get(i).setLineWHITE();
 			if ( !left.get(i).isRealLine() )
 				left.remove(i);
 		}
 		k = right.size();
 		for (i = k-1; i >= 0; i--) {
 			if (right.get(i).getLineColor()!= Color.WHITE)
-				right.get(i).setLineColor(Color.WHITE);
+				right.get(i).setLineWHITE();
 			if ( !right.get(i).isRealLine() )
 				right.remove(i);
 		}
