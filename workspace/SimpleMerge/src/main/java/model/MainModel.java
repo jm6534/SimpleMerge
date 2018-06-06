@@ -37,7 +37,7 @@ public class MainModel {
 		return this.isCompared.getValue();
 	}
 	public void setIsCompared(boolean isCompared) {
-		this.isCompared.setValue(isCompared);;
+		this.isCompared.setValue(isCompared);
 	}
 	
 	public void toggleIsCompared() {
