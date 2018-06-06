@@ -2,6 +2,7 @@ package model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,15 +23,20 @@ public class LineTest{
 	}
 	
 	@Test
-	public void testLineConstructor() {
-		Line lineCnstrTest = new Line();
-		assertEquals("", lineCnstrTest.getLineText());
-		assertEquals(Color.WHITE, lineCnstrTest.getLineColor());
-		assertTrue(lineCnstrTest.isRealLine());
-	}
+	   public void testLineConstructor() {
+	      try {
+	         new Line();
+	         new Line(true);
+	         new Line("SUCCESS", true);
+	         new Line("SUCCESS");
+	         new Line("SUCCESS", Color.WHITE);
+	      } catch (Exception e) {
+	         fail(e.getMessage());
+	      }
+	   }
 	
 	@Test
-	public void lineModificationWithFakeLineTest() {
+	public void testlineModificationWithFakeLine() {
 		assertEquals(lineTest.getLineText(), LINE_TEXT_TEST);
 		assertEquals(lineTest.getLineColor(), LINE_COLOR_TEST);
 		assertTrue(lineTest.isRealLine());		
@@ -46,7 +52,7 @@ public class LineTest{
 	}
 	
 	@Test
-	public void lineModificationWithRealLineTest() {
+	public void testlineModificationWithRealLine() {
 		assertEquals(lineTest.getLineText(), LINE_TEXT_TEST);
 		assertEquals(lineTest.getLineColor(), LINE_COLOR_TEST);
 		assertTrue(lineTest.isRealLine());		
@@ -56,7 +62,7 @@ public class LineTest{
 	}
 	
 	@Test
-	public void lineColorTest() {
+	public void testlineColor() {
 		Line lineClrTest = new Line();
 		
 		assertEquals(lineClrTest.getLineColorProperty().getValue(), Color.WHITE);
@@ -67,7 +73,7 @@ public class LineTest{
 	}
 	
 	@Test
-	public void realLineTest() {
+	public void testrealLine() {
 		assertEquals(lineTest.getLineText(), LINE_TEXT_TEST);
 		assertEquals(lineTest.getLineColor(), LINE_COLOR_TEST);
 		assertTrue(lineTest.isRealLine());		
