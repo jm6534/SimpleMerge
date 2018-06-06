@@ -212,7 +212,6 @@ public class TextController implements Initializable {
 		edit.selectedProperty().bindBidirectional(subModel.getEditableProperty());
 		text.itemsProperty().bindBidirectional(textPage.getListProperty());
 		title.textProperty().bindBidirectional(textPage.getFilePathProperty());
-		textPage.getSelectedIndexProperty().bind(text.getSelectionModel().selectedIndexProperty());
 		textPage.getSelectedIndexProperty().addListener((obs, oldValue, newValue) -> {
 			text.getSelectionModel().clearAndSelect(newValue.intValue());
 			textPage.setSelectedLineColor(text.getSelectionModel().getSelectedIndex());
