@@ -30,7 +30,7 @@ public class LineTest{
 	}
 	
 	@Test
-	public void lineModificationWithFakeLineTest() {
+	public void testlineModificationWithFakeLine() {
 		assertEquals(lineTest.getLineText(), LINE_TEXT_TEST);
 		assertEquals(lineTest.getLineColor(), LINE_COLOR_TEST);
 		assertTrue(lineTest.isRealLine());		
@@ -46,7 +46,7 @@ public class LineTest{
 	}
 	
 	@Test
-	public void lineModificationWithRealLineTest() {
+	public void testlineModificationWithRealLine() {
 		assertEquals(lineTest.getLineText(), LINE_TEXT_TEST);
 		assertEquals(lineTest.getLineColor(), LINE_COLOR_TEST);
 		assertTrue(lineTest.isRealLine());		
@@ -56,7 +56,7 @@ public class LineTest{
 	}
 	
 	@Test
-	public void lineColorTest() {
+	public void testlineColor() {
 		Line lineClrTest = new Line();
 		
 		assertEquals(lineClrTest.getLineColorProperty().getValue(), Color.WHITE);
@@ -67,7 +67,7 @@ public class LineTest{
 	}
 	
 	@Test
-	public void realLineTest() {
+	public void testrealLine() {
 		assertEquals(lineTest.getLineText(), LINE_TEXT_TEST);
 		assertEquals(lineTest.getLineColor(), LINE_COLOR_TEST);
 		assertTrue(lineTest.isRealLine());		
