@@ -124,8 +124,7 @@ public class TextPage {
 		return listProperty.get(lineN).getLineText();
 	}
 	public void setLineText(int lineN, String str) {
-		if(listProperty.size() > lineN && lineN >= 0) 
-			removeListPropertyElement(lineN);
+		if(listProperty.size() > lineN && lineN >= 0) listProperty.remove(lineN);
 		listProperty.add(lineN, new Line(str));
 	}
 	public void addLineText(String str) {
@@ -136,12 +135,16 @@ public class TextPage {
 	}
 	public void deleteLine(int lineN) {
 		if ( lineN < 0 || lineN > listProperty.getSize() ) return;
-		removeListPropertyElement(lineN);
+		listProperty.remove(lineN);
 	}
 	public void setTextLines(ArrayList<Line> input) {
-		clearListPropertyElements();
+		while(listProperty.size() > 0) {
+			listProperty.remove(0);
+		}
 		for(int i=0;i<100;i++) listProperty.add(new Line(""));
-		clearListPropertyElements();
+		while(listProperty.size() > 0) {
+			listProperty.remove(0);
+		}
 		for (int i = 0 ; i < input.size() ; i ++) {
 			listProperty.add(input.get(i));
 		}
@@ -218,11 +221,8 @@ public class TextPage {
 	}
 	private void clearListPropertyElements() {
 		while(listProperty.size() > 0) {
-			removeListPropertyElement(0);
+			listProperty.remove(0);
 		}		
 	}
-	private void removeListPropertyElement(int n) {
-		listProperty.get(n).setLineWHITE();
-		listProperty.remove(n);
-	}	
+	
 }
