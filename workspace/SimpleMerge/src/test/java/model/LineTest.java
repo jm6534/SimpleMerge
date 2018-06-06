@@ -2,6 +2,7 @@ package model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,12 +23,17 @@ public class LineTest{
 	}
 	
 	@Test
-	public void testLineConstructor() {
-		Line lineCnstrTest = new Line();
-		assertEquals("", lineCnstrTest.getLineText());
-		assertEquals(Color.WHITE, lineCnstrTest.getLineColor());
-		assertTrue(lineCnstrTest.isRealLine());
-	}
+	   public void testLineConstructor() {
+	      try {
+	         new Line();
+	         new Line(true);
+	         new Line("SUCCESS", true);
+	         new Line("SUCCESS");
+	         new Line("SUCCESS", Color.WHITE);
+	      } catch (Exception e) {
+	         fail(e.getMessage());
+	      }
+	   }
 	
 	@Test
 	public void testlineModificationWithFakeLine() {
