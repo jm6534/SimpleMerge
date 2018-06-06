@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.paint.Color;
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,6 +17,8 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Stack;
+import org.apache.commons.io.*;
 
 public class TextPage {
     private ListProperty<Line> listProperty = new SimpleListProperty<>();
@@ -220,5 +223,4 @@ public class TextPage {
 			listProperty.remove(0);
 		}		
 	}
-	
 }
