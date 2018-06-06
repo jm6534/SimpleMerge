@@ -1,41 +1,85 @@
 package model;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import javafx.embed.swing.JFXPanel;
-import junit.framework.*;
+import javafx.scene.paint.Color;
 
-
-public class LineTest extends TestCase {
+public class LineTest{
+	
+	private Line lineTest;
+	private String LINE_TEXT_TEST = "Line test.";
+	private Color LINE_COLOR_TEST = Color.WHITE; 
 	private JFXPanel a = new JFXPanel();
-	private Line testLine = new Line();
 	
+	@Before
+	public void init() {
+		lineTest = new Line(LINE_TEXT_TEST, LINE_COLOR_TEST);
+	}
 	
+	@Test
 	public void testLineConstructor() {
-		new Line();
-		new Line(new String("Success"));
+		Line lineCnstrTest = new Line();
+		assertEquals("", lineCnstrTest.getLineText());
+		assertEquals(Color.WHITE, lineCnstrTest.getLineColor());
+		assertTrue(lineCnstrTest.isRealLine());
 	}
 	
-	public void testSetLineTextTrue() {
-		testLine.setLineText("Testing Success");
-		assertEquals("Testing Success", testLine.getLineText());
+	@Test
+	public void testLineModificationWithFakeLine() {
+		assertEquals(lineTest.getLineText(), LINE_TEXT_TEST);
+		assertEquals(lineTest.getLineColor(), LINE_COLOR_TEST);
+		assertTrue(lineTest.isRealLine());		
+		
+		lineTest.setFakeLine();
+		assertEquals(lineTest.getLineColor(), Color.LIGHTGRAY);
+		assertEquals(lineTest.isRealLine(), false);
+		
+		lineTest.setFakeLine(LINE_TEXT_TEST);
+		assertEquals(lineTest.getLineText(), LINE_TEXT_TEST);
+		assertEquals(lineTest.getLineColor(), Color.LIGHTGRAY);
+		assertEquals(lineTest.isRealLine(), false);
 	}
-	public void testSetIsShadedTrue() {
-		testLine.setIsRealLine(true);
-		assertEquals(true, testLine.isRealLine());
-		testLine.toggleIsRealLine();
-		assertEquals(false, testLine.isRealLine());
+	
+	@Test
+	public void testLineModificationWithRealLine() {
+		assertEquals(lineTest.getLineText(), LINE_TEXT_TEST);
+		assertEquals(lineTest.getLineColor(), LINE_COLOR_TEST);
+		assertTrue(lineTest.isRealLine());		
+		
+		lineTest.setLineText(LINE_TEXT_TEST);
+		assertEquals(lineTest.getLineText(), LINE_TEXT_TEST);
 	}
-	public void testSetLineTextFalse() {
-		testLine.setLineText("false");
-		assertEquals("Testing Fail", testLine.getLineText());
+	
+	@Test
+	public void testLineColor() {
+		Line lineClrTest = new Line();
+		
+		assertEquals(lineClrTest.getLineColorProperty().getValue(), Color.WHITE);
+		assertEquals(lineClrTest.isRealLine(), true);
+		
+		lineClrTest.setLineWHITE();
+		assertEquals(lineClrTest.getLineColor(), LINE_COLOR_TEST);
 	}
-	public void testSetIsShadedFalse() {
-		testLine.setIsRealLine(false);
-		assertEquals(true, testLine.isRealLine());
+	
+	@Test
+	public void testRealLine() {
+		assertEquals(lineTest.getLineText(), LINE_TEXT_TEST);
+		assertEquals(lineTest.getLineColor(), LINE_COLOR_TEST);
+		assertTrue(lineTest.isRealLine());		
+		
+		lineTest.setIsRealLine(false);
+		assertEquals(lineTest.isRealLine(), false);
+		
+		lineTest.toggleIsRealLine();
+		assertTrue(lineTest.isRealLine());
+		
 	}
-	public static Test suite() {
-		return new TestSuite(LineTest.class);
-	}
-	public static void main(String[] args) {
-		junit.textui.TestRunner.run(suite());
-	}
+	
+	
+	
 }
