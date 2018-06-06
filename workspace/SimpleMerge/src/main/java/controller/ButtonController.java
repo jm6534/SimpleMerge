@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.Property;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -46,23 +45,29 @@ public class ButtonController implements Initializable {
 	
 	public void compareClick(ActionEvent event) {
 		if(mainModel.LCS()) mainModel.setIsCompared(true);
+		else mainModel.setIsCompared(false);
 	}
 	
 	public void copyToLeftClick(ActionEvent event) {
 		mainModel.copyToLeft();
 		mainModel.getLeftSubModel().setIsModified(true);
-		mainModel.setIsCompared(false);
 	}
 	
 	public void copyToRightClick(ActionEvent event) {
 		mainModel.copyToRight();
 		mainModel.getRightSubModel().setIsModified(true);		
-		mainModel.setIsCompared(false);
 	}
 
 	public void setMainModel(MainModel mainModel) {
 		this.mainModel = mainModel;
 		copyToLeft.disableProperty().bind(mainModel.getIsComparedProperty().not());
 		copyToRight.disableProperty().bind(mainModel.getIsComparedProperty().not());
+	}
+	
+	public void setMainModelForTest(MainModel mainModel) {
+		copyToLeft = new Button();
+		copyToRight = new Button();
+		
+		setMainModel(mainModel);
 	}
 }

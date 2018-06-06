@@ -3,6 +3,8 @@ package model;
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 import junit.framework.TestCase;
 
@@ -28,7 +30,14 @@ public class SubModelTest extends TestCase {
 	}
 	@Test
 	public void testButtonFlagFalse() {
-		assertEquals(mockbtnFlag, testsModel.getButtonFlag());
+		mockbtnFlag.setIsEditable(true);
+		mockbtnFlag.setIsModified(true);
+		testsModel.setButtonFlag(mockbtnFlag);
+
+		ButtonFlag cmpFlag = new ButtonFlag();
+		cmpFlag.setIsEditable(false);
+		cmpFlag.setIsModified(false);
+		assertThat(cmpFlag, not(testsModel.getButtonFlag()));	
 	}
 	@Test
 	public void testIsModified() {

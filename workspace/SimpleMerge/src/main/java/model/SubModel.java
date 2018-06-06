@@ -1,7 +1,7 @@
 package model;
 
 import java.io.File;
-import java.util.Stack;
+import java.util.ArrayList;
 
 import javafx.beans.property.Property;
 
@@ -80,7 +80,7 @@ public class SubModel {
 	public void setIsRealLine(int lineN, boolean bool) {
 		this.text.setRealLine(lineN, bool);
 	}
-	public void setTextLines(Stack<Line> input) {
+	public void setTextLines(ArrayList<Line> input) {
 		this.text.setTextLines(input);
 	}
 	
