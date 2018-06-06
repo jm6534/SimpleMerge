@@ -7,19 +7,11 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
-import org.easymock.EasyMock;
-import org.easymock.IMocksControl;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import javafx.embed.swing.JFXPanel;
-import controller.TextController;
-import javafx.embed.swing.JFXPanel;
-import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionModel;
-import javafx.scene.input.KeyEvent;
 
 public class TextPageTest{
 	private JFXPanel a = new JFXPanel();

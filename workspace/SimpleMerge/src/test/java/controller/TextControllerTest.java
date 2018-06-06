@@ -1,17 +1,12 @@
 package controller;
 
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import junit.framework.TestCase;
-import model.Line;
-import model.MainModel;
 import model.SubModel;
-import model.TextPage;
 
 public class TextControllerTest extends TestCase{
 	TextController testController;
