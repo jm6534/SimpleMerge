@@ -53,83 +53,68 @@ public class MainModel {
 		boolean result = LCS.doLCS(this); // try lcs
 		return result;
 	}
-	public void copyToLeft() {
-		if ( leftSubModel.isEditable() ) return;
-		if ( rightSubModel.isEditable() ) return;
-		int selectedIdx = (int) this.rightSubModel.getTextPage().getSelectedIndexProperty().getValue();
-		int max = this.rightSubModel.getTextPage().getMaxNListProperty();
+	private void copyFromTo (SubModel fromModel, SubModel toModel) {
+		if ( fromModel.isEditable() ) return;
+		if ( toModel.isEditable() ) return;
+		int selectedIdx = (int) fromModel.getTextPage().getSelectedIndexProperty().getValue();
+		int max = fromModel.getTextPage().getMaxNListProperty();
+		System.out.printf("max : %d\n", max);
+		if ( max == 0 ) return;
 		if ( selectedIdx < 0 || selectedIdx > max ) {
 			return;
 		}
 		int i = selectedIdx;
-		Color selectCol= this.rightSubModel.getTextPage().getLineColor(i);
+		Color selectCol= fromModel.getTextPage().getLineColor(i);
 		if ( selectCol == Color.WHITE || selectCol == Color.LIGHTGRAY ) return;
 		int to = i;
 		int from = i;
 		while (++i < max) {
-			if ( this.rightSubModel.getTextPage().getLineColor(i) == selectCol) to = i;
+			if ( fromModel.getTextPage().getLineColor(i) == selectCol) to = i;
 			else break;
 		}
 		i = selectedIdx;
 		while( --i > -1) {
-			if (this.rightSubModel.getTextPage().getLineColor(i) == selectCol) from = i;
+			if (fromModel.getTextPage().getLineColor(i) == selectCol) from = i;
 			else break;
 		}
 		if ( selectCol == Color.PAPAYAWHIP ) {
 			int num = to - from + 1;
 			while( num-- > 0) {
-				this.leftSubModel.getTextPage().deleteLine(from);
-				this.rightSubModel.getTextPage().deleteLine(from);						
+				Color fromLastLineC;
+				Color toLastLineC;
+				fromLastLineC = fromModel.getTextPage().getLineColor(max - 1);
+				toLastLineC = toModel.getTextPage().getLineColor(max - 1);
+				toModel.getTextPage().setLineWHITE(max - 1);
+				fromModel.getTextPage().setLineWHITE(max - 1);				
+				toModel.getTextPage().setLineWHITE(from);
+				fromModel.getTextPage().setLineWHITE(from);
+				fromModel.getTextPage().deleteLine(from);
+				toModel.getTextPage().deleteLine(from);
+				--max;
+				setLastLineColor(fromModel, max - 1, fromLastLineC);
+				setLastLineColor(toModel, max - 1, toLastLineC);
 			}
 			return;
 		}
 		for ( i = from; i <= to; i++) {
-			String str = this.rightSubModel.getTextPage().getLineText(i);
-			boolean bool = this.rightSubModel.getTextPage().isRealLine(i);
-			this.leftSubModel.getTextPage().setLineText(i, str);
-			this.leftSubModel.getTextPage().setRealLine(i, bool);
-			this.leftSubModel.getTextPage().setLineWHITE(i);
-			this.rightSubModel.getTextPage().setLineWHITE(i);
+			String str = fromModel.getTextPage().getLineText(i);
+			fromModel.getTextPage().setLineWHITE(i);
+			toModel.getTextPage().setLineText(i, str);
+			toModel.getTextPage().setRealLine(i, true);
+			toModel.getTextPage().setLineWHITE(i);
 		}
 	}
+	private void setLastLineColor(SubModel sModel, int lineN, Color color) {
+		if ( color == Color.LIGHTGRAY ) sModel.getTextPage().setLineLIGHTGRAY(lineN);
+		if ( color == Color.PINK ) sModel.getTextPage().setLinePINK(lineN);
+		if ( color == Color.PAPAYAWHIP ) sModel.getTextPage().setLinePAPAYA(lineN);
+		if ( color == Color.LIGHTGOLDENRODYELLOW ) sModel.getTextPage().setLineYELLOW(lineN);
+	}
+	public void copyToLeft() {
+		copyFromTo(rightSubModel, leftSubModel);
+	}
 	public void copyToRight() {
-		if ( leftSubModel.isEditable() ) return;
-		if ( rightSubModel.isEditable() ) return;
-		int selectedIdx = (int) this.leftSubModel.getTextPage().getSelectedIndexProperty().getValue();
-		int max = this.leftSubModel.getTextPage().getMaxNListProperty();
-		if ( selectedIdx < 0 || selectedIdx > max ) {
-			return;
-		}
-		int i = selectedIdx;
-		Color selectCol= this.leftSubModel.getTextPage().getLineColor(i);
-		if ( selectCol == Color.WHITE || selectCol == Color.LIGHTGRAY ) return;
-		int to = i;
-		int from = i;
-		while (++i < max) {
-			if ( this.leftSubModel.getTextPage().getLineColor(i) == selectCol) to = i;
-			else break;
-		}
-		i = selectedIdx;
-		while( --i > -1) {
-			if (this.leftSubModel.getTextPage().getLineColor(i) == selectCol) from = i;
-			else break;
-		}
-		if ( selectCol == Color.PAPAYAWHIP ) {
-			int num = to - from + 1;
-			while( num-- > 0) {
-				this.leftSubModel.getTextPage().deleteLine(from);
-				this.rightSubModel.getTextPage().deleteLine(from);						
-			}
-			return;
-		}
-		for ( i = from; i <= to; i++) {
-			String str = this.leftSubModel.getTextPage().getLineText(i);
-			boolean bool = this.leftSubModel.getTextPage().isRealLine(i);
-			this.rightSubModel.getTextPage().setLineText(i, str);
-			this.rightSubModel.getTextPage().setRealLine(i, bool);
-			this.rightSubModel.getTextPage().setLineWHITE(i);
-			this.leftSubModel.getTextPage().setLineWHITE(i);
-		}
+		copyFromTo(leftSubModel, rightSubModel);
 	}
 
 	public BooleanProperty getIsComparedProperty() {

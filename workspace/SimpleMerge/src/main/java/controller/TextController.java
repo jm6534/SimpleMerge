@@ -31,6 +31,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
@@ -67,6 +68,11 @@ public class TextController implements Initializable {
 				TextFieldListCell<Line> cell = new TextFieldListCell<Line>() {
 					@Override
 					public void updateItem(Line item, boolean empty) {
+						if(item == null) {
+							Background bg = new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY));
+							backgroundProperty().unbind();
+							backgroundProperty().setValue(bg);
+						}
 						super.updateItem(item, empty);
 						if(item != null) {
 							setText(item.toString());
@@ -151,20 +157,18 @@ public class TextController implements Initializable {
 	}
 
 	public void keyPressed(KeyEvent event) {
+		if(event.getCode() != KeyCode.BACK_SPACE) return;
 		String selectedString = text.getSelectionModel().getSelectedItem().toString();
 		int selectedIndex = text.getSelectionModel().getSelectedIndex();
 		if(text.isEditable()) {
-			if(event.getCode() == KeyCode.BACK_SPACE) {
-				if(selectedString.length() >= 1) {
-					textPage.setLineText(selectedIndex, selectedString.substring(0, selectedString.length() - 1));
-					text.getSelectionModel().select(selectedIndex);
-				}
-				else if(text.getItems().size() >= 2) {
-					textPage.deleteLine(selectedIndex);
-				}
+			if(selectedString.length() >= 1) {
+				textPage.setLineText(selectedIndex, selectedString.substring(0, selectedString.length() - 1));
+				text.getSelectionModel().select(selectedIndex);
+			}
+			else if(text.getItems().size() >= 2) {
+				textPage.deleteLine(selectedIndex);
 			}
 		}
-
 	}
 
 	public void editCommit(EditEvent<Line> event) {
