@@ -81,10 +81,11 @@ public class MainModel {
 			while( num-- > 0) {
 				toModel.getTextPage().setLineWHITE(from);
 				fromModel.getTextPage().setLineWHITE(from);
-				toModel.getTextPage().setLineWHITE(--max);
-				fromModel.getTextPage().setLineWHITE(--max);
 				fromModel.getTextPage().deleteLine(from);
 				toModel.getTextPage().deleteLine(from);
+				--max;
+				toModel.getTextPage().setLineWHITE(max - 1);
+				fromModel.getTextPage().setLineWHITE(max - 1);				
 			}
 			return;
 		}
@@ -92,9 +93,9 @@ public class MainModel {
 			String str = fromModel.getTextPage().getLineText(i);
 			boolean bool = fromModel.getTextPage().isRealLine(i);
 			fromModel.getTextPage().setLineWHITE(i);
-			toModel.getTextPage().setLineWHITE(i);
 			toModel.getTextPage().setLineText(i, str);
 			toModel.getTextPage().setRealLine(i, bool);
+			toModel.getTextPage().setLineWHITE(i);
 		}
 	}
 	public void copyToLeft() {
