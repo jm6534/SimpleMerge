@@ -30,8 +30,14 @@ public class SubModelTest extends TestCase {
 	}
 	@Test
 	public void testButtonFlagFalse() {
-		assertThat(mockbtnFlag, not(testsModel.getButtonFlag()));
-	}
+		mockbtnFlag.setIsEditable(true);
+		mockbtnFlag.setIsModified(true);
+		testsModel.setButtonFlag(mockbtnFlag);
+
+		ButtonFlag cmpFlag = new ButtonFlag();
+		cmpFlag.setIsEditable(false);
+		cmpFlag.setIsModified(false);
+		assertThat(cmpFlag, not(testsModel.getButtonFlag()));	}
 	@Test
 	public void testIsModified() {
 		assertFalse(testsModel.isModified());
