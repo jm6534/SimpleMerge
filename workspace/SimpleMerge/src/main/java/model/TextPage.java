@@ -141,7 +141,9 @@ public class TextPage {
 		listProperty.remove(lineN);
 	}
 	public void setTextLines(ArrayList<Line> input) {
-		listProperty.clear();
+		clearListPropertyElements();
+		for(int i=0;i<100;i++) listProperty.add(new Line(""));
+		clearListPropertyElements();
 		for (int i = 0 ; i < input.size() ; i ++) {
 			listProperty.add(input.get(i));
 		}
@@ -211,9 +213,14 @@ public class TextPage {
 	}
 	public void clearContents() {
 		clearBackground();
+		clearListPropertyElements();
+		for(int i=0;i<100;i++) listProperty.add(new Line(""));
+		clearListPropertyElements();
+		filePathProperty.setValue("");
+	}
+	private void clearListPropertyElements() {
 		while(listProperty.size() > 0) {
 			listProperty.remove(0);
-		}
-		filePathProperty.setValue("");
+		}		
 	}
 }
