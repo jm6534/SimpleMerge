@@ -151,17 +151,16 @@ public class TextController implements Initializable {
 	}
 
 	public void keyPressed(KeyEvent event) {
+		if(event.getCode() != KeyCode.BACK_SPACE) return;
 		String selectedString = text.getSelectionModel().getSelectedItem().toString();
 		int selectedIndex = text.getSelectionModel().getSelectedIndex();
 		if(text.isEditable()) {
-			if(event.getCode() == KeyCode.BACK_SPACE) {
-				if(selectedString.length() >= 1) {
-					textPage.setLineText(selectedIndex, selectedString.substring(0, selectedString.length() - 1));
-					text.getSelectionModel().select(selectedIndex);
-				}
-				else if(text.getItems().size() >= 2) {
-					textPage.deleteLine(selectedIndex);
-				}
+			if(selectedString.length() >= 1) {
+				textPage.setLineText(selectedIndex, selectedString.substring(0, selectedString.length() - 1));
+				text.getSelectionModel().select(selectedIndex);
+			}
+			else if(text.getItems().size() >= 2) {
+				textPage.deleteLine(selectedIndex);
 			}
 		}
 
