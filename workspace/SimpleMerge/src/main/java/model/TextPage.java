@@ -51,8 +51,8 @@ public class TextPage {
 		try {
 			 br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
 			 String newLine;
-			 while( (newLine = br.readLine()) != null ) {
-				 listProperty.add(new Line(new String(newLine)));
+			 for(int i=0; (newLine = br.readLine()) != null; i++) {
+				 setLineText(i, new String(newLine));
 			 }
 		}
 		catch (Exception e) {
@@ -63,9 +63,6 @@ public class TextPage {
 		return new String(filePathProperty.get());
 	}
 
-	public void setTextField(String line, int lineN) { 
-		listProperty.get(lineN).setLineText(line);
-	}
 	public String getTextField() {
 		Iterator<Line> it = listProperty.iterator();
 		String ret = new String();
@@ -130,7 +127,7 @@ public class TextPage {
 		return listProperty.get(lineN).getLineText();
 	}
 	public void setLineText(int lineN, String str) {
-		listProperty.remove(lineN);
+		if(listProperty.size() > lineN && lineN >= 0) listProperty.remove(lineN);
 		listProperty.add(lineN, new Line(str));
 	}
 	public void addLineText(String str) {
