@@ -13,7 +13,7 @@ public class LineTest{
 	
 	private Line lineTest;
 	private String LINE_TEXT_TEST = "Line test.";
-	private Color LINE_COLOR_TEST = Color.BLUE; 
+	private Color LINE_COLOR_TEST = Color.WHITE; 
 	private JFXPanel a = new JFXPanel();
 	
 	@Before
@@ -62,7 +62,7 @@ public class LineTest{
 		assertEquals(lineClrTest.getLineColorProperty().getValue(), Color.WHITE);
 		assertEquals(lineClrTest.isRealLine(), true);
 		
-		lineClrTest.setLineColor(LINE_COLOR_TEST);
+		lineClrTest.setLineWHITE();
 		assertEquals(lineClrTest.getLineColor(), LINE_COLOR_TEST);
 	}
 	

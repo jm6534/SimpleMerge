@@ -89,5 +89,8 @@ public class TextPageTest{
 		textPage.toogleIsRealLine(lineCnt - 1);					// method toggleIsRealLine() test
 		assertEquals(textPage.isRealLine(lineCnt - 1), true);
 	}
-
+	@Test
+	public void testSetLineColor() {
+		
+	}
 }

@@ -3,6 +3,7 @@ package model;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.paint.Color;
 
+
 public class Line {
 
 	private String lineText;	// String in a single line
@@ -33,7 +34,12 @@ public class Line {
 	public Line(String lineText, Color lineColor) {
 		this();
 		this.lineText = lineText;
-		this.lineColor.setValue(lineColor);
+		if (lineColor != Color.WHITE && lineColor != Color.PINK
+				&& lineColor != Color.LIGHTGRAY & lineColor != Color.PAPAYAWHIP
+				&& lineColor != Color.LIGHTGOLDENRODYELLOW ) {
+			this.setLineWHITE();
+		}
+		else this.lineColor.setValue(lineColor);
 		if (lineColor == Color.LIGHTGRAY) this.isRealLine = false;
 	}
 	public void setFakeLine() {
@@ -53,14 +59,26 @@ public class Line {
 	}
 	public void setLineText(String lineText) {
 		this.lineText = lineText;
-		if ( !this.isRealLine ) this.lineColor.setValue(Color.WHITE);
+		this.setIsRealLine(true);
 	}
 	public Color getLineColor() {
 		Color ret = lineColor.getValue();
 		return ret;
 	}
-	public void setLineColor(Color lineColor) {
-		this.lineColor.setValue(lineColor);
+	public void setLineWHITE() {
+		this.lineColor.setValue(Color.WHITE);
+	}
+	public void setLineLIGHTGRAY() {
+		this.lineColor.setValue(Color.LIGHTGRAY);
+	}
+	public void setLineYELLOW() {
+		this.lineColor.setValue(Color.LIGHTGOLDENRODYELLOW);
+	}
+	public void setLinePINK() {
+		this.lineColor.setValue(Color.PINK);
+	}
+	public void setLinePAPAYA() {
+		this.lineColor.setValue(Color.PAPAYAWHIP);
 	}
 	public ColorPicker getLineColorProperty() {
 		return lineColor;
@@ -83,4 +101,5 @@ public class Line {
 	public void toggleIsRealLine() {
 		this.isRealLine = !this.isRealLine;
 	}
+	
 }
