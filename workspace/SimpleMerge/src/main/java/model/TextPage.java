@@ -211,7 +211,9 @@ public class TextPage {
 	}
 	public void clearContents() {
 		clearBackground();
-		listProperty.clear();
+		while(listProperty.size() > 0) {
+			listProperty.remove(0);
+		}
 		filePathProperty.setValue("");
 	}
 }
