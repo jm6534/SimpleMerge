@@ -1,22 +1,27 @@
 package controller;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import junit.framework.TestCase;
+import model.MainModel;
 import model.SubModel;
 
-public class TextControllerTest extends TestCase{
+public class TextControllerTest{
 	TextController testController;
 	private SubModel subModel;
+	private MainModel mainModel;
 	@Before
 	public void setUp() {
 		JFXPanel a = new JFXPanel();
 		testController = new TextController();
 		subModel = new SubModel();
-		testController.setSubModel(subModel);
+		mainModel = new MainModel();
+		testController.setModelsForTest(mainModel, subModel);
 	}
 	
 	@Test

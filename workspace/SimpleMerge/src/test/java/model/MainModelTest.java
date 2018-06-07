@@ -1,63 +1,154 @@
 package model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.apache.commons.io.FileUtils;
+import org.easymock.EasyMock;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+
 import javafx.embed.swing.JFXPanel;
+import javafx.scene.paint.Color;
 
 public class MainModelTest {
 	private JFXPanel a = new JFXPanel();
 	private MainModel mainModel;
-	private File mockFileForLeft, mockFileForRight;
-	private ArrayList<String> leftFileStr;
-	private ArrayList<String> rightFileStr;
+	private SubModel mockLeftSubModel;
+	private SubModel mockRightSubModel;
+	private File mockLeftFile;
+	private File mockRightFile;
+	private String leftFileString;
+	private String rightFileString;	
 	
-
 	@Rule
 	public final TemporaryFolder tempFolder = new TemporaryFolder();
 	
 	@Before
 	public void init() throws IOException {
-		mockFileForLeft = tempFolder.newFile("sample_file_left.txt");
-		mockFileForRight = tempFolder.newFile("sample_file_right.txt");
-		leftFileStr = new ArrayList<String>(Arrays.asList("A", "B", "C", "D", "E"));
-		rightFileStr = new ArrayList<String>(Arrays.asList("A", "B", "", "D", "E", "F"));
+		mainModel = new MainModel();
+		leftFileString = new String("HellowWorld\n");
+		rightFileString = new String("SETEAMPROJECT\n");
+		mockLeftFile = tempFolder.newFile("lefttFile.txt");
+		mockRightFile = tempFolder.newFile("rightFIle.txt");
+		FileUtils.writeStringToFile(mockLeftFile, leftFileString, "UTF8", true);
+		FileUtils.writeStringToFile(mockLeftFile, leftFileString, "UTF8", true);
+		FileUtils.writeStringToFile(mockLeftFile, leftFileString, "UTF8", true);
+		FileUtils.writeStringToFile(mockRightFile, rightFileString, "UTF8", true);
+		FileUtils.writeStringToFile(mockRightFile, rightFileString, "UTF8", true);
+		FileUtils.writeStringToFile(mockRightFile, rightFileString, "UTF8", true);
+		mockLeftSubModel = new SubModel(mockLeftFile);
+		mockRightSubModel = new SubModel(mockRightFile);
 		
-		for(int i = 0;i < leftFileStr.size();i++) {
-			FileUtils.writeStringToFile(mockFileForLeft, leftFileStr.get(i), "UTF8", true);
+		mockLeftSubModel.getTextPage().setLineYELLOW(0);
+		mockLeftSubModel.getTextPage().setLinePINK(1);
+		mockLeftSubModel.getTextPage().setLinePAPAYA(2);
+		mainModel.setLeftSubModel(mockLeftSubModel);
+		mockRightSubModel.getTextPage().setLineYELLOW(0);
+		mockRightSubModel.getTextPage().setLineLIGHTGRAY(1);
+		mockRightSubModel.getTextPage().setLinePINK(2);
+		mainModel.setRightSubModel(mockRightSubModel);
+	
+	}
+	@Test
+	public void testMainModelConstructor() {
+		try {
+			new MainModel();
 		}
-		for(int i = 0;i < rightFileStr.size();i++) {
-			FileUtils.writeStringToFile(mockFileForRight, rightFileStr.get(i), "UTF8", true);
+		catch(Exception e) {
+			fail(e.getMessage());
 		}
+	}
+
+	@Test
+	public void testSetLeftSubModel() {
+		mainModel.setLeftSubModel(mockLeftSubModel);
+		assertEquals(mainModel.getLeftSubModel(), mockLeftSubModel);
+	}
+
+	@Test
+	public void testSetRightSubModel() {
+		mainModel.setRightSubModel(mockRightSubModel);
+		assertEquals(mainModel.getRightSubModel(), mockRightSubModel);
+	}
+
+	@Test
+	public void testSetIsCompared() {
+		mainModel.setIsCompared(true);
+		assertTrue(mainModel.isCompared());
+		assertTrue(mainModel.getIsComparedProperty().getValue());
+	}
+
+	@Test
+	public void testToggleIsCompared() {
+		mainModel.setIsCompared(false);
+		mainModel.toggleIsCompared();
+		assertTrue(mainModel.isCompared());
+		assertTrue(mainModel.getIsComparedProperty().getValue());		
+	} 
+	
+	@Test
+	public void testResetTextPages() {
+		assertTrue(mainModel.resetTextPages());
+		assertEquals( mainModel.getLeftSubModel().getTextPage().getLineColor(0), Color.WHITE);
 	}
 	
 	@Test
-	public void TestMainModelWithGivenFiles() {
-		mainModel = new MainModel();
-		mainModel.setLeftSubModel(new SubModel(mockFileForLeft));
-		mainModel.setRightSubModel(new SubModel(mockFileForRight));
+	public void testCheckIsCompareRemained() {
+		assertTrue( mainModel.checkIsCompareRemained() );
+		mainModel.resetTextPages();
+		assertFalse( mainModel.checkIsCompareRemained() );
+	}
+	
+	@Test
+	public void testCopyToRight() {
+		mainModel.getIsComparedProperty().setValue(true);
 
-		////////////////////// Needs to be modified //////////////////////////
-		//////////////////////////////////////////////////////////////////////
-		assertEquals(mainModel.isCompared(), false);	// both sub models are not been compared
-		mainModel.toggleIsCompared();					// as the compare button clicked, isCompare toggled.
-		assertEquals(mainModel.LCS(), true);			// conduct LCS (Comparing)
-		assertEquals(mainModel.isCompared(), true);
+		mockLeftSubModel.getTextPage().setLineYELLOW(0);
+		mockLeftSubModel.getTextPage().setLineYELLOW(1);
+		mockLeftSubModel.getTextPage().setLineYELLOW(2);
+		mockRightSubModel.getTextPage().setLineYELLOW(0);
+		mockRightSubModel.getTextPage().setLineYELLOW(1);
+		mockRightSubModel.getTextPage().setLineYELLOW(2);
 		
-		ArrayList<Line> tmpLineList = new ArrayList<Line>();
-		for(int i = 0;i < leftFileStr.size();i++) {
-			tmpLineList.add(new Line(leftFileStr.get(i)));
-		}
-		/////////////////////////////////////////////////////////////////////
+		mockLeftSubModel.setIsEditable(false);
+		mockRightSubModel.setIsEditable(false);
+		mockLeftSubModel.getTextPage().getSelectedIndexProperty().setValue(1);
+		mainModel.setLeftSubModel(mockLeftSubModel);
+		mainModel.setRightSubModel(mockRightSubModel);
+		assertTrue(mainModel.copyToRight());
+		String rightStr = mainModel.getRightSubModel().getTextPageContent();
+		String leftStr = mainModel.getLeftSubModel().getTextPageContent();
+		assertTrue( leftStr.equals(rightStr) );
+	}
+	@Test
+	public void testCopyToLeft() {
+		mainModel.getIsComparedProperty().setValue(true);
+		
+		mockLeftSubModel.getTextPage().setLineYELLOW(0);
+		mockLeftSubModel.getTextPage().setLineYELLOW(1);
+		mockLeftSubModel.getTextPage().setLineYELLOW(2);
+		mockRightSubModel.getTextPage().setLineYELLOW(0);
+		mockRightSubModel.getTextPage().setLineYELLOW(1);
+		mockRightSubModel.getTextPage().setLineYELLOW(2);
+		
+		mockRightSubModel.setIsEditable(false);
+		mockLeftSubModel.setIsEditable(false);
+		mockRightSubModel.getTextPage().getSelectedIndexProperty().setValue(1);
+		mainModel.setLeftSubModel(mockLeftSubModel);
+		mainModel.setRightSubModel(mockRightSubModel);
+		assertTrue(mainModel.copyToLeft());
+		String rightStr = mainModel.getRightSubModel().getTextPageContent();
+		String leftStr = mainModel.getLeftSubModel().getTextPageContent();
+		assertTrue( rightStr.equals(leftStr) );
 	}
 }

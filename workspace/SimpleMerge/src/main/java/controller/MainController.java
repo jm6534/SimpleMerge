@@ -21,8 +21,8 @@ public class MainController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		mainModel = new MainModel();
-		this.leftTextController.setSubModel(mainModel.getLeftSubModel());
-		this.rightTextController.setSubModel(mainModel.getRightSubModel());
+		this.leftTextController.setModels(mainModel, mainModel.getLeftSubModel());
+		this.rightTextController.setModels(mainModel, mainModel.getRightSubModel());
 		this.centerButtonController.setMainModel(mainModel);
 		
 		leftTextController.preWidthProperty().bind(Bindings.divide(Bindings.subtract(root.widthProperty(), centerButtonController.preWidthProperty()), 2));

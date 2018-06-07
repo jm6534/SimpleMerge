@@ -10,3 +10,7 @@ Chung-Ang Univ. 2018 SE project, team 7
 팀원|이동현|Model, SRS
 팀원|임기찬|View, Controller, test/design/analysis/implementation docs
 팀원|황선준|View, presentation, test/design/analysis/implementation docs
+
+## How To Build
+
+## How To Excute
