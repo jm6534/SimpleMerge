@@ -1,5 +1,7 @@
 package controller;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,7 +11,7 @@ import junit.framework.TestCase;
 import model.MainModel;
 import model.SubModel;
 
-public class TextControllerTest extends TestCase{
+public class TextControllerTest{
 	TextController testController;
 	private SubModel subModel;
 	private MainModel mainModel;
