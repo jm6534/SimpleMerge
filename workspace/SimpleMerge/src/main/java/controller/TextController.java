@@ -37,6 +37,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import model.Line;
+import model.MainModel;
 import model.SubModel;
 import model.TextPage;
 
@@ -52,6 +53,7 @@ public class TextController implements Initializable {
 
 	private TextPage textPage;
 	private SubModel subModel;
+	private MainModel mainModel;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -205,7 +207,8 @@ public class TextController implements Initializable {
 		fileSave();
 	}
 
-	public void setSubModel(SubModel subModel) {
+	public void setModels(MainModel mainModel, SubModel subModel) {
+		this.mainModel = mainModel;
 		this.subModel = subModel;
 		this.textPage = subModel.getTextPage();
 
@@ -214,6 +217,7 @@ public class TextController implements Initializable {
 		text.itemsProperty().bindBidirectional(textPage.getListProperty());
 		title.textProperty().bindBidirectional(textPage.getFilePathProperty());
 		textPage.getSelectedIndexProperty().bind(text.getSelectionModel().selectedIndexProperty());
+		text.getSelectionModel().selectFirst();
 		textPage.getSelectedIndexProperty().addListener((obs, oldValue, newValue) -> {
 			text.getSelectionModel().clearAndSelect(newValue.intValue());
 			textPage.setSelectedLineColor(text.getSelectionModel().getSelectedIndex());
@@ -221,11 +225,11 @@ public class TextController implements Initializable {
 
 		addEmptyLine();
 	}
-	public void setSubModelForTest(SubModel subModel) {
+	public void setModelsForTest(MainModel mainModel, SubModel subModel) {
 		text = new ListView<Line>();
 		edit = new ToggleButton();
 		title = new TextField();
 
-		setSubModel(subModel);
+		setModels(mainModel, subModel);
 	}
 }
