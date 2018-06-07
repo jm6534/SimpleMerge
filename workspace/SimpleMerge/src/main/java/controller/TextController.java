@@ -110,6 +110,7 @@ public class TextController implements Initializable {
 		setDefaultExtentionsOfFileChooser(fileChooser);
 		File file = fileChooser.showOpenDialog(null);
 		if(file == null || file.getAbsolutePath() == null || file.getAbsolutePath().equals("")) return;
+		mainModel.resetTextPages();
 		textPage.clearContents();
 		textPage.setFilePath(file);
 		if(text.getItems().isEmpty()) {
