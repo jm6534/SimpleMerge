@@ -176,6 +176,7 @@ public class TextController implements Initializable {
 	}
 
 	public void editCommit(EditEvent<Line> event) {
+		mainModel.setIsCompared(false);
 		textPage.setLineText(event.getIndex(), event.getNewValue().toString());
 		if(event.getIndex() == textPage.getMaxNListProperty() - 1
 				||textPage.getMaxNListProperty() == 1) {
