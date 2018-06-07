@@ -82,10 +82,23 @@ public class TextPageTest{
 		assertEquals(textPage.isRealLine(lineCnt - 1), true);
 	}
 	@Test
-	public void testSetLineColor() {
-		Color testColor;
-		testColor = Color.WHITE;
+	public void testSetLineColorTrue() {
+		Color testWhite = Color.WHITE;
+		Color testGray = Color.LIGHTGRAY;
+		Color testYellow = Color.LIGHTGOLDENRODYELLOW;
+		Color testPink = Color.PINK;
+		Color testPapaya = Color.PAPAYAWHIP;
 		textPage = new TextPage(mockFile);
+		textPage.setLinePAPAYA(0);
+		assertEquals(textPage.getLineColor(0), testPapaya);
+		textPage.setLinePINK(0);
+		assertEquals(textPage.getLineColor(0), testPink);
+		textPage.setLineYELLOW(0);
+		assertEquals(textPage.getLineColor(0), testYellow);
+		textPage.setLineLIGHTGRAY(0);
+		assertEquals(textPage.getLineColor(0), testGray);
+		textPage.setLineWHITE(0);
+		assertEquals(textPage.getLineColor(0), testWhite);
 		
 	}
 }
