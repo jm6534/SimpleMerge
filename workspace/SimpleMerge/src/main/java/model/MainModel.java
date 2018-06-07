@@ -57,7 +57,6 @@ public class MainModel {
 		if ( toModel.isEditable() ) return false;
 		int selectedIdx = (int) fromModel.getTextPage().getSelectedIndexProperty().getValue();
 		int max = fromModel.getTextPage().getMaxNListProperty();
-		System.out.printf("max : %d\n", max);
 		if ( max == 0 ) return false;
 		if ( selectedIdx < 0 || selectedIdx > max ) {
 			return false;
@@ -117,6 +116,29 @@ public class MainModel {
 	public boolean copyToRight() {
 		if ( !isCompared.get() ) return false;
 		return copyFromTo(leftSubModel, rightSubModel);
+	}
+	public boolean resetTextPages() {
+		resetTextPage ( leftSubModel.getTextPage() );
+		resetTextPage ( rightSubModel.getTextPage() );
+		return true;
+	}
+	private boolean resetTextPage( TextPage reset ) {
+		int max = reset.getMaxNListProperty();
+		int lineN = 0;
+		while ( max > 0 ) {
+			Color selectedColor = reset.getLineColor(lineN);
+			if ( selectedColor == Color.LIGHTGOLDENRODYELLOW || selectedColor == Color.PINK ) {
+				reset.setLineWHITE(lineN);
+			}
+			if ( selectedColor == Color.LIGHTGRAY || selectedColor == Color.PAPAYAWHIP ) {
+				reset.setLineWHITE(lineN);
+				reset.deleteLine(lineN);
+				lineN--;
+			}
+			lineN++;
+			max--;
+		}
+		return true;
 	}
 
 	public BooleanProperty getIsComparedProperty() {
