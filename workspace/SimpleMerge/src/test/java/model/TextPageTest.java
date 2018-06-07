@@ -2,6 +2,7 @@ package model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.paint.Color;
 
@@ -19,7 +21,7 @@ public class TextPageTest{
 	private TextPage textPage;
 	private File mockFile;
 	private int lineCnt;
-	private static final String FILE_NAME = "test-file.txt";
+	private static final String FILE_NAME = "test_file.txt";
     private static final String LINE_CONTENT = "line test";
 
 	@Rule
@@ -31,19 +33,15 @@ public class TextPageTest{
     	mockFile = tempFolder.newFile(FILE_NAME);
     	FileUtils.writeStringToFile(mockFile, LINE_CONTENT + lineCnt++ + "\n","UTF8", true);
     }
-    
     @Test
-    public void testTextPageDefaultConstructor() {
-    	textPage = new TextPage();
-    	assertEquals(textPage.getFilePath(), textPage.getFilePathProperty().getValue());
-    }
-    
-    @Test
-    public void testTextPageConstructorWithFile() {
-    	textPage = new TextPage(mockFile);
-    	assertTrue(mockFile.exists());    	
-     	assertEquals(textPage.getFilePath(), mockFile.getAbsolutePath());
-     	assertEquals(textPage.getLineText(0), LINE_CONTENT + (lineCnt - 1));
+    public void testTextPageConstructor() {
+    	try {
+    		new TextPage();
+    		new TextPage(mockFile);
+    	}
+    	catch(Exception e) {
+    		fail(e.getMessage());
+    	}
     }
 
 	@Test
