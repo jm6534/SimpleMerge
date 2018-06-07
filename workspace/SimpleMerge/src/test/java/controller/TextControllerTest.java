@@ -1,5 +1,7 @@
 package controller;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,7 +10,7 @@ import javafx.event.ActionEvent;
 import junit.framework.TestCase;
 import model.SubModel;
 
-public class TextControllerTest extends TestCase{
+public class TextControllerTest{
 	TextController testController;
 	private SubModel subModel;
 	@Before
