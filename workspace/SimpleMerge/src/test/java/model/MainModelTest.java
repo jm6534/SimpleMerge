@@ -1,21 +1,23 @@
 package model;
 
-import static org.easymock.EasyMock.createMock;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
+import org.easymock.EasyMock;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+
 import javafx.embed.swing.JFXPanel;
+import javafx.scene.paint.Color;
 
 public class MainModelTest {
 	private JFXPanel a = new JFXPanel();
@@ -80,8 +82,19 @@ public class MainModelTest {
 	} 
 	
 	@Test
-	public void testCopyToLeft() {
-	
+	public void testResetTextPages() {
+		mockLeftSubModel.getTextPage().setLineYELLOW(0);
+		mockLeftSubModel.getTextPage().setLinePINK(1);
+		mockLeftSubModel.getTextPage().setLinePAPAYA(2);
+		mainModel.setLeftSubModel(mockLeftSubModel);
+		mockRightSubModel.getTextPage().setLineYELLOW(0);
+		mockRightSubModel.getTextPage().setLineLIGHTGRAY(1);
+		mockRightSubModel.getTextPage().setLinePINK(2);
+		mainModel.setRightSubModel(mockRightSubModel);
+		
+		assertTrue(mainModel.resetTextPages());
+		assertEquals( mainModel.getLeftSubModel().getTextPage().getLineColor(0), Color.WHITE);
+		
 	}
 	
 	@Test
@@ -89,10 +102,7 @@ public class MainModelTest {
 		mainModel.getIsComparedProperty().setValue(true);
 		
 		mockLeftSubModel.setIsEditable(false);
-		System.out.println(mockLeftSubModel.isEditable());
 		mockRightSubModel.setIsEditable(false);
-		System.out.println(mockRightSubModel.isEditable());
-		System.out.println(mockLeftSubModel.getTextPage().getMaxNListProperty());
 		mockLeftSubModel.getTextPage().setLineYELLOW(0);
 		mockLeftSubModel.getTextPage().setLineYELLOW(1);
 		mockLeftSubModel.getTextPage().setLineYELLOW(2);
@@ -102,6 +112,23 @@ public class MainModelTest {
 		mockLeftSubModel.getTextPage().getSelectedIndexProperty().setValue(1);
 		mainModel.setLeftSubModel(mockLeftSubModel);
 		mainModel.setRightSubModel(mockRightSubModel);
-		assertEquals(mainModel.copyToRight(), true);
+		assertTrue(mainModel.copyToRight());
+	}
+	@Test
+	public void testCopyToLeft() {
+		mainModel.getIsComparedProperty().setValue(true);
+		
+		mockRightSubModel.setIsEditable(false);
+		mockLeftSubModel.setIsEditable(false);
+		mockRightSubModel.getTextPage().setLineYELLOW(0);
+		mockRightSubModel.getTextPage().setLineYELLOW(1);
+		mockRightSubModel.getTextPage().setLineYELLOW(2);
+		mockLeftSubModel.getTextPage().setLineYELLOW(0);
+		mockLeftSubModel.getTextPage().setLineYELLOW(1);
+		mockLeftSubModel.getTextPage().setLineYELLOW(2);
+		mockRightSubModel.getTextPage().getSelectedIndexProperty().setValue(1);
+		mainModel.setLeftSubModel(mockLeftSubModel);
+		mainModel.setRightSubModel(mockRightSubModel);
+		assertTrue(mainModel.copyToLeft());
 	}
 }

@@ -111,15 +111,20 @@ public class MainModel {
 	}
 	public boolean copyToLeft() {
 		if ( !isCompared.get() ) return false;
-		return copyFromTo(rightSubModel, leftSubModel);
+		boolean ret = copyFromTo(rightSubModel, leftSubModel);
+		if ( !checkIsCompareRemained() ) isCompared.set(false);
+		return ret;
 	}
 	public boolean copyToRight() {
 		if ( !isCompared.get() ) return false;
-		return copyFromTo(leftSubModel, rightSubModel);
+		boolean ret = copyFromTo(leftSubModel, rightSubModel);
+		if ( !checkIsCompareRemained() ) isCompared.set(false);
+		return ret;
 	}
 	public boolean resetTextPages() {
 		resetTextPage ( leftSubModel.getTextPage() );
 		resetTextPage ( rightSubModel.getTextPage() );
+		isCompared.set( false );
 		return true;
 	}
 	private boolean resetTextPage( TextPage reset ) {
@@ -140,8 +145,24 @@ public class MainModel {
 		}
 		return true;
 	}
-
+	public boolean checkIsCompareRemained() {
+		return checkIsCompareRemainTextPage( rightSubModel.getTextPage() );
+	}
+	private boolean checkIsCompareRemainTextPage( TextPage checkPage ) {
+		boolean ret = false;
+		int max = checkPage.getMaxNListProperty();
+		for (int i = 0; i < max; i++) {
+			Color selectedColor = checkPage.getLineColor(i);
+			if ( selectedColor != Color.WHITE ) {
+				ret = true;
+				break;
+			}
+		}
+		return ret;
+	}
+	
 	public BooleanProperty getIsComparedProperty() {
 		return isCompared;
 	}
+	
 }
