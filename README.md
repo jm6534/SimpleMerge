@@ -18,3 +18,5 @@ Chung-Ang Univ. 2018 SE project, team 7
 ## How To Excute
 0. build가 완료된 상태여야합니다.
 1. workspace > SimpleMerge > build > libs 폴더에 위치한 'SimpleMerge7.jar' 파일을 실행시킵니다.
+## Documents
+모든 문서는 artifacts 폴더 안에 있습니다.
