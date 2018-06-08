@@ -1,23 +1,52 @@
 package model;
 
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.io.File;
+import java.io.IOException;
+
 import org.easymock.EasyMock;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+import org.junit.rules.TemporaryFolder;
 
 import junit.framework.TestCase;
 
-public class SubModelTest extends TestCase {
+public class SubModelTest {
 	private SubModel testsModel;
 	private TextPage mockTextPage;
 	private ButtonFlag mockbtnFlag;
+	private File mockFile;
+	private static final String FILE_NAME = "test_file.txt";
+
+	@Rule
+	public final TemporaryFolder tempFolder = new TemporaryFolder();
+
 	@Before
-	public void setUp(){
+	public void setUp() throws IOException{
 		testsModel = new SubModel();
 		mockTextPage = EasyMock.createMock(TextPage.class);
 		mockbtnFlag = EasyMock.createMock(ButtonFlag.class);
+    	mockFile = tempFolder.newFile(FILE_NAME	);
 	}
+	
+	@Test
+	public void testSubModelConstructor() {
+		try {
+			new SubModel();
+			new SubModel(mockFile);
+		}
+		catch (Exception e) {
+			fail(e.getMessage());
+		}
+	}
+	
 	@Test
 	public void testTextPage() { 
 		testsModel.setTextPage(mockTextPage);

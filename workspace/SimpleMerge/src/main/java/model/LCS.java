@@ -4,6 +4,16 @@ import java.util.*;
 import javafx.scene.paint.Color;
 
 public class LCS { 
+	public static boolean areTextsSame(ArrayList<Line> left, ArrayList<Line> right) {
+		if (left.size()!=right.size())
+			return false;
+		for (int i = 0; i < left.size(); i++) {
+			if (!left.get(i).getLineText().equals(right.get(i).getLineText()))
+				return false;
+		}
+		
+		return true;
+	}
 	public static void modifyMainModel(MainModel main, ArrayList<Line> leftList, ArrayList<Line> rightList) {
 		main.setLeftTextLines(leftList);
 		main.setRightTextLines(rightList);
@@ -179,6 +189,9 @@ public class LCS {
 		boolean isModified = false;
 		
 		resetArrayListBeforeLCS(leftList,rightList);
+		isModified=areTextsSame(leftList,rightList);
+		if(isModified)
+			return false;
 		
 		int row = leftList.size()+1; // row and column for lcs count matrix
 		int column = rightList.size()+1; 

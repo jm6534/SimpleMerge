@@ -37,6 +37,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import model.Line;
+import model.MainModel;
 import model.SubModel;
 import model.TextPage;
 
@@ -52,6 +53,7 @@ public class TextController implements Initializable {
 
 	private TextPage textPage;
 	private SubModel subModel;
+	private MainModel mainModel;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -68,6 +70,11 @@ public class TextController implements Initializable {
 				TextFieldListCell<Line> cell = new TextFieldListCell<Line>() {
 					@Override
 					public void updateItem(Line item, boolean empty) {
+						if(item == null) {
+							Background bg = new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY));
+							backgroundProperty().unbind();
+							backgroundProperty().setValue(bg);
+						}
 						super.updateItem(item, empty);
 						if(item != null) {
 							setText(item.toString());
@@ -103,6 +110,8 @@ public class TextController implements Initializable {
 		setDefaultExtentionsOfFileChooser(fileChooser);
 		File file = fileChooser.showOpenDialog(null);
 		if(file == null || file.getAbsolutePath() == null || file.getAbsolutePath().equals("")) return;
+		mainModel.resetTextPages();
+		mainModel.setIsCompared(false);
 		textPage.clearContents();
 		textPage.setFilePath(file);
 		if(text.getItems().isEmpty()) {
@@ -139,6 +148,7 @@ public class TextController implements Initializable {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+				textPage.setFilePath(file);
 			}
 		} catch (NullPointerException e) {
 			e.printStackTrace();
@@ -167,6 +177,7 @@ public class TextController implements Initializable {
 	}
 
 	public void editCommit(EditEvent<Line> event) {
+		mainModel.setIsCompared(false);
 		textPage.setLineText(event.getIndex(), event.getNewValue().toString());
 		if(event.getIndex() == textPage.getMaxNListProperty() - 1
 				||textPage.getMaxNListProperty() == 1) {
@@ -179,8 +190,8 @@ public class TextController implements Initializable {
 		if(subModel.isModified()) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("SimpleMerge");
-			alert.setHeaderText("∫Ø∞Ê ≥ªøÎ¿Ã ¿÷Ω¿¥œ¥Ÿ.");
-			alert.setContentText("∞Ëº”«œΩ√∞⁄Ω¿¥œ±Ó?");
+			alert.setHeaderText("Î≥ÄÍ≤Ω ÎÇ¥Ïö©Ïù¥ ÏûàÏäµÎãàÎã§.");
+			alert.setContentText("Í≥ÑÏÜçÌïòÏãúÍ≤†ÏäµÎãàÍπå?");
 
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == ButtonType.OK){
@@ -200,7 +211,8 @@ public class TextController implements Initializable {
 		fileSave();
 	}
 
-	public void setSubModel(SubModel subModel) {
+	public void setModels(MainModel mainModel, SubModel subModel) {
+		this.mainModel = mainModel;
 		this.subModel = subModel;
 		this.textPage = subModel.getTextPage();
 
@@ -209,6 +221,7 @@ public class TextController implements Initializable {
 		text.itemsProperty().bindBidirectional(textPage.getListProperty());
 		title.textProperty().bindBidirectional(textPage.getFilePathProperty());
 		textPage.getSelectedIndexProperty().bind(text.getSelectionModel().selectedIndexProperty());
+		text.getSelectionModel().selectFirst();
 		textPage.getSelectedIndexProperty().addListener((obs, oldValue, newValue) -> {
 			text.getSelectionModel().clearAndSelect(newValue.intValue());
 			textPage.setSelectedLineColor(text.getSelectionModel().getSelectedIndex());
@@ -216,11 +229,11 @@ public class TextController implements Initializable {
 
 		addEmptyLine();
 	}
-	public void setSubModelForTest(SubModel subModel) {
+	public void setModelsForTest(MainModel mainModel, SubModel subModel) {
 		text = new ListView<Line>();
 		edit = new ToggleButton();
 		title = new TextField();
 
-		setSubModel(subModel);
+		setModels(mainModel, subModel);
 	}
 }
