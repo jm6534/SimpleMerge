@@ -12,5 +12,9 @@ Chung-Ang Univ. 2018 SE project, team 7
 팀원|황선준|View, presentation, test/design/analysis/implementation docs
 
 ## How To Build
-
+0. gradle 4.7, Java8 이상의 버전이 설치되어 있어야 합니다.
+1. 터미널에서 프로젝트의 workspace > SimpleMerge 폴더로 이동합니다.
+2. 'gradle jar' 명령어를 실행합니다.
 ## How To Excute
+0. build가 완료된 상태여야합니다.
+1. workspace > SimpleMerge > build > libs 폴더에 위치한 'SimpleMerge7.jar' 파일을 실행시킵니다.
