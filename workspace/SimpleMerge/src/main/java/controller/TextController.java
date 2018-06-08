@@ -148,6 +148,7 @@ public class TextController implements Initializable {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+				mainModel.resetTextPages();
 				textPage.setFilePath(file);
 			}
 		} catch (NullPointerException e) {
