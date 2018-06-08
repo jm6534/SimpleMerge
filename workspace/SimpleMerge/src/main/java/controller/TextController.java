@@ -148,6 +148,7 @@ public class TextController implements Initializable {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+				mainModel.resetTextPages();
 				textPage.setFilePath(file);
 			}
 		} catch (NullPointerException e) {
@@ -190,8 +191,8 @@ public class TextController implements Initializable {
 		if(subModel.isModified()) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("SimpleMerge");
-			alert.setHeaderText("변경 내용이 있습니다.");
-			alert.setContentText("계속하시겠습니까?");
+			alert.setHeaderText("There is something changed");
+			alert.setContentText("Are you sure to continue?");
 
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == ButtonType.OK){

@@ -8,6 +8,31 @@
 
 // Apply the java-library plugin to add support for Java Library
 apply plugin: 'java-library'
+apply plugin:'application'
+ 
+mainClassName = 'appMain.AppMain'
+sourceCompatibility = 1.8
+version = '1.0'
+ 
+sourceSets {
+  main {
+    resources {
+        srcDirs = ["src/main/java"]
+        includes = ["**/*.fxml", "**/*.css"]
+    }
+  }
+}
+
+jar {
+    manifest {
+        attributes  'Title': 'SimpleMerge7', 'Version': version, 'Main-Class': mainClassName
+    }
+    archiveName 'SimpleMerge7.jar'
+    dependsOn configurations.runtime
+    from {
+        configurations.compile.collect {it.isDirectory()? it: zipTree(it)}
+    }
+}
 
 // In this section you declare where to find the dependencies of your project
 repositories {
