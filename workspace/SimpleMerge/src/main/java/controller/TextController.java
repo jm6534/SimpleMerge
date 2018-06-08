@@ -148,6 +148,7 @@ public class TextController implements Initializable {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+				textPage.setFilePath(file);
 			}
 		} catch (NullPointerException e) {
 			e.printStackTrace();
@@ -176,6 +177,7 @@ public class TextController implements Initializable {
 	}
 
 	public void editCommit(EditEvent<Line> event) {
+		mainModel.setIsCompared(false);
 		textPage.setLineText(event.getIndex(), event.getNewValue().toString());
 		if(event.getIndex() == textPage.getMaxNListProperty() - 1
 				||textPage.getMaxNListProperty() == 1) {
@@ -188,8 +190,8 @@ public class TextController implements Initializable {
 		if(subModel.isModified()) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("SimpleMerge");
-			alert.setHeaderText("º¯°æ ³»¿ëÀÌ ÀÖ½À´Ï´Ù.");
-			alert.setContentText("°è¼ÓÇÏ½Ã°Ú½À´Ï±î?");
+			alert.setHeaderText("ë³€ê²½ ë‚´ìš©ì´ ìˆìŠµë‹ˆë‹¤.");
+			alert.setContentText("ê³„ì†í•˜ì‹œê² ìŠµë‹ˆê¹Œ?");
 
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == ButtonType.OK){
